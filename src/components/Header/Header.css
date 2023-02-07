@@ -1,0 +1,31 @@
+.header {
+    grid-area: header;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 18px 70px 18px;
+}
+
+.header__logo {
+    display: flex;
+}
+
+.header__auth-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header__switch {
+
+}
+
+.header__button {
+
+}
+

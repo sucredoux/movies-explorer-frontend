@@ -1,0 +1,73 @@
+.promo {
+    display: flex;
+    flex-direction: column;
+    background-color: #5c5c5c;
+    color: #fff;
+    padding: 75px 70px 25px;
+}
+
+.promo__intro {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 84px;
+}
+
+.promo__text {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    width: 640px;
+    text-align: left;
+    padding-right: 190px;
+}
+
+.promo__title {
+    display: flex;
+    margin: 0;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 1.16;
+
+}
+
+.promo__paragraph {
+    display: flex;
+    margin: 0;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.21;
+    padding-top: 36px;
+}
+
+.promo__image {
+    width: 310px;
+    height: 304px;
+}
+
+.promo__button {
+    display: flex;
+    align-self: start;
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    width: 129px;
+    height: 36px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.3;
+    text-align: center;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotation {
+    animation: rotation 20s ease-out infinite;
+}

@@ -1,0 +1,7 @@
+.navtab {
+    display: flex;
+    flex-direction: column;
+    background-color: #5c5c5c;
+    color: #fff;
+    padding: 25px 70px 25px;
+}
