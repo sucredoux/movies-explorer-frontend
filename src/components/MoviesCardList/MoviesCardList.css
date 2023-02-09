@@ -1,0 +1,16 @@
+.movies-list {
+    display: flex;
+    padding-top: 70px;
+}
+
+.movies__container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 364px);
+    grid-template-rows: repeat(auto-fill, 281px);
+    grid-auto-flow: row;
+    justify-items: stretch;
+    justify-content: center;
+    column-gap: 24px;
+    row-gap: 37px;
+}

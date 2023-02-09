@@ -27,3 +27,11 @@
     cursor: pointer;
     opacity: 0.7;
 }
+
+.input {
+    padding: 0;
+}
+
+.input:focus {
+    outline: 0;
+}

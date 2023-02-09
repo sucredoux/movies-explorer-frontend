@@ -28,6 +28,8 @@
     height: 38px;
 }
 
-.button {
-
+.content {
+    grid-area: content;
+    display: flex;
+    flex-direction: column;
 }
