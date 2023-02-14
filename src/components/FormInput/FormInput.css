@@ -1,0 +1,41 @@
+.form__input {
+    display: flex;
+    width: 100%;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.21; 
+    padding: 0 0 10px;
+    color: #000;
+    border: none;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.form__input:focus {
+    outline: 0;
+}
+
+.form__input_type_error {
+    color: #ee3465;
+}
+
+.form__input_type_auth {
+
+}
+
+.form__input_type_profile {
+    display: flex;
+    width: 80%;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.21;
+    padding: 0 0 10px;
+    color: #000;
+    border: none;
+    text-align: end
+}
+
+.form__input_type_correct {
+    border-bottom: 1px solid #2be080;
+}
+
+

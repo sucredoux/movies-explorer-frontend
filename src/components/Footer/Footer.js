@@ -2,10 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import './Footer.css';
 
-function Footer() {
+function Footer({ pagetype }) {
+
+const footerClassName = `footer ${ pagetype === "auth" ? "footer_type_auth" : "" }`;
 
     return (
-        <footer className="footer">
+        <footer className={footerClassName}>
             <p className="footer__reference">Учебный проект Яндекс.Практикум х BeatFilm.</p>
             <div className="footer__info-block">
                 <p className="footer__data">&copy; 2020</p>

@@ -4,7 +4,6 @@ import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
 import Footer from '../Footer/Footer';
 import './App.css';
 import Main from '../Main/Main';
@@ -14,13 +13,12 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Preloader from '../Preloader/Preloader';
+import Error404 from '../Error404/Error404';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
-  const isMobile = useMediaQuery({
-    query: '(max-width: 400px)'
-  })
-  const [loggedIn, setLoggedIn] = useState(false);
+
+  const [loggedIn, setLoggedIn] = useState(true);
   const [isOwn, setIsOwn] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -33,9 +31,7 @@ function App() {
   function handleOnSaveClick() {
     setIsOwn(true);
   }
-  console.log(isOwn);
-
-  
+   
   if (loading) {
     return <Preloader />;
   }
@@ -44,21 +40,11 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         
-          {isMobile && loggedIn ? (
-            <MobileHeader/>
-          ) : (
-            <Header />
-          )}
-          <main className="content">
+        
           <Switch>
             <Route path='/' exact>
-              <Main /> 
-            </Route>
-            <Route path="/signup">
-              <Register />
-            </Route>
-            <Route path="/signin">
-              <Login />
+              <Main
+              pagetype="main" /> 
             </Route>
             <Route path="/movies">
               <Movies
@@ -75,14 +61,30 @@ function App() {
                 onSaveClick={handleOnSaveClick} />
             </Route>
             <Route path="/profile">
-              <Profile />
+              <Profile
+              onSubmit="onSubmit"
+              pagetype="profile" />
+            </Route>
+            <Route path="/signup">
+              <Register
+              onSubmit="onSubmit"
+              pagetype="auth" />
+            </Route>
+            <Route path="/signin">
+              <Login
+              onSubmit="onSubmit"
+              pagetype="auth" />
+            </Route>
+            <Route path="/404">
+              <Error404 />
             </Route>
             <Route path="*">
               {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" /> }
-            </Route>
+          </Route>
+
           </Switch>
-          </main>
-          <Footer />
+
+          
       </div>
     </CurrentUserContext.Provider>
   );
@@ -93,4 +95,14 @@ export default App;
 
 /*
  <Footer />  
+
+ 
+          {isMobile && loggedIn ? (
+            <MobileHeader/>
+          ) : (
+            <Header
+              loggedIn={loggedIn} />
+          )}
+  <main className="content">          </main>
+
 */

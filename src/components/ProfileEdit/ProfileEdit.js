@@ -1,73 +1,58 @@
-import AuthReminder from '../AuthReminder/AuthReminder';
 import Footer from '../Footer/Footer';
 import FormContainer from '../FormContainer/FormContainer';
 import FormError from '../FormError/FormError';
 import FormInput from '../FormInput/FormInput';
 import Header from '../Header/Header';
-import './Profile.css';
+import './ProfileEdit.css';
 import "../FormContainer/FormContainer.css";
-import React from 'react';
-import ProfileEdit from '../ProfileEdit/ProfileEdit';
 
-function Profile({ onSubmit, pagetype }) {
-
-  /* const currentUser = React.useContext();*/
-  const currentUser = "Виталий";
-
-   function handleProfileEdit(e) {
-    e.preventDefault();
-        return (
-            <ProfileEdit />
-        )
-    };
-
+function ProfileEdit({ onSubmit, onChange, pagetype }) {
     return (
         <><Header
             pagetype={pagetype} />
             <main className="profile">
                 <FormContainer
-                    name="profile"
+                    name="profile-edit"
                     greeting="Привет, Виталий!"
-                    /*onSubmit={onSubmit}*/
-                    onSubmit={handleProfileEdit}
-                    buttonText="Редактировать"
+                    onSubmit={onSubmit}
+                    buttonText="Сохранить"
                     pagetype={pagetype}
-                    formtype="profile"
+                    formtype="profile-edit"
                 >
-                    <fieldset className="form__fieldset form__fieldset_type_profile">
+                    <fieldset className="form__fieldset form__fieldset_type_profile-edit">
                         <label
-                            for="profile-name-input" 
-                            className="form__label form__label_type_profile">Имя
+                            for="profile-edit-name-input" 
+                            className="form__label form__label_type_profile-edit">Имя
                             <FormInput
                                 type="text"
                                 name="name"
-                                id="profile-name-input"
-                                formtype="profile"
+                                id="profile-edit-name-input"
+                                formtype="profile-edit"
                                 placeholder="Виталий"
-                                /*readOnly="readOnly"*/
-                                value={currentUser.name}
-                                onSubmit={onSubmit}
+                                value="Виталий"
+                                onChange={onChange}
                             />
                         </label>
+                        <FormError
+                            formtype="profile-edit" />
+
                         <label
-                            for="profile-email-input" 
-                            className="form__label form__label_type_profile">E-mail
+                            for="profile-edit-email-input" 
+                            className="form__label form__label_type_profile-edit">E-mail
                             <FormInput
                                 type="email"
                                 name="email"
-                                id="profile-email-input"
-                                formtype="profile"
+                                id="profile-edit-email-input"
+                                formtype="profile-edit"
                                 placeholder="pochta@yandex.ru"
-                               /*readOnly="readOnly"*/
-                                value={currentUser.email}
-                                onSubmit={onSubmit}
+                                value="pochta@yandex.ru"
+                                onChange={onChange}
                             />
                         </label>
+                        <FormError
+                            formtype="profile-edit" />
                     </fieldset>
             </FormContainer>
-            <AuthReminder
-                path="/"
-                actionText="Выйти из аккаунта" />
                 </main>
         <Footer
                 pagetype={pagetype} /></>
@@ -75,7 +60,7 @@ function Profile({ onSubmit, pagetype }) {
     );
 };
 
-export default Profile;
+export default ProfileEdit;
 
 /*
 <FormInput

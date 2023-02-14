@@ -1,0 +1,25 @@
+
+.auth__reminder {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+}
+
+.auth__reminder-text {
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.21;
+    text-align: center;
+    padding-top: 16px;
+}
+
+.auth__reminder-link {
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.21;
+    color: #2be080;
+}

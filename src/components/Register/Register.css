@@ -1,0 +1,11 @@
+.register {
+  grid-area: content;
+  display: grid;
+  grid-template-columns: 1fr 396px 1fr ;
+  grid-template-rows: 449px 103px;
+  justify-items: center;
+  padding: 0 70px;
+
+    
+    background-color: aqua;
+}
