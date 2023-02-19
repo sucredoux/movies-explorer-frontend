@@ -11,21 +11,23 @@
     margin: 0;
     font-weight: 400;
     font-size: 22px;
-    line-height: 1.21;
+    line-height: 1.23;
     letter-spacing: -0.04em;
-    padding-bottom: 23px;
+    padding-bottom: 22px;
     border-bottom: 1px solid #000;
 }
 
 .project__description {
     display: flex;
     flex-direction: row;
+    padding: 70px 0 110px 0;
 }
 
 .project__column {
     display: flex;
     flex-direction: column;
-    padding: 70px 40px 110px 0;
+    max-width: 550px;
+    padding-right: 40px;
 }
 
 .project__column:last-child {
@@ -44,7 +46,7 @@
 .project__column-text {
     display: flex;
     margin: 0;
-    padding-top: 26px;
+    padding-top: 28px;
     font-weight: 400;
     font-size: 14px;
     line-height: 1.42;
@@ -96,4 +98,100 @@
     text-align: center;
     color: #a0a0a0;
     padding-top: 14px;
+}
+
+@media (max-width: 800px) {
+    .project {
+        padding: 90px 50px 90px;
+    }
+    .project__section {
+        padding-bottom: 23px;
+    }
+    
+    .project__description {
+        padding: 70px 0 93px 0;
+    }
+    
+    .project__column {
+        padding-right: 30px;
+        max-width: 319px;
+    }
+    
+    .project__column-text {
+        padding-top: 22px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+        
+    .project__period-length_type_first {
+        max-width: 140px;
+        width: calc((100vw - 30px*2)/5);
+    }
+    
+    .project__period-length_type_last {
+        max-width: 528px;
+        width: calc((100vw - 30px*2)/5*4);
+    }
+    
+    .project__period-subject {
+        font-weight: 400;
+    }
+}
+
+@media (max-width: 580px) {
+    .project {
+        padding: 70px 18px 70px;
+    }
+
+    .project__section {
+        font-size: 18px;
+        line-height: 1.22;
+        padding-bottom: 28px;
+    }
+        
+    .project__description {
+        flex-direction: column;
+        padding: 60px 0 60px 0;
+    }
+
+    .project__column {
+        padding: 56px 0 0;
+    }
+
+    .project__column:first-child {
+        padding-top: 0;
+    }
+
+    .project__column-title {
+        font-size: 18px;
+        line-height: 1.22;
+    }
+            
+    .project__column-text {
+        padding-top: 16px;
+        font-size: 11px;
+        line-height: 1.45;
+    }
+
+    .project__period-length {
+        font-size: 11px;
+        line-height: 1.18;
+        height: 35px;
+    }
+      
+    .project__period-length_type_first {
+        max-width: 100px;
+        width: calc((100vw - 18px*2)/2.84);
+    }
+    
+    .project__period-length_type_last {
+        max-width: 184px;
+        width: calc((100vw - 18px*2)/1.54);
+    }
+    
+    .project__period-subject {
+        font-size: 11px;
+        line-height: 1.18;
+        padding-top: 10px;
+    }
 }

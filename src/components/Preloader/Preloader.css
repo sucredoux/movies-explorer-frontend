@@ -78,11 +78,11 @@
 
 .preloader__round::after {
     background: #f2f2f2;
-    animation: preloader-inside-grey 1s ease-in-out infinite;
+    animation: preloader-inside-grey 5s ease-in-out infinite;
 }
 
 .preloader__round::before {
     z-index: 10;
     background: #2be080;
-    animation: preloader-inside-green 1s ease-in-out infinite;
+    animation: preloader-inside-green 5s ease-in-out infinite;
 }

@@ -2,7 +2,7 @@ import Footer from "../Footer/Footer";
 import MoreButton from "../MoreButton/MoreButton";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
-import MobileHeader from '../MobileHeader/MobileHeader';
+import MobileHeader from '../MobileNavigation/MobileNavigation';
 import Header from "../Header/Header";
 import { useMediaQuery } from 'react-responsive';
 import "../Movies/Movies.css";

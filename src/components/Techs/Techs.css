@@ -11,7 +11,7 @@
     margin: 0;
     font-weight: 400;
     font-size: 22px;
-    line-height: 1.21;
+    line-height: 1.23;
     letter-spacing: -0.04em;
     padding-bottom: 23px;
     border-bottom: 1px solid #000;
@@ -20,6 +20,7 @@
 .techs__content {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .techs__content-title {
@@ -38,6 +39,7 @@
     display: flex;
     justify-content: center;
     margin: 0;
+    max-width: 460px;
     padding-top: 26px;
     padding-bottom: 100px;
     font-weight: 400;
@@ -57,8 +59,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0;
-    padding-right: 10px;
+    margin: 0 10px 0 0;
     font-weight: 400;
     font-size: 14px;
     line-height: 1.21;
@@ -72,5 +73,87 @@
 }
 
 .techs__content-item:last-child {
-    padding-right: 0;
+    margin-right: 0;
+}
+
+@media (max-width: 800px) {
+    .techs {
+        padding: 90px 50px 90px;
+    }
+    
+    .techs__content-title {
+        padding-top: 80px;
+    }
+    
+    .techs__content-text {
+        padding-top: 22px;
+        padding-bottom: 83px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+        
+    .techs__content-item {
+        font-size: 12px;
+        line-height: 1.25;
+        width: 84px;
+        height: 57px;
+    }
+}
+
+@media (max-width: 750px) {
+    .techs__content-list {
+        display: flex;
+        flex-direction: row;
+        align-content: flex-start;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        max-width: 272px;
+    }
+
+    .techs__content-item:nth-child(3n) {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 580px) {
+    .techs {
+        background-color: #fff;
+        padding: 70px 18px 70px;
+    }
+    
+    .techs__section {
+        font-size: 18px;
+        line-height: 1.22;
+        padding-bottom: 28px;
+    }
+    
+    .techs__content-title {
+        padding-top: 60px;
+        font-size: 30px;
+        line-height: 1.2;
+    }
+    
+    .techs__content-text {
+        padding-top: 24px;
+        padding-bottom: 40px;
+        font-size: 11px;
+        line-height: 1.45;
+    }
+    
+    .techs__content-list {
+        display: flex;
+        flex-direction: row;
+        align-content: flex-start;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        max-width: 178px;
+    }
+
+    .techs__content-item {
+        margin: 10px 10px 0 0;
+    }
+
+    .techs__content-item:nth-child(2n) {
+        margin-right: 0;
+    }
 }

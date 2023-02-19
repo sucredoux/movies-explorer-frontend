@@ -11,7 +11,7 @@
     margin: 0;
     font-weight: 400;
     font-size: 22px;
-    line-height: 1.21;
+    line-height: 1.23;
     letter-spacing: -0.04em;
     padding-bottom: 23px;
     border-bottom: 1px solid #000;
@@ -28,7 +28,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-right: 270px;
+    /*max-width: calc((100vw - 70px*2)*0.51);*/
+    max-width: 52%;
+
 }
 
 .student__info {
@@ -72,4 +74,91 @@
 .student__photo {
     width: 270px;
     height: 327px;
+}
+
+@media (max-width: 800px) {
+    .student {
+        padding: 90px 50px 90px;
+    }
+    
+    .student__block-info {
+        max-width: minmax(calc((100vw - 50px*2)*0.54), 600px);
+
+    }
+     
+    .student__name {
+        padding-bottom: 16px;
+        font-size: 40px;
+        line-height: 1;
+    }
+    
+    .student__description {
+        padding-bottom: 20px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+    
+    .student__about {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+        
+    .student__photo {
+        width: 255px;
+        height: 307px;
+    }
+}
+
+@media (max-width: 580px) {
+    .student {
+        padding: 70px 14px 70px;
+    }
+
+    .student__section {
+        font-size: 18px;
+        line-height: 1.22;
+        padding-bottom: 28px;
+    }
+
+    .student__block {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 60px;
+    }
+    .student__block-info {
+        max-width: 100%;
+    }
+
+    .student__info {
+        padding-bottom: 41px;
+    }
+    .student__name {
+        padding: 40px 0 20px;
+        font-size: 30px;
+        line-height: 1.2;
+    }
+    
+    .student__description {
+        font-size: 11px;
+        line-height: 1.45;
+    }
+    
+    .student__about {
+        font-size: 11px;
+        line-height: 1.45;
+    }
+
+    .student__link {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.21;
+    }
+        
+    .student__photo {
+        width: 292px;
+        height: 352px;
+    }
 }

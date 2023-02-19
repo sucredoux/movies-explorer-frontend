@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MobileHeader from '../MobileHeader/MobileHeader';
+import MobileHeader from '../MobileNavigation/MobileNavigation';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -14,6 +14,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Preloader from '../Preloader/Preloader';
 import Error404 from '../Error404/Error404';
+import ProfileEdit from '../ProfileEdit/ProfileEdit';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -21,6 +22,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(true);
   const [isOwn, setIsOwn] = useState(false);
   const [loading, setLoading] = useState(false);
+  const[inEditState, setInEditState] = useState(false);
+
 
   const moviesList = [
     {image: "https://images.unsplash.com/photo-1574658117113-9d5c3dc5eefc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fG5pY2V8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60", title: "Первое название фильма: название фильма - название фильма для названия фильма", duration: "1ч35мин" },
@@ -30,6 +33,10 @@ function App() {
 
   function handleOnSaveClick() {
     setIsOwn(true);
+  }
+
+  function handleOnEditClick() {
+    setInEditState(true);
   }
    
   if (loading) {
@@ -61,9 +68,10 @@ function App() {
                 onSaveClick={handleOnSaveClick} />
             </Route>
             <Route path="/profile">
-              <Profile
-              onSubmit="onSubmit"
-              pagetype="profile" />
+              { inEditState ? 
+              <Profile onSubmit={handleOnEditClick} pagetype="profile" />
+              : <ProfileEdit pagetype="profile" onSubmit="onSubmit" />
+              }
             </Route>
             <Route path="/signup">
               <Register

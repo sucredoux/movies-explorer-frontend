@@ -22,9 +22,10 @@ function Login({ onSubmit, onChange, pagetype }) {
                     formtype="auth"
                 >
                 <fieldset className="form__fieldset">
-                <label 
-                    for="login-email-input" 
-                    className="form__label form__label_type_auth">E-mail</label>
+                    <label 
+                        for="login-email-input" 
+                        className="form__label form__label_type_auth">E-mail
+                    </label>
                     <FormInput
                         label="E-mail"
                         type="email"
@@ -34,10 +35,12 @@ function Login({ onSubmit, onChange, pagetype }) {
                         placeholder="pochta@yandex.ru"
                         value="pochta@yandex.ru"
                         onChange={onChange} />
-                    <FormError />
+                    <FormError
+                        formtype="auth" />
                     <label 
-                        for="login-password-input" 
-                        className="form__label form__label_type_auth">Пароль</label>
+                            for="login-password-input" 
+                            className="form__label form__label_type_auth">Пароль
+                    </label>
                     <FormInput
                         label="Пароль"
                         type="password"
@@ -47,8 +50,9 @@ function Login({ onSubmit, onChange, pagetype }) {
                         placeholder=""
                         value="123456"
                         onChange={onChange} />
-                    <FormError />
-                        </fieldset>
+                    <FormError
+                        formtype="auth" />
+                </fieldset>
                 </FormContainer>
                 <AuthReminder
                     question="Ещё не зарегистрированы? "

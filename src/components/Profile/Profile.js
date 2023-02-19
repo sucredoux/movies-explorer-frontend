@@ -6,7 +6,7 @@ import FormInput from '../FormInput/FormInput';
 import Header from '../Header/Header';
 import './Profile.css';
 import "../FormContainer/FormContainer.css";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProfileEdit from '../ProfileEdit/ProfileEdit';
 
 function Profile({ onSubmit, pagetype }) {
@@ -14,12 +14,7 @@ function Profile({ onSubmit, pagetype }) {
   /* const currentUser = React.useContext();*/
   const currentUser = "Виталий";
 
-   function handleProfileEdit(e) {
-    e.preventDefault();
-        return (
-            <ProfileEdit />
-        )
-    };
+    
 
     return (
         <><Header
@@ -29,7 +24,7 @@ function Profile({ onSubmit, pagetype }) {
                     name="profile"
                     greeting="Привет, Виталий!"
                     /*onSubmit={onSubmit}*/
-                    onSubmit={handleProfileEdit}
+                    onSubmit={onSubmit}
                     buttonText="Редактировать"
                     pagetype={pagetype}
                     formtype="profile"

@@ -14,7 +14,7 @@ function FormContainer(props) {
                         {props.children}
                     
                     <ResError
-                        pagetype={props.pagetype}/>
+                        formtype={props.formtype}/>
                     <button 
                     type="submit"
                     name={`${props.pagetype}-submit`}

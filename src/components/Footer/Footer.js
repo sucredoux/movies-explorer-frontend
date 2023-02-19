@@ -4,7 +4,7 @@ import './Footer.css';
 
 function Footer({ pagetype }) {
 
-const footerClassName = `footer ${ pagetype === "auth" ? "footer_type_auth" : "" }`;
+const footerClassName = `footer footer_type_${pagetype}`;
 
     return (
         <footer className={footerClassName}>
@@ -12,8 +12,8 @@ const footerClassName = `footer ${ pagetype === "auth" ? "footer_type_auth" : ""
             <div className="footer__info-block">
                 <p className="footer__data">&copy; 2020</p>
                 <ul className="footer__contacts">
-                    <Link to="https://practicum.yandex.ru/" className="footer__contact-link">Яндекс.Практикум</Link>
-                    <Link to="https://github.com/" className="footer__contact-link">Github</Link>
+                    <a href="https://practicum.yandex.ru/" className="footer__contact-link link">Яндекс.Практикум</a>
+                    <a href="https://github.com/" className="footer__contact-link link">Github</a>
                 </ul>
             </div>
         </footer>

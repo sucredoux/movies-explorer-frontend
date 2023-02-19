@@ -1,8 +1,15 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
 import "./Navigation.css";
+import MobileNavigation from "../MobileNavigation/MobileNavigation";
+import { useMediaQuery } from "react-responsive";
 
 function Navigation({ pagetype }) {
+
+
+    const isMobile = useMediaQuery({
+        query: '(max-width: 770px)'
+      })
 
     if (pagetype === "main") {
         return (
@@ -10,7 +17,7 @@ function Navigation({ pagetype }) {
                 <div className="menu__links">             
                     <NavLink exact to="/signup" className="link menu__item menu__item_type_main"
                         > Регистрация</NavLink>
-                        <NavLink exact to="/signin" className="link menu__button menu__button_type_main"
+                        <NavLink exact to="/signin" className="link menu__button-item menu__button-item_type_main"
                         > Войти</NavLink>
                 </div>
             </nav>
@@ -23,6 +30,7 @@ function Navigation({ pagetype }) {
     }
 
     return (
+        <>{isMobile ? ( <MobileNavigation />) : (
         <nav className="menu">
                     <NavLink exact to="/movies" className="link menu__item" activeClassName="menu__item_active"
                         > Фильмы
@@ -30,11 +38,27 @@ function Navigation({ pagetype }) {
                     <NavLink exact to="/saved-movies" className="link menu__item" activeClassName="menu__item_active"
                         > Сохраненные фильмы
                     </NavLink>                
-                <NavLink exact to="/profile" className="link menu__button"
+                <NavLink exact to="/profile" className="link menu__button-item"
                     > Аккаунт
                 </NavLink>
         </nav>
+        )}
+        </>
     );
 };
 
 export default Navigation;
+
+
+/*
+       <>{isMobile ? (
+            <MobileHeader />
+          ) : (
+            <Header
+              loggedIn={loggedIn}
+              pagetype={pagetype} />
+          )}
+
+
+         {isMobile ? (MobileNavigation />) :  } 
+          */

@@ -10,11 +10,17 @@
     background-color: #fafafa;
     font-weight: 400;
     font-size: 13px;
-    line-height: 1.21;
+    line-height: 1.23;
     padding: 0 70px 20px;
 }
 
 .footer_type_auth {
+    visibility: hidden;
+    height: 0;
+    padding: 0;
+}
+
+.footer_type_profile {
     visibility: hidden;
     height: 0;
     padding: 0;
@@ -54,7 +60,21 @@
 }
 
 .footer__contact-link {
-    text-decoration: none;  
-    color: #000;
+  /*  color: #000;*/
     padding-left: 20px;
+}
+
+@media (max-width: 770px) {
+    .footer {
+        background-color: #fff;
+        font-weight: 400;
+        font-size: 13px;
+        padding: 0 30px 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .footer {
+        padding: 0 10px 20px;
+    }
 }
