@@ -5,6 +5,10 @@
     padding: 50px 0 80px;
 }
 
+.more_type_saved-movies {
+    padding: 120px 0 80px;
+}
+
 .more__button {
     display: flex;
     align-items: center;
@@ -18,4 +22,22 @@
     border: 1px solid #e8e8e8;
     background-color: transparent;
     border-radius: 10px;
+    visibility: visible;
+}
+
+.more__button_type_saved-movies {
+    visibility: hidden;
+}
+
+@media (max-width: 800px) {
+    .more_type_saved-movies {
+        padding: 52px 0 52px;
+    }
+}
+
+@media (max-width: 580px) {
+    .more__button {
+        width: 240px;
+        height: 36px;
+    }
 }

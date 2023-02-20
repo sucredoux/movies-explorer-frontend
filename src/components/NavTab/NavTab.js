@@ -4,7 +4,11 @@ function NavTab() {
 
     return (
         <section className="navtab">
-            <button className="navtab__button button">Узнать больше</button>
+            <button className="navtab__button button">
+                <a href="#project" className="navtab__button-link link">
+                    Узнать больше
+                </a>
+                </button>
         </section>
     );
 };

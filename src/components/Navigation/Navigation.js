@@ -8,7 +8,7 @@ function Navigation({ pagetype }) {
 
 
     const isMobile = useMediaQuery({
-        query: '(max-width: 770px)'
+        query: '(max-width: 800px)'
       })
 
     if (pagetype === "main") {
@@ -36,7 +36,7 @@ function Navigation({ pagetype }) {
                         > Фильмы
                     </NavLink>
                     <NavLink exact to="/saved-movies" className="link menu__item" activeClassName="menu__item_active"
-                        > Сохраненные фильмы
+                        > Сохранённые фильмы
                     </NavLink>                
                 <NavLink exact to="/profile" className="link menu__button-item"
                     > Аккаунт

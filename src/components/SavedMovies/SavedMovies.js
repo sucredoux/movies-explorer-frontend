@@ -30,7 +30,8 @@ function SavedMovies({ pagetype, moviesList, onSaveClick, isOwn, loggedIn }) {
                     moviesList={moviesList}
                     onSaveClick={onSaveClick}
                     isOwn={isOwn} />
-                <MoreButton />
+                <MoreButton
+                    pagetype={pagetype} />
 
             </main>
             <Footer
@@ -40,18 +41,3 @@ function SavedMovies({ pagetype, moviesList, onSaveClick, isOwn, loggedIn }) {
 };
 
 export default SavedMovies;
-
-/*
- <main className="content">
-            <div className="movies">
-                <SearchForm
-                    pagetype={pagetype} />
-                <MoviesCardList
-                    pagetype={pagetype}
-                    moviesList={moviesList}
-                    onSaveClick={onSaveClick}
-                    isOwn={isOwn} />
-                <MoreButton />
-            </div>
-            </main>
-*/

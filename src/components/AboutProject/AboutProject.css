@@ -20,7 +20,7 @@
 .project__description {
     display: grid;
     grid-template-columns: repeat(2, auto);
-    grid-column-gap: 40px;
+    column-gap: 40px;
     width: 100%;
     padding: 70px 0 110px 0;
 }
@@ -129,7 +129,7 @@
     .project__description {
         grid-template-columns: none;
         grid-template-rows: repeat(2, auto);
-        grid-row-gap: 56px;
+        row-gap: 56px;
         padding: 60px 0 60px 0;
     }
 

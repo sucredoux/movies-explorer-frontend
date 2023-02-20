@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 302px 62px;
     grid-template-rows: 203px 78px;
-    background-color: #fff;
+    background-color: #fdfdfd;
     border-radius: 6px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
 }
@@ -31,7 +31,6 @@
 }
 
 .movies__title {
- 
     margin: 0;
     padding-bottom: 17px;
     font-weight: 500;
@@ -81,4 +80,51 @@
 
 .movies__save_type_delete:hover {
     background-image: url(../../images/movies__save_type_delete.svg);
+}
+
+@media (max-width: 800px) {
+    .movies__item {
+        grid-template-columns: 278px 61px;
+        grid-template-rows: 190px 72px;
+    }
+    
+    .movies__preview {
+        width: 339px;
+        height: 190px;
+    }
+    
+    .movies__about {
+        padding: 14px 0 14px 14px;
+    }
+    
+    .movies__title {
+        padding-bottom: 15px;
+    }
+}
+
+@media (max-width: 580px) {
+    .movies__item {
+        grid-template-columns: 249px 51px;
+        grid-template-rows: 168px 69px;
+    }
+    
+    .movies__preview {
+        width: 300px;
+        height: 168px;
+    }
+    
+    .movies__title {
+        padding-bottom: 14px;
+        font-size: 12px;
+        line-height: 1.25;
+    }
+    
+    .movies__length {
+        font-size: 10px;
+        line-height: 1.2;
+    }
+    
+    .movies__save {
+        margin: 7px 0 32px;
+    }
 }
