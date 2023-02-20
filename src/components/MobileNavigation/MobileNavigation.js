@@ -5,15 +5,13 @@ import "./MobileNavigation.css";
 function MobileNavigation() {
 
     const[isOpen, setIsOpen] = useState(false);
-console.log(isOpen);
+
     function handleOpen() {
         setIsOpen(true);
-        console.log(isOpen);
       }
     
       function handleClose() {
         setIsOpen(false);
-        console.log(isOpen);
       }
 
     return (

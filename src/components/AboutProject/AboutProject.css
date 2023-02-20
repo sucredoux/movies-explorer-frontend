@@ -18,8 +18,10 @@
 }
 
 .project__description {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-column-gap: 40px;
+    width: 100%;
     padding: 70px 0 110px 0;
 }
 
@@ -27,11 +29,6 @@
     display: flex;
     flex-direction: column;
     max-width: 550px;
-    padding-right: 40px;
-}
-
-.project__column:last-child {
-    padding-right: 0;
 }
 
 .project__column-title {
@@ -53,16 +50,13 @@
 }
 
 .project__timeline {
-    display: flex;
-    flex-direction: row;
-    justify-content: stretch;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
 }
 
 .project__period {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-items: center;
 }
 
 .project__period-length {
@@ -70,27 +64,25 @@
     justify-content: center;
     align-items: center;
     margin: 0;
+    height: 36px;
     font-weight: 400;
     font-size: 14px;
     line-height: 1.21;
-    height: 36px;
     text-align: center;
 }
 
 .project__period-length_type_first {
     background-color: #2be080;
-    max-width: 228px;
-    width: calc((100vw - 70px*2)/5);
 }
 
 .project__period-length_type_last {
     background-color: #f2f2f2;
-    max-width: 912px;
-    width: calc((100vw - 70px*2)/5*4);
 }
 
 .project__period-subject {
     display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0;
     font-weight: 500;
     font-size: 14px;
@@ -111,28 +103,13 @@
     .project__description {
         padding: 70px 0 93px 0;
     }
-    
-    .project__column {
-        padding-right: 30px;
-        max-width: 319px;
-    }
-    
+        
     .project__column-text {
         padding-top: 22px;
         font-size: 12px;
         line-height: 1.5;
     }
-        
-    .project__period-length_type_first {
-        max-width: 140px;
-        width: calc((100vw - 30px*2)/5);
-    }
-    
-    .project__period-length_type_last {
-        max-width: 528px;
-        width: calc((100vw - 30px*2)/5*4);
-    }
-    
+            
     .project__period-subject {
         font-weight: 400;
     }
@@ -150,12 +127,10 @@
     }
         
     .project__description {
-        flex-direction: column;
+        grid-template-columns: none;
+        grid-template-rows: repeat(2, auto);
+        grid-row-gap: 56px;
         padding: 60px 0 60px 0;
-    }
-
-    .project__column {
-        padding: 56px 0 0;
     }
 
     .project__column:first-child {
@@ -179,19 +154,13 @@
         height: 35px;
     }
       
-    .project__period-length_type_first {
-        max-width: 100px;
-        width: calc((100vw - 18px*2)/2.84);
-    }
-    
-    .project__period-length_type_last {
-        max-width: 184px;
-        width: calc((100vw - 18px*2)/1.54);
-    }
-    
     .project__period-subject {
         font-size: 11px;
         line-height: 1.18;
         padding-top: 10px;
+    }
+
+    .project__timeline {
+        grid-template-columns: 35% 65%;
     }
 }
