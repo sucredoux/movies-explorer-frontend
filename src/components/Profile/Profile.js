@@ -61,6 +61,7 @@ function Profile({ onSubmit, pagetype }) {
                     </fieldset>
             </FormContainer>
             <AuthReminder
+                pagetype={pagetype}
                 path="/"
                 actionText="Выйти из аккаунта" />
                 </main>
@@ -71,6 +72,10 @@ function Profile({ onSubmit, pagetype }) {
 };
 
 export default Profile;
+
+/*
+                      /*  <FormError
+                            formtype="profile" />*/
 
 /*
 <FormInput

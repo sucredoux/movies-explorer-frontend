@@ -38,6 +38,10 @@ function App() {
   function handleOnEditClick() {
     setInEditState(true);
   }
+
+  function handleOnSaveUserClick() {
+    setInEditState(false);
+  }
    
   if (loading) {
     return <Preloader />;
@@ -69,8 +73,8 @@ function App() {
             </Route>
             <Route path="/profile">
               { inEditState ? 
-              <Profile onSubmit={handleOnEditClick} pagetype="profile" />
-              : <ProfileEdit pagetype="profile" onSubmit="onSubmit" />
+              <ProfileEdit onSubmit={handleOnSaveUserClick} pagetype="profile-edit" />
+              : <Profile pagetype="profile" onSubmit={handleOnEditClick} />
               }
             </Route>
             <Route path="/signup">

@@ -28,9 +28,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /*max-width: calc((100vw - 70px*2)*0.51);*/
     max-width: 52%;
-
 }
 
 .student__info {

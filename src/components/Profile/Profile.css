@@ -9,19 +9,16 @@
     background-color: aqua;
 }
 
-
-/*
-.form__fieldset_type_profile {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: none;
-    margin: 0;
-    width: 100%;
-    border-bottom: 1px solid #e8e8e8;
+@media (max-width: 800px) {
+    .profile {
+        grid-template-rows: 649px 301px;
+        padding: 0 30px;
+    }
 }
 
-.form__fieldset_type_profile:last-of-type {
-    border-bottom: none;
+@media (max-width: 580px) {
+    .profile {
+        grid-template-columns: 0 260px 0;
+        grid-template-rows: 635px 71px;
+    }
 }
-*/

@@ -26,6 +26,12 @@
     padding: 0;
 }
 
+.footer_type_profile-edit {
+    visibility: hidden;
+    height: 0;
+    padding: 0;
+}
+
 .footer__reference {
     display: flex;
     justify-content: center;

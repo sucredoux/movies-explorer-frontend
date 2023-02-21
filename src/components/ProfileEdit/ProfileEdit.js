@@ -4,6 +4,7 @@ import FormError from '../FormError/FormError';
 import FormInput from '../FormInput/FormInput';
 import Header from '../Header/Header';
 import './ProfileEdit.css';
+import '../Profile/Profile.css';
 import "../FormContainer/FormContainer.css";
 
 function ProfileEdit({ onSubmit, onChange, pagetype }) {
@@ -17,40 +18,39 @@ function ProfileEdit({ onSubmit, onChange, pagetype }) {
                     onSubmit={onSubmit}
                     buttonText="Сохранить"
                     pagetype={pagetype}
-                    formtype="profile-edit"
+                    formtype="profile"
                 >
-                    <fieldset className="form__fieldset form__fieldset_type_profile-edit">
+                    <fieldset className="form__fieldset form__fieldset_type_profile">
                         <label
                             for="profile-edit-name-input" 
-                            className="form__label form__label_type_profile-edit">Имя
+                            className="form__label form__label_type_profile">Имя
                             <FormInput
                                 type="text"
                                 name="name"
                                 id="profile-edit-name-input"
-                                formtype="profile-edit"
+                                formtype="profile"
                                 placeholder="Виталий"
                                 value="Виталий"
                                 onChange={onChange}
                             />
                         </label>
                         <FormError
-                            formtype="profile-edit" />
-
+                            formtype="profile" />
                         <label
                             for="profile-edit-email-input" 
-                            className="form__label form__label_type_profile-edit">E-mail
+                            className="form__label form__label_type_profile">E-mail
                             <FormInput
                                 type="email"
                                 name="email"
                                 id="profile-edit-email-input"
-                                formtype="profile-edit"
+                                formtype="profile"
                                 placeholder="pochta@yandex.ru"
                                 value="pochta@yandex.ru"
                                 onChange={onChange}
                             />
                         </label>
                         <FormError
-                            formtype="profile-edit" />
+                            formtype="profile" />
                     </fieldset>
             </FormContainer>
                 </main>

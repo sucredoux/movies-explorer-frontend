@@ -1,4 +1,3 @@
-
 .auth__reminder {
     grid-column: 2/3;
     grid-row: 2/3;
@@ -22,4 +21,31 @@
     font-size: 14px;
     line-height: 1.21;
     color: #2be080;
+}
+
+.auth__reminder-link_type_profile {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.23;
+    color: #EE3465;
+}
+
+@media (max-width: 580px) {
+    .auth__reminder-text {
+        font-size: 12px;
+        line-height: 1.25;
+        padding-top: 14px;
+    }
+
+    .auth__reminder-link {
+        font-size: 12px;
+        line-height: 1.25;
+    }
+
+    .auth__reminder-link_type_profile {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 1.25;
+        padding-top: 15px;
+    }
 }

@@ -5,7 +5,7 @@
     grid-template-rows: 75px 374px;
     justify-items: center;
     align-items: start;
-    width: 396px;
+    width: 100%;
 }
 
 .form__container_type_profile {
@@ -68,20 +68,25 @@
     height: 45px;
     background-color: #2be080;
     color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.21;
+    text-align: center;
+    border-radius: 3px;
 }
 
 .form__button_type_profile {
     background-color: transparent;
     color: #000;
     height: 16px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.23;
+    text-align: center;
 }
 
-.form__button_type_profile-edit {
-    background-color: #3456f3;
-}
-
-.form__button_type_auth {
-
+.form__button_disabled {
+    background-color: #f8f8f8;
 }
 
 .form__label {
@@ -107,4 +112,83 @@
 
 .form__label_type_profile:last-of-type {
     border-bottom: none;
+}
+
+@media (max-width: 800px) {
+    .form__container {
+        grid-template-rows: 75px 374px;
+    }
+    
+    .form__container_type_profile {
+        grid-template-rows: 344px auto;
+    }
+    
+    .form__greeting {
+        padding: 22px 0 24px;
+    }
+    
+    .form__greeting_type_profile {
+        padding: 230px 0 72px;
+    }
+    
+    .form {
+        grid-template-rows: 250px 79px 45px;
+    }
+    
+    .form_type_profile {
+        grid-template-rows: 95px 193px 16px;
+    }
+    
+    .form__label {
+        padding: 16px 0 5px;
+    }
+    
+    .form__label_type_profile {
+        padding: 17px 0 0;
+    }
+}
+
+@media (max-width: 580px) {
+    .form__container {
+        grid-template-rows: 75px 374px;
+    }
+    
+    .form__container_type_profile {
+        grid-template-rows: 162px 472px;
+    }
+    
+    .form__greeting {
+        padding: 22px 0 24px;
+    }
+    
+    .form__greeting_type_profile {
+        padding: 68px 0 65px;
+    }
+    
+    .form {
+        grid-template-rows: 250px 79px 45px;
+    }
+    
+    .form_type_profile {
+        grid-template-rows: 95px 362px 15px;
+    }
+    
+    .form__button {
+        font-size: 12px;
+        line-height: 1.25;
+    }
+    
+    .form__button_type_profile {
+        height: 15px;
+        font-size: 12px;
+        line-height: 1.25;
+    }
+
+    .form__label {
+        padding: 16px 0 5px;
+    }
+    
+    .form__label_type_profile {
+        padding: 17px 0 0;
+    }
 }
