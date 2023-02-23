@@ -2,7 +2,7 @@ import AuthReminder from "../AuthReminder/AuthReminder";
 import { useHistory } from "react-router-dom";
 import "./Error404.css";
 
-function Error404() {
+function Error404({ pagetype }) {
 
     const history = useHistory();
 
@@ -17,8 +17,10 @@ function Error404() {
                 <p className="error__text">Страница не найдена</p>
             </div>
             <AuthReminder
-                path={goBack}
+                path={'/'}
                 actionText="Назад"
+                pagetype={pagetype}
+                onClick={goBack}
             />
         </section>
     );

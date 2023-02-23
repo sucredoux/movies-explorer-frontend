@@ -97,8 +97,12 @@
     text-align: center;
 }
 
+.menu-mobile__button-item_active {
+    border-bottom: 2px solid #000;
+}
+
 @media (max-width: 580px) {
-    .menu-mobile__button_open {
+    .menu-mobile__button_type_open {
         width: 40px;
         height: 42px;
         padding: 9px 9px;

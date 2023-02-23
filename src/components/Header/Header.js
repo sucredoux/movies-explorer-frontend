@@ -12,7 +12,7 @@ function Header({ pagetype }) {
         <header className={headerClassName}>
             <div className={`header__logo header__logo_type_${pagetype}`}>
                  
-                <Link exact to="/" className="link menu__item menu__item_type_main"
+                <Link exact to="/" className="link"
                 ><img className="logo" src={logo} alt="Логотип проекта" /></Link>
 
             </div>

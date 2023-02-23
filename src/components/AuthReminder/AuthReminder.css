@@ -6,6 +6,11 @@
     justify-items: center;
 }
 
+.auth__reminder_type_error {
+    grid-row: 3/4;
+    justify-content: center;
+}
+
 .auth__reminder-text {
     margin: 0;
     font-weight: 400;

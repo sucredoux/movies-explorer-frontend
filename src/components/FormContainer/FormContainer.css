@@ -2,7 +2,7 @@
     grid-column: 2/3;
     grid-row: 1/2;
     display: grid;
-    grid-template-rows: 75px 374px;
+    grid-template-rows: 78px 386px;
     justify-items: center;
     align-items: start;
     width: 100%;
@@ -16,22 +16,23 @@
 .form__greeting {
     grid-row: 1/2;
     display: flex;
-    position: relative;
+    justify-self: flex-start;
     margin: 0;
     font-weight: 500;
     font-size: 24px;
     line-height: 1.21;
-    padding: 22px 0 24px;
+    padding: 15px 0 34px;
 }
 
 .form__greeting_type_profile {
     padding: 74px 0 106px;
+    justify-self: center;
 }
 
 .form {
     grid-row: 2/3;
     display: grid;
-    grid-template-rows: 250px 79px 45px;
+    grid-template-rows: 207px 134px 45px;
     justify-items: center;
     align-content: space-between;
     width: 100%;
@@ -94,7 +95,7 @@
     font-size: 10px;
     line-height: 1.2;
     color: #a0a0a0;
-    padding: 16px 0 5px;
+    padding: 5px 0 7px;
 }
 
 .form__label_type_profile {
@@ -116,7 +117,7 @@
 
 @media (max-width: 800px) {
     .form__container {
-        grid-template-rows: 75px 374px;
+        grid-template-rows: 86px 385px;
     }
     
     .form__container_type_profile {
@@ -124,7 +125,7 @@
     }
     
     .form__greeting {
-        padding: 22px 0 24px;
+        padding: 22px 0 35px;
     }
     
     .form__greeting_type_profile {
@@ -132,25 +133,21 @@
     }
     
     .form {
-        grid-template-rows: 250px 79px 45px;
+        grid-template-rows: 207px 133px 45px;
     }
     
     .form_type_profile {
         grid-template-rows: 95px 193px 16px;
     }
     
-    .form__label {
-        padding: 16px 0 5px;
-    }
-    
-    .form__label_type_profile {
+  /*  .form__label_type_profile {
         padding: 17px 0 0;
-    }
+    }*/
 }
 
 @media (max-width: 580px) {
     .form__container {
-        grid-template-rows: 75px 374px;
+        grid-template-rows: 136px 473px;
     }
     
     .form__container_type_profile {
@@ -158,7 +155,8 @@
     }
     
     .form__greeting {
-        padding: 22px 0 24px;
+        padding: 32px 0 75px;
+        justify-self: center;
     }
     
     .form__greeting_type_profile {
@@ -166,7 +164,7 @@
     }
     
     .form {
-        grid-template-rows: 250px 79px 45px;
+        grid-template-rows: 207px 221px 45px;
     }
     
     .form_type_profile {
@@ -182,13 +180,5 @@
         height: 15px;
         font-size: 12px;
         line-height: 1.25;
-    }
-
-    .form__label {
-        padding: 16px 0 5px;
-    }
-    
-    .form__label_type_profile {
-        padding: 17px 0 0;
     }
 }

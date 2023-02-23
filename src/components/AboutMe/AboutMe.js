@@ -16,7 +16,7 @@ function AboutMe() {
                         С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб&#8209;разработке, 
                         начал заниматься фриланс&#8209;заказами и ушёл с постоянной работы.</p>
                     </div>
-                    <a href="https://github.com/" className="student__link link">Github</a>
+                    <a href="https://github.com/" target="_blank" rel="noreferrer" className="student__link link">Github</a>
                 </div>
                 <img className="student__photo" src={student__photo} alt="Фото студента" />
             </div>

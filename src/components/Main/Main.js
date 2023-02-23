@@ -13,15 +13,13 @@ function Main({ pagetype }) {
     return (
         <><Header
             pagetype={pagetype} />
-        <main className="content">
-            <div className="main">
-                    <Promo />
-                    <NavTab />
-                    <AboutProject />
-                    <Techs />
-                    <AboutMe />
-                    <Portfolio />
-            </div>
+        <main className="main">
+                <Promo />
+                <NavTab />
+                <AboutProject />
+                <Techs />
+                <AboutMe />
+                <Portfolio />
         </main>
         <Footer
             pagetype={pagetype} />

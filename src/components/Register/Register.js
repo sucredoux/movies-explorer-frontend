@@ -35,8 +35,6 @@ function Register({ onSubmit, onChange, pagetype }) {
                         value="Виталий"
                         onChange={onChange}
                     />
-                    <FormError
-                        formtype="auth" />
                         <label 
                         for="register-email-input" 
                         className="form__label form__label_type_auth">E-mail</label>
@@ -49,8 +47,6 @@ function Register({ onSubmit, onChange, pagetype }) {
                         value="pochta@yandex.ru"
                         onChange={onChange}
                     />
-                    <FormError
-                        formtype="auth" />
                     <label 
                         for="register-password-input" 
                         className="form__label form__label_type_auth">Пароль</label>
@@ -63,8 +59,6 @@ function Register({ onSubmit, onChange, pagetype }) {
                         value="123456"
                         onChange={onChange}
                     />
-                    <FormError
-                        formtype="auth" />
                 </fieldset>
             </FormContainer>
             <AuthReminder 
@@ -82,13 +76,5 @@ function Register({ onSubmit, onChange, pagetype }) {
 export default Register;
 
 
-/*
- <main className="content">
-            <section className="register">
-                <FormContainer
-                    name="register"
-                    greeting="Добро пожаловать!"
-                    onSubmit={onSubmit}
-                    buttonText="Зарегистрироваться"
-                >
-*/
+<FormError
+formtype="auth" />

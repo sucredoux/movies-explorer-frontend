@@ -43,7 +43,7 @@ function MobileNavigation() {
                         > Сохраненные фильмы
                     </NavLink>
                 </div>
-                <NavLink exact to="/profile" className="link menu-mobile__button-item"
+                <NavLink exact to="/profile" className="link menu-mobile__button-item" activeClassName="link menu-mobile__button-item_active"
                     > Аккаунт
                 </NavLink>
             </div>

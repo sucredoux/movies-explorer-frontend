@@ -24,7 +24,3 @@ function MoviesCardList({ pagetype, moviesList, isOwn, onSaveClick }) {
 };
 
 export default MoviesCardList;
-
-/*
-                    key={movie._id}
-                    */

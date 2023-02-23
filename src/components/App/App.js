@@ -87,8 +87,9 @@ function App() {
               onSubmit="onSubmit"
               pagetype="auth" />
             </Route>
-            <Route path="/404">
-              <Error404 />
+            <Route path="/*">
+              <Error404
+              pagetype="error" />
             </Route>
             <Route path="*">
               {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" /> }

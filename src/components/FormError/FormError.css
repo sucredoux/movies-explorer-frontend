@@ -1,11 +1,12 @@
 .form__error {
     display: flex;
+ 
     font-weight: 400;
     font-size: 10px;
     line-height: 1.2;
     color: #ee3465;
     padding-top: 6px;
-    min-height: 17px;
+    min-height: 12px;
    /* visibility: hidden;*/
 }
 

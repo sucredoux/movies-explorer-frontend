@@ -38,7 +38,7 @@ function Navigation({ pagetype }) {
                     <NavLink exact to="/saved-movies" className="link menu__item" activeClassName="menu__item_active"
                         > Сохранённые фильмы
                     </NavLink>                
-                <NavLink exact to="/profile" className="link menu__button-item"
+                <NavLink exact to="/profile" className="link menu__button-item" activeClassName="menu__button-item_active"
                     > Аккаунт
                 </NavLink>
         </nav>
@@ -48,17 +48,3 @@ function Navigation({ pagetype }) {
 };
 
 export default Navigation;
-
-
-/*
-       <>{isMobile ? (
-            <MobileHeader />
-          ) : (
-            <Header
-              loggedIn={loggedIn}
-              pagetype={pagetype} />
-          )}
-
-
-         {isMobile ? (MobileNavigation />) :  } 
-          */

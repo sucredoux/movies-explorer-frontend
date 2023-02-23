@@ -2,41 +2,40 @@ import Footer from "../Footer/Footer";
 import MoreButton from "../MoreButton/MoreButton";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
-import MobileHeader from '../MobileNavigation/MobileNavigation';
 import Header from "../Header/Header";
-import { useMediaQuery } from 'react-responsive';
 import "../Movies/Movies.css";
+import { useState } from "react";
 
 function SavedMovies({ pagetype, moviesList, onSaveClick, isOwn, loggedIn }) {
 
-    const isMobile = useMediaQuery({
-        query: '(max-width: 400px)'
-      }) 
+    const[searchNotFound, setSearchNotFound] = useState(false);
 
     return (
-        <>{isMobile ? (
-            <MobileHeader />
-          ) : (
-            <Header
-              loggedIn={loggedIn}
-              pagetype={pagetype} />
-          )}
-            <main className="movies">
-        
-                <SearchForm
-                    pagetype={pagetype} />
-                <MoviesCardList
-                    pagetype={pagetype}
-                    moviesList={moviesList}
-                    onSaveClick={onSaveClick}
-                    isOwn={isOwn} />
-                <MoreButton
-                    pagetype={pagetype} />
-
-            </main>
-            <Footer
+        <><Header
+            loggedIn={loggedIn}
             pagetype={pagetype} />
-            </>
+          <main className="movies">        
+            <SearchForm
+              pagetype={pagetype} />
+              { searchNotFound ? 
+                  (<div className="movies__notfound">
+                        <p className="movies__notfound-text">Вы еще не добавили фильмы в Сохранённые.</p>
+                    </div>)
+                  : 
+                  ( <>
+                  <MoviesCardList
+                      pagetype={pagetype}
+                      moviesList={moviesList}
+                      onSaveClick={onSaveClick}
+                      isOwn={isOwn} />
+                  <MoreButton
+                      pagetype={pagetype} />
+                      </>)
+              }      
+          </main>
+          <Footer
+              pagetype={pagetype} />
+        </>
     );
 };
 

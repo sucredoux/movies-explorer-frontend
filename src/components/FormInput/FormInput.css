@@ -4,7 +4,7 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 1.21; 
-    padding: 0 0 10px;
+    padding: 0 0 9px;
     color: #000;
     border: none;
     border-bottom: 1px solid #e8e8e8;
@@ -18,31 +18,24 @@
     color: #ee3465;
 }
 
+.form__input_type_correct {
+    border-bottom: 1px solid #2be080;
+}
+
 .form__input_type_profile {
     display: flex;
     width: 80%;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.21;
-    padding: 0 0 10px;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.18;
+    padding: 0 0 16px;
     color: #000;
     border: none;
-    text-align: end
-}
-
-.form__input_type_correct {
-    border-bottom: 1px solid #2be080;
+    text-align: end;
 }
 
 @media (max-width: 800px) {
     .form__input {
         font-weight: 400;
-    }
-
-    .form__input_type_profile {
-        font-weight: 400;
-        font-size: 11px;
-        line-height: 1.18;
-        padding: 0 0 16px;
     }
 }

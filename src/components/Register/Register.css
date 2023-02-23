@@ -2,10 +2,22 @@
   grid-area: content;
   display: grid;
   grid-template-columns: 1fr 396px 1fr ;
-  grid-template-rows: 449px 103px;
+  grid-template-rows: 464px 103px;
   justify-items: center;
   padding: 0 70px;
+}
 
-    
-    background-color: aqua;
+
+@media (max-width: 800px) {
+  .register {
+    grid-template-rows: 471px 265px;
+  }
+}
+
+@media (max-width: 580px) {
+  .register {
+    grid-template-columns: 1fr 260px 1fr ;
+    grid-template-rows: 609px 59px;
+    padding: 0 30px;
+  }
 }

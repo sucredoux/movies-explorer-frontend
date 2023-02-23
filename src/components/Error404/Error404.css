@@ -1,21 +1,20 @@
 .error {
-    display: flex;
+    grid-area: content;
+    display: grid;
     position: fixed;
-    flex-direction: column;
+    grid-template-columns: 1fr 300px 1fr;
+    grid-template-rows: 1fr 533px 1fr;
     align-items: center;
     justify-content: center;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
     width: 100vw;
 }
 
 .error__block {
+    grid-column: 2/3;
+    grid-row: 2/3;
     display: flex;
     flex-direction: column;
     justify-items: center;
-    padding-bottom: 184px;
 }
 
 .error__number {
@@ -33,4 +32,21 @@
     line-height: 1.18;
     text-align: center;
     padding-top: 5px;
+}
+
+@media (max-width: 580px) {
+    .error {
+        grid-template-columns: 1fr 300px 1fr;
+        grid-template-rows: 1fr 662px 1fr;
+    }
+    
+    .error__number {
+        font-size: 80px;
+    }
+    
+    .error__text {
+        font-size: 12px;
+        line-height: 1.25;
+        padding-top: 10px;
+    }
 }

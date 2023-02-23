@@ -77,6 +77,18 @@
         font-size: 13px;
         padding: 0 30px 20px;
     }
+    
+    .footer_type_auth {
+        visibility: hidden;
+        height: 0;
+        padding: 0;
+    }
+
+    .footer_type_profile {
+        visibility: hidden;
+        height: 0;
+        padding: 0;
+    }
 }
 
 @media (max-width: 580px) {
@@ -85,6 +97,18 @@
         font-size: 12px;
         line-height: 1.25;
         padding: 0 10px 20px;
+    }
+    
+    .footer_type_auth {
+        visibility: hidden;
+        height: 0;
+        padding: 0;
+    }
+
+    .footer_type_profile {
+        visibility: hidden;
+        height: 0;
+        padding: 0;
     }
     
     .footer__reference {

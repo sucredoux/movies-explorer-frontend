@@ -1,12 +1,10 @@
 import { useState } from "react";
 import "./FormError.css";
 
-function FormError({ formtype }) {
-
-    const[hasError, setHasError] = useState(false);
+function FormError({ formtype, hasError }) {
     
     return (
-        <span className={`form__error ${ hasError ? "form__error_active" : "" } form__error_type_${formtype}`}>Что-то пошло не так...</span>
+        <span className={`form__error ${ hasError ? "form__error_active" : "" } form__error_type_${formtype}`}>{hasError ? "Что-то пошло не так..." : ""}</span>
     );
 };
 
