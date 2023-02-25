@@ -2,15 +2,27 @@ import "./NavTab.css";
 
 function NavTab() {
 
+    const location = "location.href";
+   function redirect() {
+    location ='#project';
+   }
+
     return (
-        <section className="navtab">
-            <button className="navtab__button button">
+        <div className="navtab">
+            <div className="button navtab__button">
                 <a href="#project" className="navtab__button-link link">
                     Узнать больше
                 </a>
-                </button>
-        </section>
+            </div>
+        </div>
     );
 };
 
 export default NavTab;
+
+               /* <a href="#project" className="navtab__button-link link">
+                    Узнать больше
+                </a>
+                onClick="location.href='#project'"
+                
+                */

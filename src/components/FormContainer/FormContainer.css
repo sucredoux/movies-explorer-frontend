@@ -12,6 +12,13 @@
     grid-template-rows: 209px auto;
     align-items: center;
 }
+/*
+.form__container_type_search {
+    display: grid;
+    grid-template-columns: auto 44px;
+    column-gap: 10px;
+    width: 100%;
+}*/
 
 .form__greeting {
     grid-row: 1/2;
@@ -41,6 +48,10 @@
 .form_type_profile {
     grid-template-rows: 95px 204px 16px;
 }
+/*
+.form_type_search {
+
+}*/
 
 .form__fieldset {
     grid-row: 1/2;
@@ -62,7 +73,11 @@
     margin: 0;
     width: 100%;
 }
+/*
+.form__fieldset_type_search {
 
+}
+*/
 .form__button {
     grid-row: 3/4;
     width: 100%;
@@ -139,10 +154,6 @@
     .form_type_profile {
         grid-template-rows: 95px 193px 16px;
     }
-    
-  /*  .form__label_type_profile {
-        padding: 17px 0 0;
-    }*/
 }
 
 @media (max-width: 580px) {

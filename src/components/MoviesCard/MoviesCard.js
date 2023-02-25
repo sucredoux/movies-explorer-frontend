@@ -9,7 +9,7 @@ function MoviesCard({ movie, image, title, duration, onSaveClick, isOwn, pagetyp
 
     const moviesPage = pagetype === "movies";
     const moviesOwnClassName = `${ isOwn ? "movies__save_type_like" : "movies__save_type_nolike" }`;
-    const moviesSaveClassName = ` movies__save ${ moviesPage ?  `${moviesOwnClassName}` : "movies__save_type_delete" }`;
+    const moviesSaveClassName = `button movies__save ${ moviesPage ?  `${moviesOwnClassName}` : "movies__save_type_delete" }`;
 
 
     function handleClick() {
@@ -17,14 +17,14 @@ function MoviesCard({ movie, image, title, duration, onSaveClick, isOwn, pagetyp
     }
 
     return (
-        <div className="movies__item">
+        <li className="movies__item">
             <img className="movies__preview" src={image} alt={title} />
             <div className="movies__about">
                 <p className="movies__title">{title}</p>
                 <p className="movies__length">{duration}</p>
             </div>
-            <div onClick={handleClick} className={moviesSaveClassName}></div>
-        </div>
+            <button onClick={handleClick} className={moviesSaveClassName}></button>
+        </li>
         
     );
 };

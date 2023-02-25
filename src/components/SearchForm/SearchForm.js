@@ -1,27 +1,28 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
+import FormInput from "../FormInput/FormInput";
 import "./SearchForm.css";
 
-function SearchForm({ pagetype }) {
+function SearchForm({ pagetype, onChange, onSubmit }) {
 
 
     return (
-        <section className={`search search_type_${pagetype}`}>
-            <form 
-            name="search-form"
-            noValidate
-            className="search__form">
-                <input 
+        <div className={`search search_type_${pagetype}`}>
+           <form 
+                name="search"
+                noValidate
+                className="search__form">
+            <FormInput
                 type="text" 
                 name="search"
                 id="search-input"
-                className="search__input input"
+                className="input search__input"
                 placeholder="Фильм"
-                />
+                formtype="search" />
             <button type="submit" aria-label="Поиск" name="search-submit"
-            className="search__button button"></button>
+                className="button search__button"></button>
             </form>
             <FilterCheckbox />
-        </section>
+        </div>
     );
 };
 

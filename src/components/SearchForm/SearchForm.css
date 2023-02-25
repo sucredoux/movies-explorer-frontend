@@ -9,32 +9,21 @@
 .search__form {
     display: grid;
     grid-template-columns: auto 44px;
+    grid-template-rows: 50px 18px;
     column-gap: 10px;
+    align-items: center;
     width: 100%;
 }
 
-.search__input {
-    display: flex;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    border: none;
-    height: 50px;
-    padding-left: 20px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.28;
-    color: #a0a0a0;
-    box-sizing: content-box;
-}
-
 .search__button {
+    grid-column: 2/3;
+    grid-row: 1/2;
     display: flex;
     background-image: url(../../images/search__button.svg);
     width: 44px;
     height: 44px;
     background-repeat: no-repeat;
     border: none;
-    border-radius: none;
 }
 
 @media (max-width: 580px) {

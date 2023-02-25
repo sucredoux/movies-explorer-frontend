@@ -10,6 +10,7 @@
 .navtab__button {
     display: flex;
     background-color: transparent;
+    color: #fff;
     border: 1px solid #fff;
     width: 129px;
     height: 36px;

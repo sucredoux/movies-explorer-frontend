@@ -14,7 +14,7 @@ function SavedMovies({ pagetype, moviesList, onSaveClick, isOwn, loggedIn }) {
         <><Header
             loggedIn={loggedIn}
             pagetype={pagetype} />
-          <main className="movies">        
+          <main className={`movies movies_type_${pagetype}`}>        
             <SearchForm
               pagetype={pagetype} />
               { searchNotFound ? 

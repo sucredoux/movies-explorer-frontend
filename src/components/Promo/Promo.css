@@ -55,7 +55,7 @@
 
 @media (max-width: 880px) {
     .promo {
-        grid-template-columns: 1fr 680px 1fr;
+        grid-template-columns: 1fr minmax(520px, 680px) 1fr;
         grid-template-rows: 310px 148px;
         row-gap: 48px;
         justify-items: center;
@@ -92,7 +92,7 @@
 
 @media (max-width: 580px) {
     .promo {
-        grid-template-columns: 1fr 300px 1fr;
+        grid-template-columns: 1fr minmax(300px, 520px) 1fr;
         grid-template-rows: 206px 170px;
         row-gap: 44px;
         padding: 70px 10px 0;

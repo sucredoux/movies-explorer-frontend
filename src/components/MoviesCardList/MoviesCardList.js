@@ -4,8 +4,8 @@ import "./MoviesCardList.css";
 function MoviesCardList({ pagetype, moviesList, isOwn, onSaveClick }) {
 
     return (
-        <section className="movies-list">
-            <div className="movies__container">
+        <div className="movies-list">
+            <ul className="list movies__container">
                 {moviesList.map((movie) => (
                     <MoviesCard
                     key={movie._id}
@@ -18,8 +18,8 @@ function MoviesCardList({ pagetype, moviesList, isOwn, onSaveClick }) {
                     pagetype={pagetype}
                     /> 
                 ))}
-            </div>
-        </section>
+            </ul>
+        </div>
     );
 };
 

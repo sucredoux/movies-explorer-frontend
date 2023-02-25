@@ -6,7 +6,7 @@
 }
 
 .more_type_saved-movies {
-    padding: 120px 0 80px;
+    padding: 155px 0 80px;
 }
 
 .more__button {
@@ -27,11 +27,12 @@
 
 .more__button_type_saved-movies {
     visibility: hidden;
+    height: 0;
 }
 
 @media (max-width: 800px) {
     .more_type_saved-movies {
-        padding: 52px 0 52px;
+        padding: 60px 0 80px;
     }
 }
 

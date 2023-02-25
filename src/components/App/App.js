@@ -49,9 +49,7 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
-        
-        
+      <div className="page">        
           <Switch>
             <Route path='/' exact>
               <Main
@@ -62,6 +60,8 @@ function App() {
                 pagetype="movies"
                 moviesList={moviesList}
                 isOwn={isOwn}
+                onChange="onChange"
+                onSubmit="onSubmit"
                 onSaveClick={handleOnSaveClick} />
             </Route>
             <Route path="/saved-movies">
@@ -94,28 +94,10 @@ function App() {
             <Route path="*">
               {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" /> }
           </Route>
-
-          </Switch>
-
-          
+          </Switch>          
       </div>
     </CurrentUserContext.Provider>
   );
 }
 
 export default App;
-
-
-/*
- <Footer />  
-
- 
-          {isMobile && loggedIn ? (
-            <MobileHeader/>
-          ) : (
-            <Header
-              loggedIn={loggedIn} />
-          )}
-  <main className="content">          </main>
-
-*/

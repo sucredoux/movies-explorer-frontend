@@ -7,7 +7,7 @@ import Footer from "../Footer/Footer";
 import { useState } from "react";
 
 
-function Movies({ pagetype, moviesList, onSaveClick, isOwn, loggedIn }) {
+function Movies({ pagetype, moviesList, onSaveClick, isOwn, loggedIn, onChange, onSubmit }) {
 
     const[searchNotFound, setSearchNotFound] = useState(false);
 
@@ -15,9 +15,11 @@ function Movies({ pagetype, moviesList, onSaveClick, isOwn, loggedIn }) {
         <><Header
               loggedIn={loggedIn}
               pagetype={pagetype} />
-            <main className="movies">           
+            <main className={`movies movies_type_${pagetype}`}>           
                 <SearchForm
-                    pagetype={pagetype} />
+                    pagetype={pagetype}
+                    onChange={onChange}
+                    onSubmit={onSubmit} />
                 { searchNotFound ? 
                     (<div className="movies__notfound">
                         <p className="movies__notfound-text">Поиск по Вашему запросу не дал результата. Попробуйте еще раз.</p>
