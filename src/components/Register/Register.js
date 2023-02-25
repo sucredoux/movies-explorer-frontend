@@ -17,6 +17,7 @@ function Register({ onSubmit, onChange, pagetype }) {
                     name="register"
                     greeting="Добро пожаловать!"
                     onSubmit={onSubmit}
+                    aria-label="Зарегистрироваться"
                     buttonText="Зарегистрироваться"
                     pagetype={pagetype}
                     formtype="auth"
@@ -31,6 +32,8 @@ function Register({ onSubmit, onChange, pagetype }) {
                         name="name"
                         id="register-name-input"
                         formtype="auth"
+                        minLength="2"
+                        maxLength="40"
                         placeholder="Виталий"
                         value="Виталий"
                         onChange={onChange}

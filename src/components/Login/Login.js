@@ -33,6 +33,8 @@ function Login({ onSubmit, onChange, pagetype }) {
                         id="login-email-input"
                         formtype="auth"
                         placeholder="pochta@yandex.ru"
+                        minLength="2"
+                        maxLength="40"
                         value="pochta@yandex.ru"
                         onChange={onChange} />
                     <FormError
