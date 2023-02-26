@@ -1,0 +1,130 @@
+.movies__item {
+    display: grid;
+    grid-template-columns: 302px 62px;
+    grid-template-rows: 203px 78px;
+    background-color: #fdfdfd;
+    border-radius: 6px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+}
+
+.movies__preview {
+    grid-column: 1/3;
+    grid-row: 1/2;
+    width: 364px;
+    height: 203px;
+    overflow: hidden;
+    align-items: stretch;
+    object-fit: cover;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+}
+
+.movies__about {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px 0 16px 16px;
+}
+
+.movies__title {
+    margin: 0;
+    padding-bottom: 17px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.23;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.movies__length {
+    display: flex;
+    margin: 0;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.18;
+    color: #a0a0a0;
+}
+
+.movies__save {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    margin: 9px 0 39px;
+    justify-self: center;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.movies__save:hover {
+    cursor: pointer;
+}
+
+.movies__save_type_nolike {
+    background-image: url(../../images/movies__save_type_nolike.svg);
+}
+
+.movies__save_type_like {
+    background-image: url(../../images/movies__save_type_like.svg);
+}
+
+.movies__save_type_delete {
+    background-image: none;
+}
+
+.movies__save_type_delete:hover {
+    background-image: url(../../images/movies__save_type_delete.svg);
+}
+
+@media (max-width: 800px) {
+    .movies__item {
+        grid-template-columns: 278px 61px;
+        grid-template-rows: 190px 72px;
+    }
+    
+    .movies__preview {
+        width: 339px;
+        height: 190px;
+    }
+    
+    .movies__about {
+        padding: 14px 0 14px 14px;
+    }
+    
+    .movies__title {
+        padding-bottom: 15px;
+    }
+}
+
+@media (max-width: 580px) {
+    .movies__item {
+        grid-template-columns: 249px 51px;
+        grid-template-rows: 168px 69px;
+    }
+    
+    .movies__preview {
+        width: 300px;
+        height: 168px;
+    }
+    
+    .movies__title {
+        padding-bottom: 14px;
+        font-size: 12px;
+        line-height: 1.25;
+    }
+    
+    .movies__length {
+        font-size: 10px;
+        line-height: 1.2;
+    }
+    
+    .movies__save {
+        margin: 7px 0 32px;
+    }
+}

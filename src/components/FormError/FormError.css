@@ -1,0 +1,26 @@
+.form__error {
+    display: flex;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 1.2;
+    color: #ee3465;
+    padding-top: 6px;
+    min-height: 12px;
+   /* visibility: hidden;*/
+}
+
+.form__error_type_profile-edit {
+    justify-content: center;
+}
+
+.form__error_type_search {
+    justify-content: center;
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+/*
+.form__error_active {
+    visibility: visible;
+}
+*/

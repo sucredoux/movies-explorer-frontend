@@ -1,0 +1,16 @@
+.res__error {
+    display: flex;
+    align-items: flex-end;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.18;
+    color: #ee3465;
+    padding-bottom: 20px;
+    min-height: 23px;
+   /* visibility: hidden;
+}
+
+.res__error_active {
+    visibility: visible;*/
+
+}

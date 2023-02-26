@@ -1,0 +1,10 @@
+.profile-edit {
+    grid-area: content;
+    display: grid;
+    grid-template-columns: 1fr 410px 1fr;
+    grid-template-rows: 524px 102px;
+    justify-items: center;
+    padding: 0 70px;
+
+    background-color: aqua;
+}
