@@ -21,10 +21,10 @@
     justify-content: center;
     align-items: center;
 }
-/*
+
 .navtab__button-link {
     color: #fff;
-}*/
+}
 
 @media (max-width: 800px) {
     .navtab {
