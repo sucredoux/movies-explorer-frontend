@@ -10,6 +10,14 @@ function SavedMovies({ pagetype, moviesList, onSaveClick, isOwn, loggedIn }) {
 
     const[searchNotFound, setSearchNotFound] = useState(false);
 
+    if (searchNotFound) {
+        return (
+            <div className="movies__notfound">
+            <p className="movies__notfound-text">Среди сохранённых нет фильмов с таким ключевым словом.</p>
+        </div>  
+        )
+    }
+
     return (
         <><Header
             loggedIn={loggedIn}
@@ -17,11 +25,7 @@ function SavedMovies({ pagetype, moviesList, onSaveClick, isOwn, loggedIn }) {
           <main className={`movies movies_type_${pagetype}`}>        
             <SearchForm
               pagetype={pagetype} />
-              { searchNotFound ? 
-                  (<div className="movies__notfound">
-                        <p className="movies__notfound-text">Вы еще не добавили фильмы в Сохранённые.</p>
-                    </div>)
-                  : 
+            { isOwn ?
                   ( <>
                   <MoviesCardList
                       pagetype={pagetype}
@@ -31,6 +35,10 @@ function SavedMovies({ pagetype, moviesList, onSaveClick, isOwn, loggedIn }) {
                   <MoreButton
                       pagetype={pagetype} />
                       </>)
+                      :
+                      (<div className="movies__notfound">
+                      <p className="movies__notfound-text">Вы еще не добавили фильмы в Сохранённые.</p>
+                  </div>)
               }      
           </main>
           <Footer
@@ -40,3 +48,11 @@ function SavedMovies({ pagetype, moviesList, onSaveClick, isOwn, loggedIn }) {
 };
 
 export default SavedMovies;
+
+/*
+{ searchNotFound ? 
+    (<div className="movies__notfound">
+          <p className="movies__notfound-text">Вы еще не добавили фильмы в Сохранённые.</p>
+      </div>)
+    : 
+    */

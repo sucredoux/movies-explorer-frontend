@@ -25,6 +25,12 @@
     color: #2be080;
 }
 
+@media (max-width: 900px) {
+    .movies {
+        padding: 0 40px;
+    }
+}
+
 @media (max-width: 800px) {
     .movies {
         padding: 0 30px;

@@ -5,9 +5,34 @@ import FormError from "../FormError/FormError";
 import FormInput from "../FormInput/FormInput";
 import Header from "../Header/Header";
 import "./Login.css";
-import "../FormContainer/FormContainer.css"
+import "../FormContainer/FormContainer.css";
+import { useState } from "react";
+import { Redirect } from "react-router-dom";
 
-function Login({ onSubmit, onChange, pagetype }) {
+function Login({ loggedIn, onLogin, pagetype }) {
+
+    const [userData, setUserData] = useState({
+        email: "",
+        password: "",
+    })
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setUserData({
+            ...userData,
+            [name]: value,
+        });
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        let { email, password } = userData;
+        onLogin({ email, password });
+    }
+
+    if (loggedIn) {
+        return <Redirect to="/movies" />
+    }
 
     return (
         <><Header
@@ -16,7 +41,7 @@ function Login({ onSubmit, onChange, pagetype }) {
                 <FormContainer
                     name="login"
                     greeting="Рады видеть!"
-                    onSubmit={onSubmit}
+                    onSubmit={handleSubmit}
                     buttonText="Войти"
                     pagetype={pagetype}
                     formtype="auth"
@@ -35,8 +60,8 @@ function Login({ onSubmit, onChange, pagetype }) {
                         placeholder="pochta@yandex.ru"
                         minLength="2"
                         maxLength="40"
-                        value="pochta@yandex.ru"
-                        onChange={onChange} />
+                        value={userData?.email}
+                        onChange={handleChange} />
                     <FormError
                         formtype="auth" />
                     <label 
@@ -50,8 +75,8 @@ function Login({ onSubmit, onChange, pagetype }) {
                         id="login-password-input"
                         formtype="auth"
                         placeholder=""
-                        value="123456"
-                        onChange={onChange} />
+                        value={userData?.password}
+                        onChange={handleChange} />
                     <FormError
                         formtype="auth" />
                 </fieldset>

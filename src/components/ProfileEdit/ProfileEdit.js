@@ -6,16 +6,40 @@ import Header from '../Header/Header';
 import './ProfileEdit.css';
 import '../Profile/Profile.css';
 import "../FormContainer/FormContainer.css";
+import React from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { useState, useEffect } from 'react';
 
-function ProfileEdit({ onSubmit, onChange, pagetype }) {
+function ProfileEdit({ onUpdateUser, pagetype }) {
+
+    const currentUser = React.useContext(CurrentUserContext);
+    const [userData, setUserData] = useState({
+        name: currentUser.name,
+        email: currentUser.email,  
+    })
+
+    function handleChange(e) {
+        let { name, value } = e.target;
+        setUserData({
+            ...userData,
+            [name]: value,
+        });
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        let { name, email } = userData;
+        onUpdateUser({ name, email });
+    }
+
     return (
         <><Header
             pagetype={pagetype} />
             <main className="profile">
                 <FormContainer
                     name="profile-edit"
-                    greeting="Привет, Виталий!"
-                    onSubmit={onSubmit}
+                    greeting={`Привет, ${currentUser.name}!`}
+                    onSubmit={handleSubmit}
                     buttonText="Сохранить"
                     pagetype={pagetype}
                     formtype="profile"
@@ -30,8 +54,10 @@ function ProfileEdit({ onSubmit, onChange, pagetype }) {
                                 id="profile-edit-name-input"
                                 formtype="profile"
                                 placeholder="Виталий"
-                                value="Виталий"
-                                onChange={onChange}
+                                minLength="2"
+                                maxLength="40"
+                                value={userData.name}
+                                onChange={handleChange}
                             />
                         </label>
                         <FormError
@@ -45,8 +71,8 @@ function ProfileEdit({ onSubmit, onChange, pagetype }) {
                                 id="profile-edit-email-input"
                                 formtype="profile"
                                 placeholder="pochta@yandex.ru"
-                                value="pochta@yandex.ru"
-                                onChange={onChange}
+                                value={userData.email}
+                                onChange={handleChange}
                             />
                         </label>
                         <FormError

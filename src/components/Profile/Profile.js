@@ -8,11 +8,11 @@ import './Profile.css';
 import "../FormContainer/FormContainer.css";
 import React, { useEffect, useState } from 'react';
 import ProfileEdit from '../ProfileEdit/ProfileEdit';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile({ onSubmit, pagetype }) {
+function Profile({ onEditClick, pagetype, onLogout }) {
 
-  /* const currentUser = React.useContext();*/
-  const currentUser = "Виталий";
+  const currentUser = React.useContext(CurrentUserContext);
 
     
 
@@ -22,9 +22,8 @@ function Profile({ onSubmit, pagetype }) {
             <main className="profile">
                 <FormContainer
                     name="profile"
-                    greeting="Привет, Виталий!"
-                    /*onSubmit={onSubmit}*/
-                    onSubmit={onSubmit}
+                    greeting={`Привет, ${currentUser.name}!`}
+                    onSubmit={onEditClick}
                     buttonText="Редактировать"
                     pagetype={pagetype}
                     formtype="profile"
@@ -39,9 +38,8 @@ function Profile({ onSubmit, pagetype }) {
                                 id="profile-name-input"
                                 formtype="profile"
                                 placeholder="Виталий"
-                                /*readOnly="readOnly"*/
+                                readOnly
                                 value={currentUser.name}
-                                onSubmit={onSubmit}
                             />
                         </label>
                         <label
@@ -53,14 +51,14 @@ function Profile({ onSubmit, pagetype }) {
                                 id="profile-email-input"
                                 formtype="profile"
                                 placeholder="pochta@yandex.ru"
-                               /*readOnly="readOnly"*/
+                                readOnly
                                 value={currentUser.email}
-                                onSubmit={onSubmit}
                             />
                         </label>
                     </fieldset>
             </FormContainer>
             <AuthReminder
+                onLogout={onLogout}
                 pagetype={pagetype}
                 path="/"
                 actionText="Выйти из аккаунта" />
@@ -72,3 +70,15 @@ function Profile({ onSubmit, pagetype }) {
 };
 
 export default Profile;
+
+/*
+path="/profile"
+{ inEditState 
+?   component={ProfileEdit}
+  onUpdateUser={handleUpdateUser}
+  pagetype="profile-edit" 
+:   component={Profile}
+  pagetype="profile" 
+  onEditClick={handleOnEditClick} 
+  onLogout={userLogOut}
+}*/

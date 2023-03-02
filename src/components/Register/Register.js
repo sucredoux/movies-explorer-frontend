@@ -6,8 +6,81 @@ import Header from "../Header/Header";
 import FormError from "../FormError/FormError";
 import "./Register.css";
 import "../FormContainer/FormContainer.css";
+import { useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 
-function Register({ onSubmit, onChange, pagetype }) {
+function Register({ loggedIn, pagetype, onRegister, isRegistered, isActive, onSubmit, onChange, inputData }) {
+
+    const [userData, setUserData] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
+    const [isValid, setIsValid] = useState(false);
+    const [hasError, setHasError] = useState(false);
+   /* const [isActive, setIsActive] = useState(false);*/
+    const [errorMessage, setErrorMessage] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setUserData({
+            ...userData,
+            [name]: value,
+        });
+        setErrorMessage({
+            ...errorMessage,
+            [name]: e.target.validationMessage,
+          });
+        setIsValid(
+            e.target.closest("form").checkValidity()
+        );
+        if (isValid === false) {
+            setHasError(true);
+          } else {
+            setHasError(false);
+            setErrorMessage({
+              name: "",
+              about: "",
+            });
+            setIsValid(true);
+           /* setIsActive(true);*/
+          }
+        
+    };
+
+    console.log(hasError);
+console.log(isValid);
+console.log(errorMessage);
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        let { name, email, password } = userData;
+        onRegister({ name, email, password });
+    };
+    
+    useEffect(() => {
+        setUserData({
+            name: "",
+            email: "",
+            password: "",
+        });
+        setErrorMessage({
+            name: "",
+            email: "",
+            password: "",
+        });
+        setIsValid(false);
+        setHasError(false);
+      }, []);
+
+
+    if (isRegistered) {
+        return <Redirect to="/signin" />;
+    }
 
     return (
         <><Header
@@ -16,11 +89,16 @@ function Register({ onSubmit, onChange, pagetype }) {
                 <FormContainer
                     name="register"
                     greeting="Добро пожаловать!"
-                    onSubmit={onSubmit}
+                    onSubmit={handleSubmit}
                     aria-label="Зарегистрироваться"
                     buttonText="Зарегистрироваться"
                     pagetype={pagetype}
                     formtype="auth"
+                    isValid={isValid}
+                    isActive={isActive}
+                    onChange={handleChange}
+                    hasError={hasError}
+                    errorMessage={errorMessage}
                 >
                 <fieldset className="form__fieldset">
                     <label 
@@ -34,9 +112,7 @@ function Register({ onSubmit, onChange, pagetype }) {
                         formtype="auth"
                         minLength="2"
                         maxLength="40"
-                        placeholder="Виталий"
-                        value="Виталий"
-                        onChange={onChange}
+                        placeholder="Виталий"                       
                     />
                         <label 
                         for="register-email-input" 
@@ -47,8 +123,9 @@ function Register({ onSubmit, onChange, pagetype }) {
                         id="register-email-input"
                         formtype="auth"
                         placeholder="pochta@yandex.ru"
-                        value="pochta@yandex.ru"
+                        
                         onChange={onChange}
+                      
                     />
                     <label 
                         for="register-password-input" 
@@ -59,8 +136,8 @@ function Register({ onSubmit, onChange, pagetype }) {
                         id="register-password-input"
                         formtype="auth"
                         placeholder=""
-                        value="123456"
                         onChange={onChange}
+                        
                     />
                 </fieldset>
             </FormContainer>
@@ -78,6 +155,77 @@ function Register({ onSubmit, onChange, pagetype }) {
 
 export default Register;
 
-
+/*
 <FormError
 formtype="auth" />
+
+
+hasError={hasError}
+                    isActive={isActive}
+                    isValid={isValid}
+
+onChange={handleChange}
+                        isValid={isValid}
+                        isActive={isActive}
+                        hasError={hasError}
+                        errorMessage={errorMessage}
+value={userData?.name}
+value={userData?.email}
+value={userData?.password}
+
+const [userData, setUserData] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
+    const [isValid, setIsValid] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
+    const [hasError, setHasError] = useState(false);
+    const [isActive, setIsActive] = useState(false);
+    const [errorMessage, setErrorMessage] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setUserData({
+            ...userData,
+            [name]: value,
+        });
+        setErrorMessage({
+            ...errorMessage,
+            [name]: e.target.validationMessage,
+          });
+        setIsValid({
+            ...isValid,
+            [name]: e.target.validity.valid,
+        });
+        if (e.target.validity.valid === false) {
+            setHasError(true);
+          } else {
+            setHasError(false);
+            setErrorMessage({
+              name: "",
+              about: "",
+            });
+            setIsValid({
+              name: "",
+              about: "",
+            });
+            setIsActive(true);
+          }
+        
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        let { name, email, password } = userData;
+        onRegister({ name, email, password });
+    }
+
+    */
