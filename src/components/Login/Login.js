@@ -9,26 +9,81 @@ import "../FormContainer/FormContainer.css";
 import { useState } from "react";
 import { Redirect } from "react-router-dom";
 
-function Login({ loggedIn, onLogin, pagetype }) {
+function Login({ loggedIn, onLogin, pagetype, resError }) {
 
     const [userData, setUserData] = useState({
         email: "",
         password: "",
-    })
+    });
+    const [isValid, setIsValid] = useState({
+        email: "",
+        password: "",
+    });
+    const [hasError, setHasError] = useState(false);
+    const [isActive, setIsActive] = useState(false);
+    const [errorMessage, setErrorMessage] = useState({
+        email: "",
+        password: "",
+    });
 
-    function handleChange(e) {
+    function handleInput(e) {
+        setIsActive(true);
         const { name, value } = e.target;
         setUserData({
             ...userData,
             [name]: value,
         });
-    }
+        setErrorMessage({
+            ...errorMessage,
+            [name]: e.target.validationMessage,
+          });
+        setIsValid({
+            ...isValid,
+            [name]: e.target.validity.valid,
+        });
+        if (e.target.validity.valid === false) {
+            setHasError(true);
+          } else {
+            setHasError(false);
+            setErrorMessage({
+                email: "",
+                password: "",
+            });
+            setIsValid({
+                email: "",
+                password: "",
+            });
+            }
+    };
 
     function handleSubmit(e) {
         e.preventDefault();
         let { email, password } = userData;
         onLogin({ email, password });
-    }
+    };
+
+ /*   useEffect(() => {
+        setUserData({
+            name: "",
+            email: "",
+            password: "",
+        });
+        setErrorMessage({
+            name: "",
+            email: "",
+            password: "",
+        });
+        setIsValid({
+            name: "",
+            email: "",
+            password: "",
+        });
+        setHasError(false);
+        setIsActive(false);
+      }, []);*/
+
+    const classNameError = "form__input_type_error";
+    const classNameCorrect = "form__input_type_correct";
 
     if (loggedIn) {
         return <Redirect to="/movies" />
@@ -45,6 +100,10 @@ function Login({ loggedIn, onLogin, pagetype }) {
                     buttonText="Войти"
                     pagetype={pagetype}
                     formtype="auth"
+                    isActive={isActive}
+                    isValid={isValid}
+                    hasError={hasError}
+                    resError={resError}
                 >
                 <fieldset className="form__fieldset">
                     <label 
@@ -57,13 +116,17 @@ function Login({ loggedIn, onLogin, pagetype }) {
                         name="email"
                         id="login-email-input"
                         formtype="auth"
+                        required
                         placeholder="pochta@yandex.ru"
                         minLength="2"
                         maxLength="40"
                         value={userData?.email}
-                        onChange={handleChange} />
-                    <FormError
-                        formtype="auth" />
+                        onChange={handleInput}
+                        hasError={hasError}
+                        isValid={isValid}
+                        errorMessage={errorMessage?.email} 
+                        className={`input form__input form__input_type_auth ${hasError  ? classNameError : (isActive ? classNameCorrect : "")}`}           
+                        />
                     <label 
                             for="login-password-input" 
                             className="form__label form__label_type_auth">Пароль
@@ -74,11 +137,15 @@ function Login({ loggedIn, onLogin, pagetype }) {
                         name="password"
                         id="login-password-input"
                         formtype="auth"
+                        required
                         placeholder=""
                         value={userData?.password}
-                        onChange={handleChange} />
-                    <FormError
-                        formtype="auth" />
+                        onChange={handleInput}
+                        hasError={hasError}
+                        isValid={isValid}
+                        errorMessage={errorMessage?.email} 
+                        className={`input form__input form__input_type_auth ${hasError  ? classNameError : (isActive ? classNameCorrect : "")}`}           
+                        />
                 </fieldset>
                 </FormContainer>
                 <AuthReminder

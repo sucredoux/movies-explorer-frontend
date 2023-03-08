@@ -6,9 +6,11 @@ import Header from "../Header/Header";
 import "../Movies/Movies.css";
 import { useState } from "react";
 
-function SavedMovies({ pagetype, moviesList, onSaveClick, isOwn, loggedIn }) {
+function SavedMovies({ pagetype, moviesList, onDeleteClick, isOwn, loggedIn, onSearch, onShortFilter }) {
 
     const[searchNotFound, setSearchNotFound] = useState(false);
+
+console.log(moviesList);
 
     if (searchNotFound) {
         return (
@@ -24,13 +26,14 @@ function SavedMovies({ pagetype, moviesList, onSaveClick, isOwn, loggedIn }) {
             pagetype={pagetype} />
           <main className={`movies movies_type_${pagetype}`}>        
             <SearchForm
-              pagetype={pagetype} />
-            { isOwn ?
+              pagetype={pagetype}
+              onShortFilter={onShortFilter} />
+            { moviesList.length !== 0 ?
                   ( <>
                   <MoviesCardList
                       pagetype={pagetype}
                       moviesList={moviesList}
-                      onSaveClick={onSaveClick}
+                      onDeleteClick={onDeleteClick}
                       isOwn={isOwn} />
                   <MoreButton
                       pagetype={pagetype} />

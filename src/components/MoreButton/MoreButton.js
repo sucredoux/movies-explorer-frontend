@@ -1,6 +1,6 @@
 import "./MoreButton.css";
 
-function MoreButton({ noMore, onAddMore }) {
+function MoreButton({ noMore, onAddMore, pagetype }) {
 
     function handleClick(e) {
         e.preventDefault();
@@ -8,11 +8,11 @@ function MoreButton({ noMore, onAddMore }) {
     }        
     
     return (
-        <div className={!noMore ? "more" : "more more_type_disabled"}>
+        <div className={`more more_type_${pagetype} ${!noMore ? "" : "more_type_disabled"}`}>
             <button
             type="button"
             aria-label="Ещё"
-            className={!noMore ? "more__button button" :  "more__button button more__button_type_disabled"}
+            className={`more__button button ${noMore ? "more__button_type_disabled" : ""}`}
             onClick={handleClick}
             >Ещё</button>
 

@@ -2,11 +2,13 @@ import React from "react";
 import logo from "../../images/logo.svg";
 import "./Header.css";
 import Navigation from "../Navigation/Navigation";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function Header({ pagetype }) {
 
   const headerClassName = `header header_type_${ pagetype}`;
+
+  
 
     return (
         <header className={headerClassName}>

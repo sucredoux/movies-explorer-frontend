@@ -58,12 +58,12 @@ function Profile({ onEditClick, pagetype, onLogout }) {
                     </fieldset>
             </FormContainer>
             <AuthReminder
-                onLogout={onLogout}
+                onClick={onLogout}
                 pagetype={pagetype}
                 path="/"
                 actionText="Выйти из аккаунта" />
-                </main>
-        <Footer
+            </main>
+            <Footer
                 pagetype={pagetype} /></>
 
     );

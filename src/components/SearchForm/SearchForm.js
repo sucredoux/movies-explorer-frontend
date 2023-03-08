@@ -3,70 +3,46 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import FormInput from "../FormInput/FormInput";
 import "./SearchForm.css";
 
-function SearchForm({ pagetype, onSearch, moviesList }) {
+function SearchForm({ pagetype, onSearch, moviesList, savedQuery, checked, onShortFilter }) {
 
     const [searchInput, setSearchInput] = useState("");
-    const [searchQuery, setSearchQuery] = useState("");
-    const [moviesData, setMoviesData] = useState([]);
-    const [searchData, setSearchData] = useState([]);
+  /*  const [moviesData, setMoviesData] = useState([]);*/
+  /*  const [searchData, setSearchData] = useState([]);*/
+ /* const moviespage = pagetype === "movies";*/
     
- 
-
-    function handleMoviesData() {
-        let movies = localStorage.getItem("movies");
-        movies = JSON.parse(movies);
-        console.log(movies);
-        setMoviesData(movies);
-        console.log(moviesData);
-    }
-
-  
-    function searchFilm(searchQuery) {
-  
-        const searchResult = moviesData.filter(movie => {
-         return (movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()))
-               
-        }); console.log(searchResult);
-        setSearchData(searchResult);
-        console.log(searchData);
-    }
-
-
-           
-
     function handleChange(e) {
         localStorage.removeItem("searchResultMovies");
-        localStorage.removeItem("searchQuery");
+        localStorage.removeItem("searchQuery")
+             
         setSearchInput(e.target.value);
-    }
+    };
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("refresh prevented");
-        setSearchQuery(searchInput);
-        console.log(searchQuery);
-        handleMoviesData();
-        searchFilm(searchQuery);
-        
-        localStorage.setItem("searchResultMovies", JSON.stringify(searchData));
-        localStorage.setItem("searchQuery", searchQuery);
-        onSearch(searchData);
-    }
-    
+        onSearch(searchInput);
+     /*   localStorage.setItem(`searchQuery${pagetype}`, searchInput);*/
+    };
 
-    /* const result = useCallback
+    function handleClick(e){
+        e.preventDefault();  
+        onShortFilter();
+    };
+
+  /*  useEffect(() => {
+        setSavedQuery(localStorage.getItem("searchQuery"));
+    }, []);*/
+
     useEffect(() => {
-        handleMoviesData();
-        searchFilm(searchQuery);
-        onSearch(searchData);
-    }, [])*/
+        setSearchInput(savedQuery);
+    }, [savedQuery]);
  
     return (
         <div className={`search search_type_${pagetype}`}>
            <form 
                 name="search"
                 noValidate
-                onSubmit={handleSubmit} 
+                onSubmit={handleSubmit}
+                
                 className="search__form"
                 >
             <FormInput
@@ -84,7 +60,9 @@ function SearchForm({ pagetype, onSearch, moviesList }) {
                 name="search-submit"
                 className="button search__button"></button>
             </form>
-            <FilterCheckbox />
+            <FilterCheckbox
+                onClick={handleClick}
+                checked={checked} />
         </div>
     );
 };
@@ -93,7 +71,7 @@ export default SearchForm;
 
 
 /*
-
+: localStorage.removeItem("searchResultSavedMovies") && localStorage.removeItem("searchQuerySavedMovies")
 localStorage.getItem("searchQguery")
 /*
   function handleMoviesList() {
@@ -124,3 +102,76 @@ localStorage.getItem("searchQguery")
                  /*console.log(movie.nameRU.match(regex));*/
                 /* return movie.nameRU.match(regex);*/
 
+
+
+
+
+
+                 /*
+/*
+    function handleMoviesData() {
+        let movies = localStorage.getItem("movies");
+      /*  let movies = localStorage.getItem(`${pagetype}`);*/
+      /*  movies = JSON.parse(movies);
+     
+        setMoviesData(movies);
+    }*/
+  
+ /*   console.log(moviesData);*/
+ /*   console.log(moviesList);
+    console.log(searchQuery);
+    console.log(searchData);
+/*
+    function searchFilm(searchQuery) {
+  
+        const searchResult = moviesData.filter(movie => {
+         return (movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()))             
+        }); 
+        setSearchData(searchResult);
+    }
+*//*
+    function searchFilm(searchQuery) {
+    
+        const searchResult = moviesList.filter(movie => {
+        return (movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()))             
+        }); 
+        setSearchData(searchResult);
+    }
+
+    function handleChange(e) {
+        localStorage.removeItem("searchResultMovies");
+        localStorage.removeItem("searchQuery");
+        
+        
+       setSearchInput(e.target.value);
+        /*setSearchQuery(searchInput);*/
+  
+        
+   /* }
+
+    /* useEffect(() => {
+         searchFilm(searchQuery);
+     }, [searchQuery]);*/
+ /*
+     function handleSubmit(e) {
+         e.preventDefault();
+        /* setSearchQuery(searchInput);*/
+        
+       /*  handleMoviesData();*/
+      /*   searchFilm(searchInput);
+         
+         localStorage.setItem("searchResultMovies", JSON.stringify(searchData));
+         localStorage.setItem("searchQuery", searchQuery);
+         onSearch(searchData);
+     }
+   /*  
+ useEffect(()=> {
+     setSearchQuery(savedQuery);
+ }, [savedQuery])*/
+ 
+     /* const result = useCallback
+     useEffect(() => {
+         handleMoviesData();
+         searchFilm(searchQuery);
+         onSearch(searchData);
+     }, [])*/

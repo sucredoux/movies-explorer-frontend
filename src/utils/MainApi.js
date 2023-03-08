@@ -15,7 +15,7 @@ export default class MainApi {
     #onResponse(res){
         if (res.ok) {
           return res.json();
-        } return Promise.reject(`Ошибка: ${res.statusText}`);
+        } return Promise.reject(`${res.statusText}`);
     }
 
     registerUser(data) {
@@ -60,6 +60,19 @@ export default class MainApi {
         })
     }
 
+    getSavedMovies(jwt) {
+        return fetch(`${this._url}/movies`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${localStorage.getItem('jwt')}`
+            }
+        })
+        .then((res) => {
+            return this.#onResponse(res)
+        })
+    }
+
     saveMovie(data) {
         return fetch (`${this._url}/movies`, {
             method: "POST",
@@ -68,7 +81,7 @@ export default class MainApi {
                 authorization: `Bearer ${localStorage.getItem('jwt')}`
             },
             body: JSON.stringify({
-                movieId: data.id,
+                movieId: data.movieId,
                 nameRU: data.nameRU,
                 nameEN: data.nameEN,
                 director: data.director,

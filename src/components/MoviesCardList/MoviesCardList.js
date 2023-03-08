@@ -1,27 +1,32 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
 
-function MoviesCardList({ pagetype, moviesList, isOwn, onSaveClick }) {
-
-
+function MoviesCardList({ pagetype, moviesList, savedList, isOwn, isSaved, onSaveClick, onDeleteClick }) {
     
-console.log(moviesList);
+console.log(savedList);
+
 
     return (
         <div className="movies-list">
             <ul className="list movies__container">
                 {moviesList.map((movie) => (
                     <MoviesCard
-                    key={movie.id}
+                    key={movie.movieId}
+                    _id={movie._id}
                     movie={movie}
-                    movieId={movie.id}
+                    movieId={movie.movieId}
+                    owner={movie.owner}
                     image={movie.image}
                     thumbnail={movie.thumbnail}
+                    trailerLink={movie.trailerLink}
                     title={movie.nameRU}
                     duration={movie.duration}
                     isOwn={isOwn}
+                    isSaved={isSaved}
                     onSaveClick={onSaveClick}
+                    onDeleteClick={onDeleteClick}
                     pagetype={pagetype}
+                    savedList={savedList}
                     
                     /> 
                 ))}

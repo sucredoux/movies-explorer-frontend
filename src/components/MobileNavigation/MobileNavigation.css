@@ -9,7 +9,7 @@
 
 .menu-mobile__icon {
     display: flex;
-    z-index: 2;
+    z-index: 4;
 }
 
 .menu-mobile__button {
@@ -51,7 +51,7 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.3);
     visibility: visible;
-    z-index: 1;
+    z-index: 3;
 }
 
 .menu-mobile__menu {

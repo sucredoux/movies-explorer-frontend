@@ -4,8 +4,64 @@ import "./FormInput.css";
 
 function FormInput(props) {
 
-    const classNameError = "form__input_type_error";
-    const classNameCorrect = "form__input_type_correct";
+
+
+  /*  const [inputData, setInputData] = useState("");
+  /*  const [isValid, setIsValid] = useState("");
+    const [hasError, setHasError] = useState(false);
+   /* const [isActive, setIsActive] = useState(false);*/
+  /*  const [errorMessage, setErrorMessage] = useState("");*/
+
+ /*   function handleChange(e) {
+        const { name, value } = e.target;
+        setInputData({
+            ...inputData,
+            [name]: value,
+        });*/
+      /*  setIsValid({
+            ...isValid,
+            [name]: e.target.validity.valid,
+        });
+        setErrorMessage({
+            ...errorMessage,
+            [name]: e.target.validationMessage,
+          });
+          console.log(errorMessage);
+       /*setIsValid(
+            e.target.closest("form").checkValidity()
+        );*/
+
+       /* console.log(isValid);
+        console.log(e.target.validity.valid);
+        if (e.target.validity.valid === false) {
+            setHasError(true);
+          } else {
+            setHasError(false);
+            setErrorMessage("");
+            setIsValid("");
+           /* setIsActive(true);*/
+       /*   }*/
+   /*     props.onInput(inputData)
+    };
+   /* console.log(inputData);
+    console.log(hasError);
+console.log(isValid);
+console.log(errorMessage);*/
+
+   /* function handleSubmit(e) {
+        e.preventDefault();
+        let { name, email, password } = inputData;
+        props.onRegister({ name, email, password });
+    };*/
+  /*  
+    useEffect(() => {
+        setInputData("");
+        setErrorMessage("");
+        setIsValid("");
+        setHasError(false);
+      }, []);
+*/
+
 
 
     return (
@@ -14,21 +70,23 @@ function FormInput(props) {
                 type={props.type}
                 name={props.name}
                 id={props.id}
-                className={`input form__input form__input_type_${props.formtype} ${!props.isValid ? classNameCorrect : classNameError}`}
+                className={props.className}
                 required={props.required}
                 placeholder={props.placeholder}
                 minLength={props.minLength}
                 maxLength={props.maxLength}
                 value={props.value}
                 onChange={props.onChange}
-                isValid={props.isValid}
-                inputData={props.inputData}
-                readOnly={props.readOnly}
+               
+                
+                
+                
                  />
                 <FormError
                     formtype={props.formtype}
                     hasError={props.hasError}
-                    errorMessage={props.errorMessage} />
+                    errorMessage={props.errorMessage}
+                     />
         </>
     );
 };
@@ -36,6 +94,9 @@ function FormInput(props) {
 export default FormInput;
 
 /*
+readOnly={props.readOnly}
+
+
 minLength={props.minLength}
                 maxLength={props.maxLength}
 */
@@ -112,4 +173,100 @@ isActive ? classNameActive : classNameDisabled
 /*
 console.log(hasError);
 console.log(isActive);
-console.log(isValid);*/
+console.log(isValid);
+
+
+
+
+const [userData, setUserData] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
+    const [isValid, setIsValid] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
+    const [hasError, setHasError] = useState(false);
+   /* const [isActive, setIsActive] = useState(false);*/
+  /* const [errorMessage, setErrorMessage] = useState({
+    name: "",
+    email: "",
+    password: "",
+});
+
+function handleChange(e) {
+    const { name, value } = e.target;
+    setUserData({
+        ...userData,
+        [name]: value,
+    });
+    setIsValid({
+        ...isValid,
+        [name]: e.target.validity.valid,
+    });
+    setErrorMessage({
+        ...errorMessage,
+        [name]: e.target.validationMessage,
+      });
+      console.log(errorMessage);
+   /*setIsValid(
+        e.target.closest("form").checkValidity()
+    );*/
+
+  /*  console.log(isValid);
+    console.log(e.target.validity.valid);
+    if (e.target.validity.valid === false) {
+        setHasError(true);
+      } else {
+        setHasError(false);
+        setErrorMessage({
+          name: "",
+          email: "",
+          password: "",
+        });
+        setIsValid({
+            name: "",
+            email: "",
+            password: "",
+        });
+       /* setIsActive(true);*/
+ /*     }
+    
+};
+console.log(userData);
+console.log(hasError);
+console.log(isValid);
+console.log(errorMessage);
+
+function handleSubmit(e) {
+    e.preventDefault();
+    let { name, email, password } = userData;
+    props.onRegister({ name, email, password });
+};
+
+useEffect(() => {
+    setUserData({
+        name: "",
+        email: "",
+        password: "",
+    });
+    setErrorMessage({
+        name: "",
+        email: "",
+        password: "",
+    });
+    setIsValid({
+        name: "",
+        email: "",
+        password: "",
+    });
+    setHasError(false);
+  }, []);
+
+
+
+
+
+*/
