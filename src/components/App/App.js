@@ -14,7 +14,6 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Preloader from '../Preloader/Preloader';
 import Error404 from '../Error404/Error404';
-import ProfileEdit from '../ProfileEdit/ProfileEdit';
 import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 import database from '../../utils/constants';
@@ -51,7 +50,7 @@ function App() {
     window.addEventListener("resize", function () {
         setTimeout(handleResizeWindow, 5000);
     });
-}, [screenWidth]);
+  }, [screenWidth]);
 
   const tokenCheck = useCallback(async () => {
     try {
@@ -67,6 +66,7 @@ function App() {
         setLoggedIn(true);
         setUserData(user);
         setCurrentUser(user);
+        setHasResError(false);
       }
     } catch (err) {
       console.log("Ошибка " + err);
@@ -89,6 +89,7 @@ function App() {
         localStorage.setItem("jwt", loginData.token);
         setLoggedIn(true);
         setUserData(loginData);
+        setHasResError(false);
       }
       return loginData;
     } catch (err) {
@@ -114,6 +115,7 @@ function App() {
       } else if (newUser) {
         setUserData(newUser);
         userLogin({ email, password });
+        setHasResError(false);
       } 
       return newUser;
     } catch (err) {
@@ -138,6 +140,7 @@ console.log(resError);
     try {
       const user = await mainApi.fetchUserInfo();
       setCurrentUser(user);
+      setHasResError(false);
     } catch (err) {
       console.log("Ошибка " + err);
       setAuthResError(err.message);
@@ -151,8 +154,7 @@ console.log(resError);
       setLoading(true);
       const allMovies = await moviesApi.getAllMovies();
       if (!allMovies) {
-        throw new Error("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.");
-        
+        throw new Error("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз."); 
       } else {
         const results = allMovies.map((item) => ({
           movie: item,
@@ -170,6 +172,7 @@ console.log(resError);
         }));
         localStorage.setItem("movies", JSON.stringify(results));
         setMoviesList(results);
+        setHasResError(false);
       }
     } catch (err) {
       console.log("Ошибка " + err);
@@ -188,6 +191,7 @@ console.log(loggedIn);
 console.log(currentUser);
 console.log(userData);
 console.log(moviesList);
+console.log(moviesResError);
 
 
   const savedMoviesData = async () => {
@@ -216,6 +220,7 @@ console.log(moviesList);
         console.log(results);
        /* filterUserMovies(results);*/
        setSavedList(results);
+       setHasResError(false);
       }
       } catch (err) {
         console.log("Ошибка " + err);
@@ -228,11 +233,11 @@ console.log(moviesList);
     };
     console.log(savedList);
 
-    function filterUserMovies(results) {
+   /* function filterUserMovies(results) {
       const userResults = results.filter(item => item.owner === currentUser._id);
       setSavedList(userResults);
       console.log(userResults);
-    }
+    }*/
 /*
     const savedSearchResults = () => {
       let savedResults = JSON.parse(localStorage.getItem("searchResultMovies"));
@@ -264,11 +269,12 @@ console.log(moviesList);
         } else 
         {
           setCurrentUser(newUserData);
+          setHasResError(false);
         } 
         return newUserData;
       } catch (err) {
         console.log("Ошибка " + err);
-        setResError(err.message);
+        setAuthResError(err.message);
         console.log(resError);
         setHasResError(true);
       } finally {
@@ -282,10 +288,11 @@ console.log(moviesList);
       .then((savedMovie) => {
         setSavedList([...savedList, savedMovie]);
 console.log(savedList);
+        setHasResError(false);
       })
       .catch((err) => {
         console.log("Ошибка", err);
-        setResError(err.message);
+        setMoviesResError(err.message);
         console.log(resError);
         setHasResError(true);
       });
@@ -297,20 +304,15 @@ console.log(savedList);
       .removeMovie(movieToDelete._id)
       .then(() => {
         setSavedList((state) => state.filter((c) => c._id !== movieToDelete._id));
+        setHasResError(false);
       })
       .catch((err) => {
         console.log("Ошибка", err);
-        setResError(err.message);
+        setMoviesResError(err.message);
         console.log(resError);
         setHasResError(true);
       })
   }
-
-
-  /*function handleOnEditClick() {
-    setInEditState(true);
-  };
-*/
 
   const userLogOut = useCallback(() => {
     localStorage.removeItem("jwt");
@@ -359,19 +361,15 @@ console.log(savedList);
               hasResError={hasResError}
                />
             </Route>
-            <Route
-                path="/movies" exact>
-                <Movies
+            <ProtectedRoute
+                exact path="/movies"
+                component={Movies}
                 loggedIn={loggedIn}                
                 pagetype="movies"
                 formtype="movies"
                 searchData={searchData}
-                movies
-                isOwn={isOwn}
-                isSaved={isSaved}
                 allMovies={moviesList}
                 savedList={savedList}
-                savedSearch={savedSearch}
                 selectedMovie={selectedMovie}
                 onSaveClick={handleSaveMovie}
                 onDeleteClick={handleDeleteMovie}
@@ -379,38 +377,34 @@ console.log(savedList);
                 isTablet={isTablet}
                 isMobile={isMobile}
                 resError={moviesResError}
-                hasResError={hasResError}
-                />
-                </Route>
-            <Route 
-                path="/saved-movies" exact>
-                <SavedMovies
-                loggedIn={loggedIn}
-                isSaved={isSaved}
-                pagetype="saved-movies"
-                formtype="movies"
-                savedList={savedList}
-                
-                selectedMovie={selectedMovie}
-                isOwn={isOwn}
-                onDeleteClick={handleDeleteMovie}
-                resError={moviesResError}
-                hasResError={hasResError} />
-                </Route>
-            <Route 
-                path="/profile">
-                <Profile
-                  pagetype="profile" 
-                  onUpdateUser={userUpdate} 
-                  onLogout={userLogOut}
-                  resError={authResError}
-                  hasResError={hasResError}/>
-            </Route>
-
+                hasResError={hasResError}>
+              </ProtectedRoute>                           
+              <ProtectedRoute 
+                    component={SavedMovies}
+                      exact path="/saved-movies"
+                      loggedIn={loggedIn}
+                      pagetype="saved-movies"
+                      formtype="movies"
+                      savedList={savedList}
+                      selectedMovie={selectedMovie}
+                      onDeleteClick={handleDeleteMovie}
+                      resError={moviesResError}
+                      hasResError={hasResError}>
+              </ProtectedRoute>
+              <ProtectedRoute
+                      component ={Profile} 
+                      exact path="/profile"
+                      loggedIn={loggedIn}   
+                      pagetype="profile" 
+                      onUpdateUser={userUpdate} 
+                      onLogout={userLogOut}
+                      resError={authResError}
+                      hasResError={hasResError} >
+              </ProtectedRoute>            
             <Route path="/*">
               <Error404
-              pagetype="error"
-              onClick={goBack} />
+                pagetype="error"
+                onClick={goBack} />
             </Route>
             <Route path="*">
               {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" /> }

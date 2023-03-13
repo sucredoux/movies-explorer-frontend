@@ -22,7 +22,7 @@ function MoviesCard({ movie, movieId, _id, image, thumbnail, trailerLink, title,
        
 
     const durationHours = duration > 60;
-    const durationShort = duration < 41;
+   /* const durationShort = duration < 41;*/
     const newDuration = durationHours ? calculateDuration(durationHours) : `${duration + "м"}`;
     
    function calculateDuration(durationHours) {    

@@ -86,7 +86,7 @@ console.log(resError);
         return (movie.nameRU.toLowerCase().includes(query.toLowerCase()));  
         });*/
         const searchData = allMovies.filter(movie => {
-        return (movie.nameRU.toLowerCase().includes(query.toLowerCase()));  
+            return (movie.nameRU.toLowerCase().includes(query.toLowerCase()));  
         });
 
         if (searchData.length === 0) {
@@ -110,7 +110,7 @@ console.log(resError);
 
     function renderMovies(data) {
         if (!data) {
-            setSearchError({ message: "Ничего не найдено"});
+            setSearchError({ message: "Что-то пошло не так..."});
             setHasSearchError(true);
         } else {
             const c = cardsInRow * rows;
@@ -235,22 +235,19 @@ console.log(resError);
                         moviesList={moviesToRender}
                         savedList={savedList}
                         onSaveClick={onSaveClick}
-                        onDeleteClick={onDeleteClick} />
-                        <MoreButton
-                            pagetype={pagetype}
-                            noMore={noMore}
-                            onAddMore={addToRender} />
+                        onDeleteClick={onDeleteClick}
+                        formtype={formtype}
+                        resError={resError}
+                        hasResError={hasResError}
+                        searchError={searchError.message}
+                        hasSearchError={hasSearchError} />
+                    <MoreButton
+                        pagetype={pagetype}
+                        noMore={noMore}
+                        onAddMore={addToRender} />                   
                 </>                
                 )                
-                }
-                <ResError 
-                pagetype={pagetype}
-                formtype={formtype}
-                resError={resError}
-                hasResError={hasResError}
-                searchError={searchError.message}
-                hasSearchError={hasSearchError}
-               />       
+                }       
             </main>
             <Footer
                 pagetype={pagetype} />

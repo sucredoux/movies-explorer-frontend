@@ -17,7 +17,7 @@
 .res__error_type_movies {
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding-top: 20px;
     font-weight: 500;
     font-size: 16px;

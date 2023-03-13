@@ -11,9 +11,7 @@ export default class MoviesApi {
         if (res.ok) { 
             return res.json();           
         }   return Promise.reject(`Ошибка: ${res.statusText}`);
-        /* return Promise.reject(`Ошибка: ${res.statusText}`);      */
     }
-    
     
     getAllMovies() {
         return fetch(`${this._url}`, {
@@ -27,7 +25,6 @@ export default class MoviesApi {
             return this.#onResponse(res)
         })
     }
-
 }
      
 const moviesApi = new MoviesApi(database);
