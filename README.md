@@ -21,3 +21,7 @@ https://disk.yandex.ru/d/hZz_963evwJgqA
 ## Ссылка на сайт
 
 https://sucredoux-movie.nomoredomainsclub.ru
+
+## Ссылка на пул-реквест
+
+https://github.com/sucredoux/movies-explorer-frontend/pull/2
