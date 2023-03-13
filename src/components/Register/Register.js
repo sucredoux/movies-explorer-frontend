@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import FormError from "../FormError/FormError";
 
-function Register({ loggedIn, pagetype, onRegister, formtype, resError, hasResError }) {
+function Register({ isRegistered, pagetype, onRegister, formtype, resError, hasResError }) {
 
     const [userData, setUserData] = useState({
         name: "",
@@ -98,7 +98,7 @@ function Register({ loggedIn, pagetype, onRegister, formtype, resError, hasResEr
         setIsFormValid(false);
       }, []);
 
-   if (loggedIn) {
+   if (isRegistered) {
         return <Redirect to="/movies" />;
     };
 

@@ -18,6 +18,7 @@ import { useMediaQuery } from 'react-responsive';
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
   const [userData, setUserData] = useState({});
@@ -92,9 +93,9 @@ function App() {
       if (!newUser) {
         throw new Error("При регистрации пользователя произошла ошибка.");
       } else if (newUser) {
-        userLogin({ email, password });
         setUserData(newUser);
         setHasResError(false);
+        setIsRegistered(true);
       } 
       return userData;   
     } catch (err) {
@@ -105,7 +106,7 @@ function App() {
       setLoading(false);
     }
   }, []);
-console.log(loggedIn);
+
   useEffect(() => {
     tokenCheck();
   }, [tokenCheck, loggedIn]);
@@ -278,7 +279,7 @@ console.log(loggedIn);
             </Route>
             <Route path="/signup">
               <Register
-              loggedIn={loggedIn}
+              isRegistered={isRegistered}
               onRegister={userRegister}
               pagetype="auth"
               formtype="auth"
