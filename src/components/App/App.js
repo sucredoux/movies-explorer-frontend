@@ -92,11 +92,11 @@ function App() {
       if (!newUser) {
         throw new Error("При регистрации пользователя произошла ошибка.");
       } else if (newUser) {
-        setUserData(newUser);
         userLogin({ email, password });
+        setUserData(newUser);
         setHasResError(false);
       } 
-      return newUser;
+      return userData;   
     } catch (err) {
       console.log("Ошибка " + err);
       setAuthResError("При авторизации произошла ошибка. Переданный токен некорректен.");
@@ -105,7 +105,7 @@ function App() {
       setLoading(false);
     }
   }, []);
-
+console.log(loggedIn);
   useEffect(() => {
     tokenCheck();
   }, [tokenCheck, loggedIn]);

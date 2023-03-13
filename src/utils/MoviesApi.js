@@ -13,7 +13,7 @@ export default class MoviesApi {
         }   return Promise.reject(`Ошибка: ${res.statusText}`);
     }
     
-    getAllMovies() {
+    getAllMovies(jwt) {
         return fetch(`${this._url}`, {
             method: 'GET',
             headers: {
