@@ -1,33 +1,35 @@
 import AuthReminder from "../AuthReminder/AuthReminder";
 import Footer from "../Footer/Footer";
 import FormContainer from "../FormContainer/FormContainer";
-import FormError from "../FormError/FormError";
 import FormInput from "../FormInput/FormInput";
 import Header from "../Header/Header";
 import "./Login.css";
 import "../FormContainer/FormContainer.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
+import FormError from "../FormError/FormError";
 
-function Login({ loggedIn, onLogin, pagetype, resError }) {
+function Login({ loggedIn, onLogin, formtype, pagetype, resError, hasResError }) {
 
     const [userData, setUserData] = useState({
         email: "",
         password: "",
     });
     const [isValid, setIsValid] = useState({
-        email: "",
-        password: "",
+        email: false,
+        password: false,
     });
-    const [hasError, setHasError] = useState(false);
-    const [isActive, setIsActive] = useState(false);
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [hasError, setHasError] = useState({
+        email: false,
+        password: false,
+    });
     const [errorMessage, setErrorMessage] = useState({
         email: "",
         password: "",
     });
 
     function handleInput(e) {
-        setIsActive(true);
         const { name, value } = e.target;
         setUserData({
             ...userData,
@@ -37,19 +39,21 @@ function Login({ loggedIn, onLogin, pagetype, resError }) {
             ...errorMessage,
             [name]: e.target.validationMessage,
           });
+        setIsFormValid(e.target.closest("form").checkValidity());
         setIsValid({
             ...isValid,
             [name]: e.target.validity.valid,
         });
-        if (e.target.validity.valid === false) {
-            setHasError(true);
-          } else {
-            setHasError(false);
-            setErrorMessage({
-                email: "",
-                password: "",
+        setHasError({
+            ...hasError,
+            [name]: !e.target.validity.valid,
+        });
+        if (isFormValid === true) {
+            setHasError({
+                email: false,
+                password: false,
             });
-            setIsValid({
+            setErrorMessage({
                 email: "",
                 password: "",
             });
@@ -60,30 +64,34 @@ function Login({ loggedIn, onLogin, pagetype, resError }) {
         e.preventDefault();
         let { email, password } = userData;
         onLogin({ email, password });
+        setIsFormValid(false);
     };
 
- /*   useEffect(() => {
+    useEffect(() => {
         setUserData({
-            name: "",
             email: "",
             password: "",
         });
         setErrorMessage({
-            name: "",
             email: "",
             password: "",
         });
         setIsValid({
-            name: "",
-            email: "",
-            password: "",
+            email: false,
+            password: false,
         });
         setHasError(false);
-        setIsActive(false);
-      }, []);*/
+        setIsFormValid(false);
+      }, []);
 
-    const classNameError = "form__input_type_error";
-    const classNameCorrect = "form__input_type_correct";
+   /* const resErrorLogin = [
+        { name: "Error: no token",
+          message: "При авторизации произошла ошибка. Токен не передан или передан не в том формате." },
+        { name: "invalid user", 
+          message: "Вы ввели неправильный логин или пароль."},
+        { name: "Bad Request", 
+          message: "При авторизации произошла ошибка. Переданный токен некорректен."}
+    ]*/
 
     if (loggedIn) {
         return <Redirect to="/movies" />
@@ -100,14 +108,14 @@ function Login({ loggedIn, onLogin, pagetype, resError }) {
                     buttonText="Войти"
                     pagetype={pagetype}
                     formtype="auth"
-                    isActive={isActive}
                     isValid={isValid}
-                    hasError={hasError}
-                    resError={resError}
+                    isFormValid={isFormValid}
+                    hasResError={hasResError}
+                    resError = {resError}
                 >
                 <fieldset className="form__fieldset">
                     <label 
-                        for="login-email-input" 
+                        htmlFor="login-email-input" 
                         className="form__label form__label_type_auth">E-mail
                     </label>
                     <FormInput
@@ -123,12 +131,15 @@ function Login({ loggedIn, onLogin, pagetype, resError }) {
                         value={userData?.email}
                         onChange={handleInput}
                         hasError={hasError}
-                        isValid={isValid}
-                        errorMessage={errorMessage?.email} 
-                        className={`input form__input form__input_type_auth ${hasError  ? classNameError : (isActive ? classNameCorrect : "")}`}           
+                        isValid={isValid}             
                         />
+                    <FormError
+                        formtype={formtype}
+                        hasError={hasError}
+                        errorMessage={errorMessage?.email} 
+                     />
                     <label 
-                            for="login-password-input" 
+                            htmlFor="login-password-input" 
                             className="form__label form__label_type_auth">Пароль
                     </label>
                     <FormInput
@@ -143,15 +154,19 @@ function Login({ loggedIn, onLogin, pagetype, resError }) {
                         onChange={handleInput}
                         hasError={hasError}
                         isValid={isValid}
-                        errorMessage={errorMessage?.email} 
-                        className={`input form__input form__input_type_auth ${hasError  ? classNameError : (isActive ? classNameCorrect : "")}`}           
                         />
+                    <FormError
+                        formtype={formtype}
+                        hasError={hasError}
+                        errorMessage={errorMessage?.password}
+                     />
                 </fieldset>
-                </FormContainer>
-                <AuthReminder
-                    question="Ещё не зарегистрированы? "
-                    path="/signup"
-                    actionText="Регистрация" />
+            </FormContainer>
+            <AuthReminder
+                question="Ещё не зарегистрированы? "
+                path="/signup"
+                actionText="Регистрация"
+                pagetype={pagetype} />
         </main>
         <Footer
             pagetype={pagetype} />

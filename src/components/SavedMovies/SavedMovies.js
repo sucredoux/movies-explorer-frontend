@@ -4,21 +4,116 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
 import Header from "../Header/Header";
 import "../Movies/Movies.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ResError from "../ResError/ResError";
 
-function SavedMovies({ pagetype, moviesList, onDeleteClick, isOwn, loggedIn, onSearch, onShortFilter }) {
+function SavedMovies({ pagetype, formtype, moviesList, savedList, onDeleteClick, hasResError, resError, loggedIn, onSearch, onShortFilter }) {
 
-    const[searchNotFound, setSearchNotFound] = useState(false);
+    const [searchNotFound, setSearchNotFound] = useState(false);
+    const [shortSavedList, setShortSavedList] = useState([]);
+    const [moviesData, setMoviesData] = useState([]);
+    const [savedQuery, setSavedQuery] = useState("");
+    const [checked, setChecked] = useState(false);
+    const [moviesToRender, setMoviesToRender] = useState([]);
+    const [searchResult, setSearchResult] = useState([]);
+    const [shortMoviesData, setShortMoviesData] = useState([]);
 
-console.log(moviesList);
+        const [isValid, setIsValid] = useState(false);
+    const [hasSearchError, setHasSearchError] = useState(false);
+    const [searchError, setSearchError] = useState([]);
 
-    if (searchNotFound) {
-        return (
-            <div className="movies__notfound">
-            <p className="movies__notfound-text">Среди сохранённых нет фильмов с таким ключевым словом.</p>
-        </div>  
-        )
-    }
+
+console.log(savedList);
+
+useEffect(() => {
+    renderMovies(savedList);
+}, [savedList]);
+
+function handleShortMovie(e) {
+    e.preventDefault();
+    setChecked(!checked);
+};
+
+function getShortMovies (data) {
+    const shortMovies = data.filter(movie => movie.duration < 41 );
+    setShortMoviesData(shortMovies);
+};
+
+  /*  useEffect(() => {
+        renderMovies(savedList);
+        const shortMovies = savedList.filter(movie => movie.duration < 41 );
+        setShortSavedList(shortMovies);
+    }, [savedList]); */
+
+
+
+console.log(moviesData);
+console.log(shortSavedList);
+console.log(moviesToRender);
+console.log(searchResult);
+
+
+
+    useEffect(() => {
+        console.log("Нажали на кнопку");
+        checked ? renderMovies(shortMoviesData) : renderMovies(moviesData);
+        /* handleMoviesData();*/
+        console.log(moviesData);
+        }, [checked, moviesData]);
+
+console.log(savedQuery);
+
+    function handleSearch(query) {      
+        
+        const searchData = savedList.filter(movie => {
+            return (movie.nameRU.toLowerCase().includes(query.toLowerCase()));  
+        });
+console.log(searchData);
+        if (searchData.length === 0) {
+            setSearchError({ message: "Ничего не найдено"});
+            setHasSearchError(true);
+                 
+        } else {
+            setMoviesData(searchData);    
+            getShortMovies(searchData);
+            setSearchResult(searchData);
+            setHasSearchError(false);
+        }            
+    };
+
+    function renderMovies(data) {
+        if (!data) {
+            setSearchError({ message: "Ничего не найдено"});
+            setHasSearchError(true);
+        } else {
+            setMoviesToRender(data);
+            setHasSearchError(false);
+        }
+    };
+ /*   
+    useEffect(() => {
+        renderMovies(moviesData);
+    }, [moviesData]);
+
+    useEffect(() => {
+        handleSearch(savedQuery);
+    }, [savedQuery]);
+
+    function handleMoviesData() {
+        checked ? setMoviesData(shortSavedList) : setMoviesData(savedList);
+    };
+
+    */
+
+    useEffect(() => {
+        renderMovies(savedList);
+    }, []);
+
+/*    useEffect(() => {
+        setSearchResult([]);
+        setSavedQuery("");
+    }, [])*/
+   
 
     return (
         <><Header
@@ -27,22 +122,35 @@ console.log(moviesList);
           <main className={`movies movies_type_${pagetype}`}>        
             <SearchForm
               pagetype={pagetype}
-              onShortFilter={onShortFilter} />
-            { moviesList.length !== 0 ?
-                  ( <>
+              checked={checked}
+              onShortFilter={handleShortMovie}
+              savedQuery={savedQuery}                    
+              onSearch={handleSearch} />
+           {savedList.length !== 0 ?
+                (<>
                   <MoviesCardList
                       pagetype={pagetype}
-                      moviesList={moviesList}
+                      moviesList={moviesToRender}
                       onDeleteClick={onDeleteClick}
-                      isOwn={isOwn} />
+                       />
                   <MoreButton
-                      pagetype={pagetype} />
-                      </>)
-                      :
-                      (<div className="movies__notfound">
+                      pagetype={pagetype}
+                      noMore="noMore" />
+                </>)
+                :
+                (   <div className="movies__notfound">
                       <p className="movies__notfound-text">Вы еще не добавили фильмы в Сохранённые.</p>
-                  </div>)
-              }      
+                    </div>
+                )
+            }
+            <ResError 
+                pagetype={pagetype}
+                formtype={formtype}
+                resError={resError}
+                hasResError={hasResError}
+                searchError={searchError.message}
+                hasSearchError={hasSearchError}
+            />     
           </main>
           <Footer
               pagetype={pagetype} />
@@ -53,6 +161,75 @@ console.log(moviesList);
 export default SavedMovies;
 
 /*
+{savedList.length !== 0 ?
+    searchResult.length !== 0 ?
+    (       <>
+                  <MoviesCardList
+                      pagetype={pagetype}
+                      moviesList={moviesToRender}
+                      onDeleteClick={onDeleteClick}
+                       />
+                  <MoreButton
+                      pagetype={pagetype} />
+                      </>)
+    :
+(<div className="movies__notfound">
+                      <p className="movies__notfound-text">Вы еще не добавили фильмы в Сохранённые.</p>
+                  </div>)
+}
+
+
+{ searchResult.length !== 0 ?
+                  (       <>
+                  <MoviesCardList
+                      pagetype={pagetype}
+                      moviesList={moviesToRender}
+                      onDeleteClick={onDeleteClick}
+                       />
+                  <MoreButton
+                      pagetype={pagetype} />
+                      </>)
+                      :
+                       (
+                    <ResError
+                    pagetype={pagetype}
+                    formtype={formtype}/>
+                )
+              }      
+
+
+                        message="Ничего не найдено" 
+
+
+
+
+/* useEffect(() => {
+        renderMovies(savedList);
+    }, [savedList])*/
+  /*
+    useEffect(() => {
+        /*  setChecked(JSON.parse(localStorage.getItem(`checkedStatus${pagetype}`)));*/
+          
+     /*     const searchData = moviesData.filter(movie => {
+              return (movie.nameRU.toLowerCase().includes(savedQuery.toLowerCase()));  
+            });
+          renderMovies(searchData);
+          setSearchResult(searchData);
+          localStorage.setItem("searchResultMovies", JSON.stringify(searchData));
+      }, [moviesData]);*/
+  
+
+  /*  if (searchNotFound) {
+        return (
+            <div className="movies__notfound">
+            <p className="movies__notfound-text">Ничего не найдено</p>
+        </div>  
+        )
+    }*/
+
+
+/*
+
 { searchNotFound ? 
     (<div className="movies__notfound">
           <p className="movies__notfound-text">Вы еще не добавили фильмы в Сохранённые.</p>

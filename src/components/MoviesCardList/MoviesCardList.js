@@ -1,9 +1,23 @@
+import { useState } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
 
-function MoviesCardList({ pagetype, moviesList, savedList, isOwn, isSaved, onSaveClick, onDeleteClick }) {
+function MoviesCardList({ pagetype, moviesList, checked, savedList, isOwn, isSaved, onSaveClick, onDeleteClick }) {
     
+ /*   const [shortMoviesList, setShortMoviesList] = useState([]);
+    const [moviesList, setMoviesList] = useState([]);
+
+function filterMovieList () {
+    const shortMoviesData  = moviesList.filter(movie => movie.duration < 41 );
+    setShortMoviesList(shortMoviesData);
+}
+
+checked ? setMoviesList(shortMoviesList) : setMoviesList(moviesToRender)
+
 console.log(savedList);
+console.log(moviesList);
+console.log(checked);*/
+
 
 
     return (

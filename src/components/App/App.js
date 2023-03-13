@@ -35,7 +35,10 @@ function App() {
   const [savedList, setSavedList] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
   const [searchData, setSearchData] = useState([]);
-  const [resError, setResError] = useState("");
+  const [resError, setResError] = useState([]);
+  const [moviesResError, setMoviesResError] = useState([]);
+  const [authResError, setAuthResError] = useState([]);
+  const [hasResError, setHasResError] = useState(false);
   const history = useHistory();
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isTablet = useMediaQuery({ minWidth: 768 }, {maxWidth: 1279 });
@@ -55,18 +58,22 @@ function App() {
       setLoading(true);
       let jwt = localStorage.getItem("jwt");
       if (!jwt) {
-        throw new Error("no token");
+        throw new Error("При авторизации произошла ошибка. Токен не передан или передан не в том формате.");
       }
       const user = await mainApi.checkRegistration(jwt);
       if (!user) {
-        throw new Error("invalid user");
+        throw new Error("При авторизации произошла ошибка. Переданный токен некорректен.");
       } else {
         setLoggedIn(true);
         setUserData(user);
+        setCurrentUser(user);
       }
     } catch (err) {
       console.log("Ошибка " + err);
-    /*  setResError(err);*/
+
+      setAuthResError(err.message);
+      console.log(resError);
+      setHasResError(true);
     } finally {
       setLoading(false);
     }
@@ -77,40 +84,48 @@ function App() {
       setLoading(true);
       const loginData = await mainApi.signInUser({ email, password });
       if (!loginData) {
-        throw new Error("Неверные имя или пароль пользователя");
+        throw new Error("Вы ввели неправильный логин или пароль.");
       } else if (loginData.token) {
         localStorage.setItem("jwt", loginData.token);
         setLoggedIn(true);
         setUserData(loginData);
       }
       return loginData;
-    } catch (error) {
-      console.log("Ошибка " + error);
-      setResError(error);
+    } catch (err) {
+      console.log("Ошибка " + err);
+      console.log(err.message);
+
+      console.log(err.statusText);
+      console.log(Error);
+      setAuthResError(Error);
+      console.log(authResError);
+      setHasResError(true);
     } finally {
       setLoading(false);
     }
   }, []);
-
-
 
   const userRegister = useCallback(async ({ name, email, password }) => {
     try {
       setLoading(true);
       const newUser = await mainApi.registerUser({ name, email, password });
-      if (newUser) {
+      if (!newUser) {
+        throw new Error("При регистрации пользователя произошла ошибка.");
+      } else if (newUser) {
         setUserData(newUser);
-        setIsRegistered(true);
-        setIsActive(false);
-      }
+        userLogin({ email, password });
+      } 
       return newUser;
-    } catch (error) {
-      console.log(error);
-      setResError(error);
+    } catch (err) {
+      console.log(err);
+      setAuthResError(err.message);
+      console.log(resError);
+      setHasResError(true);
     } finally {
       setLoading(false);
     }
   }, []);
+
 
   useEffect(() => {
     tokenCheck();
@@ -123,18 +138,21 @@ console.log(resError);
     try {
       const user = await mainApi.fetchUserInfo();
       setCurrentUser(user);
-    } catch (error) {
-      console.log("Ошибка " + error);
+    } catch (err) {
+      console.log("Ошибка " + err);
+      setAuthResError(err.message);
+      console.log(resError);
+      setHasResError(true);
     } 
-  }
+  };
 
   const moviesData = async () => {
     try {
       setLoading(true);
       const allMovies = await moviesApi.getAllMovies();
       if (!allMovies) {
-        throw new Error("Какая-то ошибка");
-
+        throw new Error("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.");
+        
       } else {
         const results = allMovies.map((item) => ({
           movie: item,
@@ -151,9 +169,16 @@ console.log(resError);
           thumbnail: `${"https://api.nomoreparties.co" + item.image.formats.thumbnail.url}`,
         }));
         localStorage.setItem("movies", JSON.stringify(results));
+        setMoviesList(results);
       }
-    } catch (error) {
-      console.log("Ошибка " + error);
+    } catch (err) {
+      console.log("Ошибка " + err);
+      setMoviesResError(err.message);
+      console.log(err.statusText);
+      console.log(err.name);
+      console.log(resError);
+      setHasResError(true);
+      console.log(Error);
     } finally {
       setLoading(false);
     }
@@ -161,13 +186,16 @@ console.log(resError);
 
 console.log(loggedIn);
 console.log(currentUser);
+console.log(userData);
+console.log(moviesList);
+
 
   const savedMoviesData = async () => {
     try {
       setLoading(true);
       const savedMovies = await mainApi.getSavedMovies();
       if (!savedMovies) {
-        throw new Error("Какая-то ошибка" + Error.message);
+        throw new Error("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.");
       } else {
         const results = savedMovies.map((item) => ({
           movie: item,
@@ -185,32 +213,68 @@ console.log(currentUser);
           trailerLink: item.trailerLink,
           thumbnail: item.thumbnail,
         }));
-        const userResults = results.filter(item => item.owner === currentUser._id);
-        setSavedList(userResults);
+        console.log(results);
+       /* filterUserMovies(results);*/
+       setSavedList(results);
       }
-      } catch (error) {
-        console.log("Ошибка " + error);
+      } catch (err) {
+        console.log("Ошибка " + err);
+        setMoviesResError(err.message);
+        console.log(resError);
+        setHasResError(true);
       } finally {
         setLoading(false);
       }
     };
+    console.log(savedList);
 
+    function filterUserMovies(results) {
+      const userResults = results.filter(item => item.owner === currentUser._id);
+      setSavedList(userResults);
+      console.log(userResults);
+    }
+/*
     const savedSearchResults = () => {
       let savedResults = JSON.parse(localStorage.getItem("searchResultMovies"));
   console.log(savedResults);
       setSavedSearch(savedResults);
   console.log(savedSearch);
-    };
-    
+    };*/
+
+
     useEffect(() => {
       let jwt = localStorage.getItem('jwt');
       if (loggedIn) {
         userInfo(jwt);
         moviesData(jwt);
         savedMoviesData(jwt);
-        savedSearchResults(jwt);
+       /* setMoviesList(uploadedMovies);*/
+       /* const uploadedMovies = JSON.parse(localStorage.getItem("movies"));
+        setMoviesList(uploadedMovies);*/
+       /* savedSearchResults(jwt);*/
       } 
     }, [loggedIn]);
+
+  const userUpdate = useCallback(async ({ name, email }) => {
+      try {
+        setLoading(true);
+        const newUserData = await mainApi.editUserInfo({ name, email });
+        if (!newUserData) {
+          throw new Error("При обновлении профиля произошла ошибка.");
+        } else 
+        {
+          setCurrentUser(newUserData);
+        } 
+        return newUserData;
+      } catch (err) {
+        console.log("Ошибка " + err);
+        setResError(err.message);
+        console.log(resError);
+        setHasResError(true);
+      } finally {
+        setLoading(false);
+      }
+  }, []);
    
   function handleSaveMovie(movie) {
     mainApi
@@ -221,17 +285,14 @@ console.log(savedList);
       })
       .catch((err) => {
         console.log("Ошибка", err);
+        setResError(err.message);
+        console.log(resError);
+        setHasResError(true);
       });
   }
 
-  
-  console.log(savedList);
-
   function handleDeleteMovie(movie) {
-
     const movieToDelete = savedList.find(item => item.movieId === movie.movieId);
-console.log(movieToDelete);
-   
     mainApi
       .removeMovie(movieToDelete._id)
       .then(() => {
@@ -239,38 +300,32 @@ console.log(movieToDelete);
       })
       .catch((err) => {
         console.log("Ошибка", err);
+        setResError(err.message);
+        console.log(resError);
+        setHasResError(true);
       })
   }
 
-  function handleUpdateUser({ name, email }) {
-    mainApi
-      .editUserInfo({ name, email })
-      .then((newUserData) => {
-        setCurrentUser(newUserData);
-        setInEditState(false);
-      })
-      .catch((err) => {
-        console.log("Ошибка", err);
-      });
-  }
 
-  function handleOnEditClick() {
+  /*function handleOnEditClick() {
     setInEditState(true);
   };
-
+*/
 
   const userLogOut = useCallback(() => {
     localStorage.removeItem("jwt");
     localStorage.removeItem("movies");
     localStorage.removeItem("searchResultMovies");
     localStorage.removeItem("searchQuery");
+    localStorage.removeItem("searchResultShortMovies");
+    localStorage.removeItem("checkedStatusmovies");
     setLoggedIn(false);
     setUserData({});
   }, []);
 
 
   function goBack() {
-        history.goBack();
+    history.goBack();
   }
    
   if (loading) {
@@ -289,28 +344,32 @@ console.log(movieToDelete);
               <Register
               loggedIn={loggedIn}
               onRegister={userRegister}
-              isActive={isActive}
               pagetype="auth"
               isRegistered={isRegistered}
-              resError={resError} />
+              resError={authResError}
+              hasResError={hasResError}
+               />
             </Route>
             <Route path="/signin">
               <Login
               loggedIn={loggedIn}
               onLogin={userLogin}              
               pagetype="auth"
-              resError={resError} />
+              resError={authResError}
+              hasResError={hasResError}
+               />
             </Route>
             <Route
                 path="/movies" exact>
                 <Movies
                 loggedIn={loggedIn}                
                 pagetype="movies"
+                formtype="movies"
                 searchData={searchData}
-                
+                movies
                 isOwn={isOwn}
                 isSaved={isSaved}
-                resError={resError}
+                allMovies={moviesList}
                 savedList={savedList}
                 savedSearch={savedSearch}
                 selectedMovie={selectedMovie}
@@ -319,6 +378,8 @@ console.log(movieToDelete);
                 isDesktop={isDesktop}
                 isTablet={isTablet}
                 isMobile={isMobile}
+                resError={moviesResError}
+                hasResError={hasResError}
                 />
                 </Route>
             <Route 
@@ -327,25 +388,23 @@ console.log(movieToDelete);
                 loggedIn={loggedIn}
                 isSaved={isSaved}
                 pagetype="saved-movies"
-                moviesList={savedList}
+                formtype="movies"
                 savedList={savedList}
                 
                 selectedMovie={selectedMovie}
                 isOwn={isOwn}
-                onDeleteClick={handleDeleteMovie} />
+                onDeleteClick={handleDeleteMovie}
+                resError={moviesResError}
+                hasResError={hasResError} />
                 </Route>
             <Route 
                 path="/profile">
-                {inEditState   
-                ?   (<ProfileEdit
-                  onUpdateUser={handleUpdateUser}
-                  pagetype="profile-edit"
-                  resError={resError} />)
-                :   (<Profile
+                <Profile
                   pagetype="profile" 
-                  onEditClick={handleOnEditClick} 
-                  onLogout={userLogOut}/>)
-              }
+                  onUpdateUser={userUpdate} 
+                  onLogout={userLogOut}
+                  resError={authResError}
+                  hasResError={hasResError}/>
             </Route>
 
             <Route path="/*">
@@ -367,6 +426,14 @@ export default App;
 
 /*
 onSubmit={handleOnSaveUserClick}
+
+
+{inEditState   
+                ?   (<ProfileEdit
+                  onUpdateUser={handleUpdateUser}
+                  pagetype="profile-edit"
+                 />)
+                :   (
 */
 
 /*
@@ -444,4 +511,25 @@ console.log(moviesList);*/
 
     /*useEffect(() => {
       searchFilm(searchQuery)
-    }, [searchQuery])*/
+    }, [searchQuery])
+    
+    
+    if (!newUserData.email.unique) {
+        throw new Error("Пользователь с таким email уже существует.");
+      }
+      
+
+
+      
+  function handleUpdateUser({ name, email }) {
+    mainApi
+      .editUserInfo({ name, email })
+      .then((newUserData) => {
+        setCurrentUser(newUserData);
+      })
+      .catch((err) => {
+        console.log("Ошибка", err);
+      });
+  }
+    
+    */

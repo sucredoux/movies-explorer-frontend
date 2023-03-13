@@ -1,32 +1,55 @@
 import { useEffect, useState } from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
+import FormError from "../FormError/FormError";
 import FormInput from "../FormInput/FormInput";
 import "./SearchForm.css";
 
 function SearchForm({ pagetype, onSearch, moviesList, savedQuery, checked, onShortFilter }) {
 
     const [searchInput, setSearchInput] = useState("");
+    const [isValid, setIsValid] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [hasError, setHasError] = useState(false);
+
   /*  const [moviesData, setMoviesData] = useState([]);*/
   /*  const [searchData, setSearchData] = useState([]);*/
  /* const moviespage = pagetype === "movies";*/
     
     function handleChange(e) {
-        localStorage.removeItem("searchResultMovies");
-        localStorage.removeItem("searchQuery")
-             
         setSearchInput(e.target.value);
+        setErrorMessage("Нужно ввести ключевое слово");
+        setIsValid(e.target.validity.valid);
+        setHasError(!isValid);
+        if (isValid === false) {
+            setHasError(true);
+            setIsFormValid(false);
+        } else {
+            setHasError(false);
+            setIsFormValid(true);
+            setErrorMessage("");
+        }
     };
+
+    console.log(isValid);
+console.log(hasError);
+
+console.log(errorMessage);
+
+console.log(isFormValid);
 
     function handleSubmit(e) {
         e.preventDefault();
         onSearch(searchInput);
+        localStorage.setItem("searchQuery", searchInput);
      /*   localStorage.setItem(`searchQuery${pagetype}`, searchInput);*/
     };
 
-    function handleClick(e){
+  /*  function handleClick(e){
         e.preventDefault();  
+        localStorage.removeItem(`checkedStatus${pagetype}`);
         onShortFilter();
-    };
+    };*/
 
   /*  useEffect(() => {
         setSavedQuery(localStorage.getItem("searchQuery"));
@@ -40,28 +63,38 @@ function SearchForm({ pagetype, onSearch, moviesList, savedQuery, checked, onSho
         <div className={`search search_type_${pagetype}`}>
            <form 
                 name="search"
+                id="form"
                 noValidate
                 onSubmit={handleSubmit}
-                
                 className="search__form"
                 >
             <FormInput
                 type="text" 
                 name="search"
                 id="search-input"
-                className="input search__input"
                 placeholder="Фильм"
                 formtype="search"
+                required
+                pattern="[а-яА-ЯёЁa-zA-Z\s-"
+                minLength="1"
                 value={searchInput || ""}
-                onChange={handleChange}/>
+                onChange={handleChange}
+                hasError={hasError}
+                isValid={isValid}/>
+                <FormError
+                    formtype="search"
+                    hasError={hasError}
+                    errorMessage={errorMessage}           
+                />
             <button 
                 type="submit"                 
                 aria-label="Поиск" 
                 name="search-submit"
+                disabled={!isFormValid}
                 className="button search__button"></button>
             </form>
             <FilterCheckbox
-                onClick={handleClick}
+                onClick={onShortFilter}
                 checked={checked} />
         </div>
     );

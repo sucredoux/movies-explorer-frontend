@@ -3,13 +3,13 @@ import Footer from "../Footer/Footer";
 import FormContainer from "../FormContainer/FormContainer";
 import FormInput from "../FormInput/FormInput";
 import Header from "../Header/Header";
-import FormError from "../FormError/FormError";
 import "./Register.css";
 import "../FormContainer/FormContainer.css";
-import { useCallback, useEffect, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
+import FormError from "../FormError/FormError";
 
-function Register({ loggedIn, pagetype, onRegister, isRegistered, resError, onSubmit, onChange, inputData }) {
+function Register({ loggedIn, pagetype, onRegister, formtype, isRegistered, resError, hasResError, onSubmit, onChange, inputData }) {
 
     const [userData, setUserData] = useState({
         name: "",
@@ -17,14 +17,16 @@ function Register({ loggedIn, pagetype, onRegister, isRegistered, resError, onSu
         password: "",
     });
     const [isValid, setIsValid] = useState({
-        name: "",
-        email: "",
-        password: "",
+        name: false,
+        email: false,
+        password: false,
     });
-    const [hasError, setHasError] = useState(false);
-    const [isActive, setIsActive] = useState(false);
     const [isFormValid, setIsFormValid] = useState(false);
-    const [formHasError, setFormHasError] = useState(false);
+    const [hasError, setHasError] = useState({
+        name: false,
+        email: false,
+        password: false,
+    });
     const [errorMessage, setErrorMessage] = useState({
         name: "",
         email: "",
@@ -33,7 +35,6 @@ function Register({ loggedIn, pagetype, onRegister, isRegistered, resError, onSu
 
     
     function handleInput(e) {
-        setIsActive(true);
         const { name, value } = e.target;
         setUserData({
             ...userData,
@@ -42,81 +43,38 @@ function Register({ loggedIn, pagetype, onRegister, isRegistered, resError, onSu
         setErrorMessage({
             ...errorMessage,
             [name]: e.target.validationMessage,
-          });
+        });
         setIsFormValid(e.target.closest("form").checkValidity());
         setIsValid({
             ...isValid,
             [name]: e.target.validity.valid,
-            }
-        );
-        setFormHasError(!isFormValid);
-        if (e.target.validity.valid === false) {
-            setHasError(true);
-            
-          }/* else if () {
-            setFormHasError(true);
-          }*/ else {
-            setHasError(false);
-            setFormHasError(false);
+        });
+        setHasError({
+            ...hasError,
+            [name]: !e.target.validity.valid,
+        });
+        if (isFormValid === true) {
+            setHasError({
+                name: false,
+                email: false,
+                password: false,
+            });
             setErrorMessage({
                 name: "",
                 email: "",
                 password: "",
             });
-            setIsValid({
-                name: "",
-                email: "",
-                password: "",
-            });            
           }
     };
-    /*else if (isValid.some(i => i !== false)) {
-            setHasError(false);
-            setIsFormValid(true);
-          }*/
-          /* (e.target.validity.valid === false)*/
-
+   
     function handleSubmit(e) {
         e.preventDefault();
         let { name, email, password } = userData;
         onRegister({ name, email, password });
-      /*  resetForm();*/
+        setIsFormValid(false);
     };
-
-   /* const resetForm = useCallback((
-        newUserData = {
-            name: "",
-            email: "",
-            password: "",
-        }, 
-        newErrorMessage = {
-            name: "",
-            email: "",
-            password: "",
-        },
-        newIsValid = {
-            name: "",
-            email: "",
-            password: "",
-        },
-        newHasError = false,
-        newIsFormValid = false,
-        newIsActive = false,
-        newFormHasError = false,
-    ) => {
-        setUserData(newUserData);
-        setErrorMessage(newErrorMessage);
-        setIsValid(newIsValid);
-        setHasError(newHasError);
-        setIsActive(newIsActive);
-        setIsFormValid(newIsFormValid);
-        setFormHasError(newFormHasError);
-    }, [setUserData, setErrorMessage, setIsValid, setHasError, setIsActive, setIsFormValid, setFormHasError]
-    );
-      */
-       
-    
- /*   useEffect(() => {
+   
+    useEffect(() => {
         setUserData({
             name: "",
             email: "",
@@ -128,28 +86,35 @@ function Register({ loggedIn, pagetype, onRegister, isRegistered, resError, onSu
             password: "",
         });
         setIsValid({
-            name: "",
-            email: "",
-            password: "",
+            name: false,
+            email: false,
+            password: false,
         });
-        setHasError(false);
-        setIsActive(false);
-      }, []);*/
+        setHasError({
+            name: false,
+            email: false,
+            password: false,
+        });
+        setIsFormValid(false);
+      }, []);
 
 console.log(userData);
 console.log(isValid);
 console.log(hasError);
-console.log(formHasError);
+
 console.log(errorMessage);
-console.log(isActive);
+
 console.log(isFormValid);
 
+const resErrorRegister = [
+    { name: "Bad Request",
+      message: "При регистрации пользователя произошла ошибка." },
+    { name: "Conflict", 
+      message: "Пользователь с таким email уже существует."}
+]
 
-const classNameError = "form__input_type_error";
-const classNameCorrect = "form__input_type_correct";
-
-   if (isRegistered) {
-        return <Redirect to="/signin" />;
+   if (loggedIn) {
+        return <Redirect to="/movies" />;
     };
 
     return (
@@ -164,14 +129,13 @@ const classNameCorrect = "form__input_type_correct";
                     buttonText="Зарегистрироваться"
                     pagetype={pagetype}
                     formtype="auth"
-                    isActive={isActive}
-                    isValid={isValid}
-                    formHasError={formHasError}
-                    resError={resError}                 
+                    isFormValid={isFormValid}
+                    resError={resError}
+                    hasResError={hasResError}                 
                 >
                 <fieldset className="form__fieldset">
                     <label 
-                        for="register-name-input" 
+                        htmlFor="register-name-input" 
                         className="form__label form__label_type_auth">Имя
                     </label>
                     <FormInput
@@ -180,6 +144,7 @@ const classNameCorrect = "form__input_type_correct";
                         id="register-name-input"
                         formtype="auth"
                         required
+                        pattern="^[а-яА-ЯёЁa-zA-Z\s-]+$"
                         minLength="2"
                         maxLength="40"
                         onChange={handleInput}
@@ -187,28 +152,36 @@ const classNameCorrect = "form__input_type_correct";
                         placeholder="Виталий"
                         hasError={hasError}
                         isValid={isValid}
-                        errorMessage={errorMessage?.name}
-                        className={`input form__input form__input_type_auth ${hasError  ? classNameError : (isActive ? classNameCorrect : "")}`}           
+                    />
+                    <FormError
+                        formtype={formtype}
+                        hasError={hasError}
+                        errorMessage={errorMessage?.name}           
                     />
                         <label 
-                        for="register-email-input" 
-                        className="form__label form__label_type_auth">E-mail</label>
+                        htmlFor="register-email-input" 
+                        className="form__label form__label_type_auth">E-mail
+                    </label>
                     <FormInput
                         type="email"
                         name="email"
                         id="register-email-input"
                         formtype="auth"
                         required
+                        pattern="^[^@]+@[^@]+\.[^a-z-A-Z]{2,4}$"
                         placeholder="pochta@yandex.ru"
                         onChange={handleInput}
                         value={userData?.email}
                         hasError={hasError}
                         isValid={isValid}
-                        errorMessage={errorMessage?.email} 
-                        className={`input form__input form__input_type_auth ${hasError  ? classNameError : (isActive ? classNameCorrect : "")}`}
+                    />
+                    <FormError
+                        formtype={formtype}
+                        hasError={hasError}
+                        errorMessage={errorMessage?.email}           
                     />
                     <label 
-                        for="register-password-input" 
+                        htmlFor="register-password-input" 
                         className="form__label form__label_type_auth">Пароль</label>
                     <FormInput
                         type="password"
@@ -221,8 +194,11 @@ const classNameCorrect = "form__input_type_correct";
                         value={userData?.password}
                         hasError={hasError}
                         isValid={isValid}
-                        errorMessage={errorMessage?.password} 
-                        className={`input form__input form__input_type_auth ${hasError  ? classNameError : (isActive ? classNameCorrect : "")}`}           
+                    />
+                    <FormError
+                        formtype={formtype}
+                        hasError={hasError}
+                        errorMessage={errorMessage?.password}           
                     />
                 </fieldset>
             </FormContainer>
@@ -230,6 +206,7 @@ const classNameCorrect = "form__input_type_correct";
                 question="Уже зарегистрированы? "
                 path="/signin"
                 actionText="Войти"
+                pagetype={pagetype}
             />
         </main>
         <Footer
@@ -241,9 +218,17 @@ const classNameCorrect = "form__input_type_correct";
 export default Register;
 
 /*
+
+${hasError.name  ? classNameError : (isActive ? classNameCorrect : "")}
+
 <FormError
 formtype="auth" />
 
+
+/*(e.target.validity.valid === false) {
+            setHasError(true);
+            
+          } else if*//*
 
 hasError={hasError}
                     isActive={isActive}
@@ -329,6 +314,40 @@ const [userData, setUserData] = useState({
         password: "",
     });
 
+
+   /* const resetForm = useCallback((
+        newUserData = {
+            name: "",
+            email: "",
+            password: "",
+        }, 
+        newErrorMessage = {
+            name: "",
+            email: "",
+            password: "",
+        },
+        newIsValid = {
+            name: "",
+            email: "",
+            password: "",
+        },
+        newHasError = false,
+        newIsFormValid = false,
+        newIsActive = false,
+        newFormHasError = false,
+    ) => {
+        setUserData(newUserData);
+        setErrorMessage(newErrorMessage);
+        setIsValid(newIsValid);
+        setHasError(newHasError);
+        setIsActive(newIsActive);
+        setIsFormValid(newIsFormValid);
+        setFormHasError(newFormHasError);
+    }, [setUserData, setErrorMessage, setIsValid, setHasError, setIsActive, setIsFormValid, setFormHasError]
+    );
+      */
+
+/*
     function handleChange(e) {
         const { name, value } = e.target;
         setUserData({

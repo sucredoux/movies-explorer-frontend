@@ -48,10 +48,6 @@
 .form_type_profile {
     grid-template-rows: 95px 204px 16px;
 }
-/*
-.form_type_search {
-
-}*/
 
 .form__fieldset {
     grid-row: 1/2;
@@ -73,11 +69,7 @@
     margin: 0;
     width: 100%;
 }
-/*
-.form__fieldset_type_search {
 
-}
-*/
 .form__button {
     grid-row: 3/4;
     width: 100%;
@@ -91,7 +83,11 @@
     border-radius: 3px;
 }
 
-.form__button_type_profile {
+.form__button:disabled {
+    background-color: #f8f8f8;
+}
+
+.form__button_type_profile:disabled {
     background-color: transparent;
     color: #000;
     height: 16px;
@@ -99,10 +95,6 @@
     font-size: 13px;
     line-height: 1.23;
     text-align: center;
-}
-
-.form__button_disabled {
-    background-color: #f8f8f8;
 }
 
 .form__label {
@@ -187,7 +179,7 @@
         line-height: 1.25;
     }
     
-    .form__button_type_profile {
+    .form__button_type_profile:disabled {
         height: 15px;
         font-size: 12px;
         line-height: 1.25;

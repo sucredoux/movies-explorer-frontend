@@ -70,23 +70,15 @@ console.log(errorMessage);*/
                 type={props.type}
                 name={props.name}
                 id={props.id}
-                className={props.className}
                 required={props.required}
                 placeholder={props.placeholder}
                 minLength={props.minLength}
                 maxLength={props.maxLength}
                 value={props.value}
                 onChange={props.onChange}
-               
-                
-                
-                
+                className={`input form__input form__input_type_${props.formtype} `}
                  />
-                <FormError
-                    formtype={props.formtype}
-                    hasError={props.hasError}
-                    errorMessage={props.errorMessage}
-                     />
+
         </>
     );
 };
@@ -94,7 +86,22 @@ console.log(errorMessage);*/
 export default FormInput;
 
 /*
+
+                <FormError
+                    formtype={props.formtype}
+                    hasError={props.hasError}
+                    errorMessage={props.errorMessage}
+                     />
+
+
+
+
 readOnly={props.readOnly}
+
+                        className={`input form__input form__input_type_${props.formtype} ${!props.hasError ? classNameCorrect : classNameError}`}           
+const classNameError = "form__input_type_error";
+const classNameCorrect = "form__input_type_correct";
+
 
 
 minLength={props.minLength}

@@ -16,6 +16,7 @@ export default class MainApi {
         if (res.ok) {
           return res.json();
         } return Promise.reject(`${res.statusText}`);
+        
     }
 
     registerUser(data) {
@@ -134,8 +135,7 @@ export default class MainApi {
             },    
             body: JSON.stringify({
                 name: data.name,
-                email: data.email,
-                password: data.password
+                email: data.email
           })
         })
         .then((res) => {

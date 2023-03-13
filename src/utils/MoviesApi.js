@@ -10,7 +10,8 @@ export default class MoviesApi {
     #onResponse(res) {
         if (res.ok) { 
             return res.json();           
-        }    return Promise.reject(`Ошибка: ${res.statusText}`);      
+        }   return Promise.reject(`Ошибка: ${res.statusText}`);
+        /* return Promise.reject(`Ошибка: ${res.statusText}`);      */
     }
     
     

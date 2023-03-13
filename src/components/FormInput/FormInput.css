@@ -9,12 +9,21 @@
     border: none;
     border-bottom: 1px solid #e8e8e8;
 }
-
+/*
 .form__input_type_error {
     color: #ee3465;
 }
 
 .form__input_type_correct {
+    border-bottom: 1px solid #2be080;
+}
+*/
+
+.form__input:invalid {
+    color: #ee3465;
+}
+
+.form__input:valid {
     border-bottom: 1px solid #2be080;
 }
 
@@ -28,6 +37,10 @@
     color: #000;
     border: none;
     text-align: end;
+}
+
+.form__input_type_profile:valid {
+    border-bottom: none;
 }
 
 @media (max-width: 800px) {

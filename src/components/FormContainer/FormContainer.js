@@ -16,14 +16,15 @@ function FormContainer(props) {
                 className={`form form_type_${props.formtype}`}
                 onSubmit={props.onSubmit}>
                         {props.children}                    
-                    <ResError
+                    { props.hasResError && <ResError
                         formtype={props.formtype}
-                        resError={props.resError}/>
+                        resError={props.resError}/>}
                     <button 
                     type="submit"
                     aria-label={props.buttonText}
+                    disabled={!props.isFormValid}
                     name={`${props.pagetype}-submit`}
-                    className={`button form__button ${!props.isActive || props.formHasError ? "form__button_disabled" : `form__button_type_${props.pagetype}`}`}
+                    className={`button form__button  form__button_type_${props.pagetype}`}
                     >
                         {props.buttonText}
                     </button>
@@ -34,7 +35,12 @@ function FormContainer(props) {
 
 export default FormContainer;
 
-/*className={`input form__input form__input_type_auth ${hasError  ? classNameError : (isActive ? classNameCorrect : "")}`}    */       
+/*
+!props.isActive || props.formHasError
+${!props.isFormValid ? "form__button:disabled" :
+
+
+className={`input form__input form__input_type_auth ${hasError  ? classNameError : (isActive ? classNameCorrect : "")}`}    */       
 
 /*
 className={`button form__button ${props.isValid === null && !props.isValid ? "form__button_disabled" : `form__button_type_${props.pagetype}`}`}

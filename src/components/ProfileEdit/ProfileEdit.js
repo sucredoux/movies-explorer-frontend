@@ -17,6 +17,80 @@ function ProfileEdit({ onUpdateUser, pagetype }) {
         name: currentUser.name,
         email: currentUser.email,  
     })
+/*
+    const [userData, setUserData] = useState({
+        email: "",
+        password: "",
+    });
+    const [isValid, setIsValid] = useState({
+        email: false,
+        password: false,
+    });
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [hasError, setHasError] = useState({
+        email: false,
+        password: false,
+    });
+    const [errorMessage, setErrorMessage] = useState({
+        email: "",
+        password: "",
+    });
+
+    function handleInput(e) {
+        const { name, value } = e.target;
+        setUserData({
+            ...userData,
+            [name]: value,
+        });
+        setErrorMessage({
+            ...errorMessage,
+            [name]: e.target.validationMessage,
+          });
+        setIsFormValid(e.target.closest("form").checkValidity());
+        setIsValid({
+            ...isValid,
+            [name]: e.target.validity.valid,
+        });
+        setHasError({
+            ...hasError,
+            [name]: !e.target.validity.valid,
+        });
+        if (isFormValid === true) {
+            setHasError({
+                email: false,
+                password: false,
+            });
+            setErrorMessage({
+                email: "",
+                password: "",
+            });
+            }
+    };
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        let { email, password } = userData;
+        onLogin({ email, password });
+        setIsFormValid(false);
+    };
+
+    useEffect(() => {
+        setUserData({
+            email: "",
+            password: "",
+        });
+        setErrorMessage({
+            email: "",
+            password: "",
+        });
+        setIsValid({
+            email: false,
+            password: false,
+        });
+        setHasError(false);
+        setIsFormValid(false);
+      }, []);
+      */
 
     function handleChange(e) {
         let { name, value } = e.target;
@@ -46,7 +120,7 @@ function ProfileEdit({ onUpdateUser, pagetype }) {
                 >
                     <fieldset className="form__fieldset form__fieldset_type_profile">
                         <label
-                            for="profile-edit-name-input" 
+                            htmlFor="profile-edit-name-input" 
                             className="form__label form__label_type_profile">Имя
                             <FormInput
                                 type="text"
@@ -63,7 +137,7 @@ function ProfileEdit({ onUpdateUser, pagetype }) {
                         <FormError
                             formtype="profile" />
                         <label
-                            for="profile-edit-email-input" 
+                            htmlFor="profile-edit-email-input" 
                             className="form__label form__label_type_profile">E-mail
                             <FormInput
                                 type="email"
