@@ -26,7 +26,6 @@ function AboutProject() {
                 </li>
             </ul>
         </section>
-
     );
 };
 

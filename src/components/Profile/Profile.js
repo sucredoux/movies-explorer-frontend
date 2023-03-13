@@ -9,7 +9,7 @@ import "../FormContainer/FormContainer.css";
 import React, { useEffect, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile({ onEditClick, pagetype, onLogout, onUpdateUser, resError, hasResError }) {
+function Profile({ pagetype, onLogout, onUpdateUser, resError, hasResError, loggedIn }) {
 
    const currentUser = React.useContext(CurrentUserContext);
    const [userData, setUserData] = useState({
@@ -29,16 +29,6 @@ function Profile({ onEditClick, pagetype, onLogout, onUpdateUser, resError, hasR
         name: "",
         email: "",
     });
-
-    console.log(userData);
-    console.log(isValid);
-    console.log(hasError);
-    console.log(currentUser);
-    console.log(currentUser.email);
-    console.log(currentUser.name);
-    console.log(errorMessage);
-    
-    console.log(isFormValid);
 
     function handleChange(e) {
         let { name, value } = e.target;
@@ -76,25 +66,7 @@ function Profile({ onEditClick, pagetype, onLogout, onUpdateUser, resError, hasR
         let { name, email } = userData;
         onUpdateUser({ name, email });
         setIsFormValid(false);
-      /*  resetForm();*/
     };
-/*
-   function resetForm() {
-        setUserData({
-            name: currentUser.name,
-            email: currentUser.email,  
-        });
-        setErrorMessage({
-            name: "",
-            email: "",
-        });
-        setIsValid({
-            name: false,
-            email: false,
-        });
-        setHasError(false);
-        setIsFormValid(false);
-    };*/
 
     useEffect(() => {
         setUserData({
@@ -113,19 +85,9 @@ function Profile({ onEditClick, pagetype, onLogout, onUpdateUser, resError, hasR
         setIsFormValid(false);
     }, [currentUser]);
         
-      const resErrorProfile = [
-        { name: "Bad Request",
-          message: "При обновлении профиля произошла ошибка." },
-        { name: "Unauthorized", 
-          message: "Вы ввели неправильный логин или пароль."},
-        { name: "Conflict", 
-          message: "Пользователь с таким email уже существует."}
-    ]
-
-
     return (
-        <><Header
-            pagetype={pagetype} />
+        <> <Header
+                pagetype={pagetype} />
             <main className="profile">
                 <FormContainer
                     name="profile"
@@ -196,19 +158,3 @@ function Profile({ onEditClick, pagetype, onLogout, onUpdateUser, resError, hasR
 };
 
 export default Profile;
-
-/*
-
-                        <FormError
-                            formtype="profile" />
-
-path="/profile"
-{ inEditState 
-?   component={ProfileEdit}
-  onUpdateUser={handleUpdateUser}
-  pagetype="profile-edit" 
-:   component={Profile}
-  pagetype="profile" 
-  onEditClick={handleOnEditClick} 
-  onLogout={userLogOut}
-}*/

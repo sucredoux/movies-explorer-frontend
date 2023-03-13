@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import FormError from "../FormError/FormError";
 
-function Register({ loggedIn, pagetype, onRegister, formtype, isRegistered, resError, hasResError, onSubmit, onChange, inputData }) {
+function Register({ loggedIn, pagetype, onRegister, formtype, resError, hasResError }) {
 
     const [userData, setUserData] = useState({
         name: "",
@@ -98,29 +98,14 @@ function Register({ loggedIn, pagetype, onRegister, formtype, isRegistered, resE
         setIsFormValid(false);
       }, []);
 
-console.log(userData);
-console.log(isValid);
-console.log(hasError);
-
-console.log(errorMessage);
-
-console.log(isFormValid);
-
-const resErrorRegister = [
-    { name: "Bad Request",
-      message: "При регистрации пользователя произошла ошибка." },
-    { name: "Conflict", 
-      message: "Пользователь с таким email уже существует."}
-]
-
    if (loggedIn) {
         return <Redirect to="/movies" />;
     };
 
     return (
-        <><Header
-            pagetype={pagetype} />
-        <main className="register">
+        <>  <Header
+                pagetype={pagetype} />
+            <main className="register">
                 <FormContainer
                     name="register"
                     greeting="Добро пожаловать!"
@@ -128,7 +113,7 @@ const resErrorRegister = [
                     aria-label="Зарегистрироваться"
                     buttonText="Зарегистрироваться"
                     pagetype={pagetype}
-                    formtype="auth"
+                    formtype={formtype}
                     isFormValid={isFormValid}
                     resError={resError}
                     hasResError={hasResError}                 
@@ -142,7 +127,7 @@ const resErrorRegister = [
                         type="text"
                         name="name"
                         id="register-name-input"
-                        formtype="auth"
+                        formtype={formtype}
                         required
                         pattern="^[а-яА-ЯёЁa-zA-Z\s-]+$"
                         minLength="2"
@@ -158,7 +143,7 @@ const resErrorRegister = [
                         hasError={hasError}
                         errorMessage={errorMessage?.name}           
                     />
-                        <label 
+                    <label 
                         htmlFor="register-email-input" 
                         className="form__label form__label_type_auth">E-mail
                     </label>
@@ -166,7 +151,7 @@ const resErrorRegister = [
                         type="email"
                         name="email"
                         id="register-email-input"
-                        formtype="auth"
+                        formtype={formtype}
                         required
                         pattern="^[^@]+@[^@]+\.[^a-z-A-Z]{2,4}$"
                         placeholder="pochta@yandex.ru"
@@ -182,12 +167,13 @@ const resErrorRegister = [
                     />
                     <label 
                         htmlFor="register-password-input" 
-                        className="form__label form__label_type_auth">Пароль</label>
+                        className="form__label form__label_type_auth">Пароль
+                    </label>
                     <FormInput
                         type="password"
                         name="password"
                         id="register-password-input"
-                        formtype="auth"
+                        formtype={formtype}
                         required
                         placeholder=""
                         onChange={handleInput}
@@ -216,203 +202,3 @@ const resErrorRegister = [
 };
 
 export default Register;
-
-/*
-
-${hasError.name  ? classNameError : (isActive ? classNameCorrect : "")}
-
-<FormError
-formtype="auth" />
-
-
-/*(e.target.validity.valid === false) {
-            setHasError(true);
-            
-          } else if*//*
-
-hasError={hasError}
-                    isActive={isActive}
-                    isValid={isValid}
-
-onChange={handleChange}
-                        isValid={isValid}
-                        isActive={isActive}
-                        hasError={hasError}
-                        errorMessage={errorMessage}
-value={userData?.name}
-value={userData?.email}
-value={userData?.password}
-
-const [userData, setUserData] = useState({
-        name: "",
-        email: "",
-        password: "",
-    });
-    const [isValid, setIsValid] = useState({
-        name: "",
-        email: "",
-        password: "",
-    });
-    const [hasError, setHasError] = useState(false);
-    const [isActive, setIsActive] = useState(false);
-    const [errorMessage, setErrorMessage] = useState({
-        name: "",
-        email: "",
-        password: "",
-    });
-
-    function handleChange(e) {
-        const { name, value } = e.target;
-        setUserData({
-            ...userData,
-            [name]: value,
-        });
-        setErrorMessage({
-            ...errorMessage,
-            [name]: e.target.validationMessage,
-          });
-        setIsValid({
-            ...isValid,
-            [name]: e.target.validity.valid,
-        });
-        if (e.target.validity.valid === false) {
-            setHasError(true);
-          } else {
-            setHasError(false);
-            setErrorMessage({
-              name: "",
-              about: "",
-            });
-            setIsValid({
-              name: "",
-              about: "",
-            });
-            setIsActive(true);
-          }
-        
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        let { name, email, password } = userData;
-        onRegister({ name, email, password });
-    }
-
-    */
-
-     /*  const [userData, setUserData] = useState({
-        name: "",
-        email: "",
-        password: "",
-    });
-    const [isValid, setIsValid] = useState(false);
-    const [hasError, setHasError] = useState(false);
-   /* const [isActive, setIsActive] = useState(false);*/
-  /*  const [errorMessage, setErrorMessage] = useState({
-        name: "",
-        email: "",
-        password: "",
-    });
-
-
-   /* const resetForm = useCallback((
-        newUserData = {
-            name: "",
-            email: "",
-            password: "",
-        }, 
-        newErrorMessage = {
-            name: "",
-            email: "",
-            password: "",
-        },
-        newIsValid = {
-            name: "",
-            email: "",
-            password: "",
-        },
-        newHasError = false,
-        newIsFormValid = false,
-        newIsActive = false,
-        newFormHasError = false,
-    ) => {
-        setUserData(newUserData);
-        setErrorMessage(newErrorMessage);
-        setIsValid(newIsValid);
-        setHasError(newHasError);
-        setIsActive(newIsActive);
-        setIsFormValid(newIsFormValid);
-        setFormHasError(newFormHasError);
-    }, [setUserData, setErrorMessage, setIsValid, setHasError, setIsActive, setIsFormValid, setFormHasError]
-    );
-      */
-
-/*
-    function handleChange(e) {
-        const { name, value } = e.target;
-        setUserData({
-            ...userData,
-            [name]: value,
-        });
-        setErrorMessage({
-            ...errorMessage,
-            [name]: e.target.validationMessage,
-          });
-          console.log(errorMessage);
-       /*setIsValid(
-            e.target.closest("form").checkValidity()
-        );*/
-      /*  setIsValid({
-            ...isValid,
-            [name]: e.target.validity.valid,
-        });
-        console.log(isValid);
-        console.log(e.target.validity.valid);
-        if (e.target.validity.valid === false) {
-            setHasError(true);
-          } else {
-            setHasError(false);
-            setErrorMessage({
-              name: "",
-              email: "",
-              password: "",
-            });
-            setIsValid({
-                name: "",
-                email: "",
-                password: "",
-            });
-           /* setIsActive(true);*/
-       /*   }
-        
-    };
-
-    console.log(hasError);
-console.log(isValid);
-console.log(errorMessage);
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        let { name, email, password } = userData;
-        onRegister({ name, email, password });
-    };
-    
-    useEffect(() => {
-        setUserData({
-            name: "",
-            email: "",
-            password: "",
-        });
-        setErrorMessage({
-            name: "",
-            email: "",
-            password: "",
-        });
-        setIsValid({
-            name: "",
-            email: "",
-            password: "",
-        });
-        setHasError(false);
-      }, []);
-*/

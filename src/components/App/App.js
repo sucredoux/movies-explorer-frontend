@@ -1,10 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import MobileHeader from '../MobileNavigation/MobileNavigation';
-import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
-import Footer from '../Footer/Footer';
 import './App.css';
 import Main from '../Main/Main';
 import Register from '../Register/Register';
@@ -16,25 +13,15 @@ import Preloader from '../Preloader/Preloader';
 import Error404 from '../Error404/Error404';
 import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
-import database from '../../utils/constants';
 import { useMediaQuery } from 'react-responsive';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
-
   const [loggedIn, setLoggedIn] = useState(false);
-  const [isOwn, setIsOwn] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [inEditState, setInEditState] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
   const [userData, setUserData] = useState({});
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-  const [selectedMovie, setSelectedMovie] = useState(false);
   const [savedList, setSavedList] = useState([]);
-  const [isSaved, setIsSaved] = useState(false);
-  const [searchData, setSearchData] = useState([]);
-  const [resError, setResError] = useState([]);
   const [moviesResError, setMoviesResError] = useState([]);
   const [authResError, setAuthResError] = useState([]);
   const [hasResError, setHasResError] = useState(false);
@@ -43,7 +30,6 @@ function App() {
   const isTablet = useMediaQuery({ minWidth: 768 }, {maxWidth: 1279 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  const [savedSearch, setSavedSearch] = useState([]);
 
   useEffect(() => {
     const handleResizeWindow =() => setScreenWidth(window.innerWidth);
@@ -70,9 +56,7 @@ function App() {
       }
     } catch (err) {
       console.log("Ошибка " + err);
-
       setAuthResError(err.message);
-      console.log(resError);
       setHasResError(true);
     } finally {
       setLoading(false);
@@ -94,12 +78,7 @@ function App() {
       return loginData;
     } catch (err) {
       console.log("Ошибка " + err);
-      console.log(err.message);
-
-      console.log(err.statusText);
-      console.log(Error);
-      setAuthResError(Error);
-      console.log(authResError);
+      setAuthResError(err.message);
       setHasResError(true);
     } finally {
       setLoading(false);
@@ -119,9 +98,8 @@ function App() {
       } 
       return newUser;
     } catch (err) {
-      console.log(err);
+      console.log("Ошибка " + err);
       setAuthResError(err.message);
-      console.log(resError);
       setHasResError(true);
     } finally {
       setLoading(false);
@@ -133,9 +111,6 @@ function App() {
     tokenCheck();
   }, [tokenCheck, loggedIn]);
 
-console.log(resError);
- 
-  
   const userInfo = async () => {
     try {
       const user = await mainApi.fetchUserInfo();
@@ -144,7 +119,6 @@ console.log(resError);
     } catch (err) {
       console.log("Ошибка " + err);
       setAuthResError(err.message);
-      console.log(resError);
       setHasResError(true);
     } 
   };
@@ -177,22 +151,11 @@ console.log(resError);
     } catch (err) {
       console.log("Ошибка " + err);
       setMoviesResError(err.message);
-      console.log(err.statusText);
-      console.log(err.name);
-      console.log(resError);
       setHasResError(true);
-      console.log(Error);
     } finally {
       setLoading(false);
     }
   };
-
-console.log(loggedIn);
-console.log(currentUser);
-console.log(userData);
-console.log(moviesList);
-console.log(moviesResError);
-
 
   const savedMoviesData = async () => {
     try {
@@ -218,34 +181,17 @@ console.log(moviesResError);
           thumbnail: item.thumbnail,
         }));
         console.log(results);
-       /* filterUserMovies(results);*/
        setSavedList(results);
        setHasResError(false);
       }
       } catch (err) {
         console.log("Ошибка " + err);
         setMoviesResError(err.message);
-        console.log(resError);
         setHasResError(true);
       } finally {
         setLoading(false);
       }
     };
-    console.log(savedList);
-
-   /* function filterUserMovies(results) {
-      const userResults = results.filter(item => item.owner === currentUser._id);
-      setSavedList(userResults);
-      console.log(userResults);
-    }*/
-/*
-    const savedSearchResults = () => {
-      let savedResults = JSON.parse(localStorage.getItem("searchResultMovies"));
-  console.log(savedResults);
-      setSavedSearch(savedResults);
-  console.log(savedSearch);
-    };*/
-
 
     useEffect(() => {
       let jwt = localStorage.getItem('jwt');
@@ -253,10 +199,6 @@ console.log(moviesResError);
         userInfo(jwt);
         moviesData(jwt);
         savedMoviesData(jwt);
-       /* setMoviesList(uploadedMovies);*/
-       /* const uploadedMovies = JSON.parse(localStorage.getItem("movies"));
-        setMoviesList(uploadedMovies);*/
-       /* savedSearchResults(jwt);*/
       } 
     }, [loggedIn]);
 
@@ -266,8 +208,7 @@ console.log(moviesResError);
         const newUserData = await mainApi.editUserInfo({ name, email });
         if (!newUserData) {
           throw new Error("При обновлении профиля произошла ошибка.");
-        } else 
-        {
+        } else {
           setCurrentUser(newUserData);
           setHasResError(false);
         } 
@@ -275,7 +216,6 @@ console.log(moviesResError);
       } catch (err) {
         console.log("Ошибка " + err);
         setAuthResError(err.message);
-        console.log(resError);
         setHasResError(true);
       } finally {
         setLoading(false);
@@ -287,13 +227,11 @@ console.log(moviesResError);
       .saveMovie(movie)
       .then((savedMovie) => {
         setSavedList([...savedList, savedMovie]);
-console.log(savedList);
         setHasResError(false);
       })
       .catch((err) => {
         console.log("Ошибка", err);
         setMoviesResError(err.message);
-        console.log(resError);
         setHasResError(true);
       });
   }
@@ -309,7 +247,6 @@ console.log(savedList);
       .catch((err) => {
         console.log("Ошибка", err);
         setMoviesResError(err.message);
-        console.log(resError);
         setHasResError(true);
       })
   }
@@ -324,7 +261,6 @@ console.log(savedList);
     setLoggedIn(false);
     setUserData({});
   }, []);
-
 
   function goBack() {
     history.goBack();
@@ -347,7 +283,7 @@ console.log(savedList);
               loggedIn={loggedIn}
               onRegister={userRegister}
               pagetype="auth"
-              isRegistered={isRegistered}
+              formtype="auth"
               resError={authResError}
               hasResError={hasResError}
                />
@@ -357,6 +293,7 @@ console.log(savedList);
               loggedIn={loggedIn}
               onLogin={userLogin}              
               pagetype="auth"
+              formtype="auth"
               resError={authResError}
               hasResError={hasResError}
                />
@@ -367,10 +304,8 @@ console.log(savedList);
                 loggedIn={loggedIn}                
                 pagetype="movies"
                 formtype="movies"
-                searchData={searchData}
                 allMovies={moviesList}
                 savedList={savedList}
-                selectedMovie={selectedMovie}
                 onSaveClick={handleSaveMovie}
                 onDeleteClick={handleDeleteMovie}
                 isDesktop={isDesktop}
@@ -378,28 +313,28 @@ console.log(savedList);
                 isMobile={isMobile}
                 resError={moviesResError}
                 hasResError={hasResError}>
-              </ProtectedRoute>                           
-              <ProtectedRoute 
-                    component={SavedMovies}
-                      exact path="/saved-movies"
-                      loggedIn={loggedIn}
-                      pagetype="saved-movies"
-                      formtype="movies"
-                      savedList={savedList}
-                      selectedMovie={selectedMovie}
-                      onDeleteClick={handleDeleteMovie}
-                      resError={moviesResError}
-                      hasResError={hasResError}>
+            </ProtectedRoute>                           
+            <ProtectedRoute 
+                component={SavedMovies}
+                exact path="/saved-movies"
+                loggedIn={loggedIn}
+                pagetype="saved-movies"
+                formtype="movies"
+                savedList={savedList}
+                onDeleteClick={handleDeleteMovie}
+                resError={moviesResError}
+                hasResError={hasResError}>
               </ProtectedRoute>
               <ProtectedRoute
-                      component ={Profile} 
-                      exact path="/profile"
-                      loggedIn={loggedIn}   
-                      pagetype="profile" 
-                      onUpdateUser={userUpdate} 
-                      onLogout={userLogOut}
-                      resError={authResError}
-                      hasResError={hasResError} >
+                component ={Profile} 
+                exact path="/profile"
+                loggedIn={loggedIn}   
+                pagetype="profile" 
+                onUpdateUser={userUpdate} 
+                onLogout={userLogOut}
+                userData={userData}
+                resError={authResError}
+                hasResError={hasResError} >
               </ProtectedRoute>            
             <Route path="/*">
               <Error404
@@ -416,114 +351,3 @@ console.log(savedList);
 }
 
 export default App;
-
-
-/*
-onSubmit={handleOnSaveUserClick}
-
-
-{inEditState   
-                ?   (<ProfileEdit
-                  onUpdateUser={handleUpdateUser}
-                  pagetype="profile-edit"
-                 />)
-                :   (
-*/
-
-/*
-<ProtectedRoute
-                path="/movies"
-                exact
-                loggedIn={loggedIn}
-                component={Movies}
-                pagetype="movies"
-                moviesList={moviesList}
-                isOwn={isOwn}
-                onSearch={getMoviesList}
-                selectedMovie={selectedMovie}
-                onSaveClick={handleOnSaveClick}
-            ></ProtectedRoute>
-            <ProtectedRoute 
-                path="/saved-movies"
-                exact
-                loggedIn={loggedIn}
-                component={SavedMovies}
-                pagetype="saved-movies"
-                moviesList={moviesList}
-                selectedMovie={selectedMovie}
-                isOwn={isOwn}
-                onSaveClick={handleOnSaveClick}
-            ></ProtectedRoute>
-*/
-
-
- /*
-  function getMoviesList(searchData) {
-    setMoviesList(searchData);
-  }
-console.log(moviesList);*/
-/*
-  const moviesStorage = async (movie) => {
-    try {
-      const savedMovie= await mainApi.saveMovie(movie);
-      setSavedList(savedMovie);
-    } catch (error) {
-      console.log("Ошибка " + error);
-    }
-  };*/
-/*
-  function handleOnSaveClick(movie) {
-    setIsOwn(true);
-   /* mainApi
-      .saveMovie(movie)
-      .then((newItem) => {
-        setSavedList([newItem, ...savedList]);
-        
-      })
-      .catch((err) => {
-        console.log("Ошибка", err);
-      });*/
-  /*
-  function handleSearch(searchQuery) {
-    let movies = JSON.parse(localStorage.getItem("movies"));
-    console.log(movies);
-    const searchResult = movies.filter(movie => {
-      return (movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()))             
-    });
-    console.log(searchResult);
-    setSearchData(searchResult);
-    localStorage.setItem("searchResultMovies", JSON.stringify(searchData));
-    localStorage.setItem("searchQuery", searchQuery);
-  }
-
-  console.log(searchData);
-  */
-/*
-  function handleOnSaveUserClick() {
-    setInEditState(false);
-  };*/
-
-    /*useEffect(() => {
-      searchFilm(searchQuery)
-    }, [searchQuery])
-    
-    
-    if (!newUserData.email.unique) {
-        throw new Error("Пользователь с таким email уже существует.");
-      }
-      
-
-
-      
-  function handleUpdateUser({ name, email }) {
-    mainApi
-      .editUserInfo({ name, email })
-      .then((newUserData) => {
-        setCurrentUser(newUserData);
-      })
-      .catch((err) => {
-        console.log("Ошибка", err);
-      });
-  }
-    
-    */

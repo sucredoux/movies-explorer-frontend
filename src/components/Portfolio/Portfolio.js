@@ -1,5 +1,4 @@
 import portfolio__link from "../../images/portfolio__website-link.svg";
-import { Link } from "react-router-dom";
 import "./Portfolio.css";
 
 function Portfolio() {

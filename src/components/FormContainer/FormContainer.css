@@ -12,13 +12,6 @@
     grid-template-rows: 209px auto;
     align-items: center;
 }
-/*
-.form__container_type_search {
-    display: grid;
-    grid-template-columns: auto 44px;
-    column-gap: 10px;
-    width: 100%;
-}*/
 
 .form__greeting {
     grid-row: 1/2;

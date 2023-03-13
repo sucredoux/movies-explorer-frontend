@@ -5,7 +5,7 @@ function MoreButton({ noMore, onAddMore, pagetype }) {
     function handleClick(e) {
         e.preventDefault();
         onAddMore();
-    }        
+    };
     
     return (
         <div className={`more more_type_${pagetype} ${!noMore ? "" : "more_type_disabled"}`}>
@@ -14,8 +14,8 @@ function MoreButton({ noMore, onAddMore, pagetype }) {
             aria-label="Ещё"
             className={`more__button button ${noMore ? "more__button_type_disabled" : ""}`}
             onClick={handleClick}
-            >Ещё</button>
-
+            >Ещё
+            </button>
         </div>
     );
 };

@@ -1,5 +1,5 @@
 const authentication = {
-    baseUrl: /*'https://api.sucredoux-movie.nomoredomainsclub.ru'*/ 'http://localhost:3005',
+    baseUrl: 'https://api.sucredoux-movie.nomoredomainsclub.ru',
     headers: {
         "Content-Type": "application/json",
     }
@@ -15,8 +15,7 @@ export default class MainApi {
     #onResponse(res){
         if (res.ok) {
           return res.json();
-        } return Promise.reject(`${res.statusText}`);
-        
+        } return Promise.reject(`${res.statusText}`);        
     }
 
     registerUser(data) {
@@ -141,8 +140,7 @@ export default class MainApi {
         .then((res) => {
           return this.#onResponse(res)
         })
-      }
-    
+    }    
 }
 
 const mainApi = new MainApi(authentication);

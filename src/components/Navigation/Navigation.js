@@ -6,7 +6,6 @@ import { useMediaQuery } from "react-responsive";
 
 function Navigation({ pagetype }) {
 
-
     const isMobile = useMediaQuery({
         query: '(max-width: 800px)'
       })
@@ -23,6 +22,7 @@ function Navigation({ pagetype }) {
             </nav>
         );
     };
+    
     if (pagetype === "auth") {
         return (
             <nav className="menu menu_type_auth"></nav>

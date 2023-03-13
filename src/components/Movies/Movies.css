@@ -2,7 +2,6 @@
     grid-area: content;
     display: grid;
     grid-template-rows: 228px minmax(361px, min-content) 166px;
-
     grid-template-columns: 100%;
     padding: 0 70px;
     grid-area: content;

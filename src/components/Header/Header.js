@@ -10,10 +10,8 @@ function Header({ pagetype }) {
 
     return (
         <header className={headerClassName}>
-            <div className={`header__logo header__logo_type_${pagetype}`}>
-                 
-                <Link to="/" className="link"
-                ><img className="logo" src={logo} alt="Логотип проекта" /></Link>
+            <div className={`header__logo header__logo_type_${pagetype}`}>                 
+                <Link to="/" className="link"><img className="logo" src={logo} alt="Логотип проекта" /></Link>
             </div>
             <Navigation
                 pagetype={pagetype} />

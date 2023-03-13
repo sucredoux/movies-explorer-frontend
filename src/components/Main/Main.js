@@ -11,18 +11,18 @@ import "./Main.css";
 function Main({ pagetype }) {
 
     return (
-        <><Header
-            pagetype={pagetype} />
-        <main className="main">
+        <>  <Header
+                pagetype={pagetype} />
+            <main className="main">
                 <Promo />
                 <NavTab />
                 <AboutProject />
                 <Techs />
                 <AboutMe />
                 <Portfolio />
-        </main>
-        <Footer
-            pagetype={pagetype} />
+            </main>
+            <Footer
+                pagetype={pagetype} />
         </>
     );
 };

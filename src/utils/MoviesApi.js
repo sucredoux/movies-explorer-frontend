@@ -28,5 +28,4 @@ export default class MoviesApi {
 }
      
 const moviesApi = new MoviesApi(database);
-
 export { moviesApi };

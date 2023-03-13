@@ -18,7 +18,6 @@
     background-repeat: no-repeat;
     background-color: transparent;
     background-clip: content-box;
-
 }
 
 .menu-mobile__button_type_close {
@@ -35,7 +34,6 @@
 
 .menu-mobile__window {
     visibility: hidden;
-
 }
 
 .menu-mobile__window_opened {

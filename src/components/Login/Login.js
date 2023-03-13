@@ -84,15 +84,6 @@ function Login({ loggedIn, onLogin, formtype, pagetype, resError, hasResError })
         setIsFormValid(false);
       }, []);
 
-   /* const resErrorLogin = [
-        { name: "Error: no token",
-          message: "При авторизации произошла ошибка. Токен не передан или передан не в том формате." },
-        { name: "invalid user", 
-          message: "Вы ввели неправильный логин или пароль."},
-        { name: "Bad Request", 
-          message: "При авторизации произошла ошибка. Переданный токен некорректен."}
-    ]*/
-
     if (loggedIn) {
         return <Redirect to="/movies" />
     }

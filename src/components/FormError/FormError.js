@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./FormError.css";
 
 function FormError({ formtype, hasError, errorMessage }) {
