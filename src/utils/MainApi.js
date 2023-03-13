@@ -52,7 +52,7 @@ export default class MainApi {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                authorization: `Bearer ${jwt}`
+                authorization: `Bearer ${localStorage.getItem('jwt')}`
             }
         })
         .then((res) => {
