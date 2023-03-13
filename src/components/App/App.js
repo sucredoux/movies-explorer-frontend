@@ -56,7 +56,7 @@ function App() {
       }
     } catch (err) {
       console.log("Ошибка " + err);    
-      setAuthResError("При авторизации произошла ошибка.");
+      setAuthResError("Вам необходимо авторизоваться.");
       setHasResError(true);
     } finally {
       setLoading(false);
