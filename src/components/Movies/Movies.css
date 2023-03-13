@@ -2,7 +2,6 @@
     grid-area: content;
     display: grid;
     grid-template-rows: 228px minmax(361px, min-content) 166px;
-
     grid-template-columns: 100%;
     padding: 0 70px;
     grid-area: content;
@@ -23,6 +22,12 @@
     line-height: 1.2;
     text-align: center;
     color: #2be080;
+}
+
+@media (max-width: 900px) {
+    .movies {
+        padding: 0 40px;
+    }
 }
 
 @media (max-width: 800px) {

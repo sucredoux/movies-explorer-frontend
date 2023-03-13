@@ -8,7 +8,7 @@ function Techs() {
             <div className="techs__content">
                 <h2 className="techs__content-title">7 технологий</h2>
                 <p className="techs__content-text">На курсе веб-разработки мы освоили технологии, 
-                которые применили в дипломном проекте.</p>
+                    которые применили в дипломном проекте.</p>
                 <ul className="techs__content-list list">
                     <li className="techs__content-item">HTML</li>
                     <li className="techs__content-item">CSS</li>
@@ -20,7 +20,6 @@ function Techs() {
                 </ul>
             </div>
         </section>
-
     );
 };
 

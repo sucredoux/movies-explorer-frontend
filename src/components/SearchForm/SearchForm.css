@@ -26,6 +26,23 @@
     border: none;
 }
 
+.search__input {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    display: flex;
+    width: auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: none;
+    height: 50px;
+    padding: 0 0 0 20px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.28;
+    color: #a0a0a0;
+    box-sizing: content-box;
+}
+
 @media (max-width: 580px) {
     .search {
         padding: 80px 4px 10px;

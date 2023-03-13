@@ -8,11 +8,11 @@ function MobileNavigation() {
 
     function handleOpen() {
         setIsOpen(true);
-      }
+    };
     
-      function handleClose() {
+    function handleClose() {
         setIsOpen(false);
-      }
+    };
 
     return (
         <> <nav className="menu-mobile">
