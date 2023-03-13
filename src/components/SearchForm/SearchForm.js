@@ -52,7 +52,6 @@ function SearchForm({ pagetype, onSearch, savedQuery, checked, onShortFilter }) 
                 id="search-input"
                 placeholder="Фильм"
                 formtype="search"
-                required
                 pattern="[а-яА-ЯёЁa-zA-Z\s-"
                 minLength="1"
                 value={searchInput || ""}

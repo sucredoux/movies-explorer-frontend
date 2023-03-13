@@ -17,8 +17,7 @@ export default class MoviesApi {
         return fetch(`${this._url}`, {
             method: 'GET',
             headers: {
-                "Content-Type": "application/json",
-                authorization: `Bearer ${localStorage.getItem('jwt')}`
+                "Content-Type": "application/json"
             }
         })
         .then((res) => {
