@@ -55,8 +55,8 @@ function App() {
         setHasResError(false);
       }
     } catch (err) {
-      console.log("Ошибка " + err);
-      setAuthResError(err.message);
+      console.log("Ошибка " + err);    
+      setAuthResError("При авторизации произошла ошибка.");
       setHasResError(true);
     } finally {
       setLoading(false);
@@ -77,8 +77,8 @@ function App() {
       }
       return loginData;
     } catch (err) {
-      console.log("Ошибка " + err);
-      setAuthResError(err.message);
+      console.log("Ошибка " + err);      
+      setAuthResError("Вы ввели неправильный логин или пароль.");
       setHasResError(true);
     } finally {
       setLoading(false);
@@ -99,13 +99,12 @@ function App() {
       return newUser;
     } catch (err) {
       console.log("Ошибка " + err);
-      setAuthResError(err.message);
+      setAuthResError("При авторизации произошла ошибка. Переданный токен некорректен.");
       setHasResError(true);
     } finally {
       setLoading(false);
     }
   }, []);
-
 
   useEffect(() => {
     tokenCheck();
@@ -118,7 +117,7 @@ function App() {
       setHasResError(false);
     } catch (err) {
       console.log("Ошибка " + err);
-      setAuthResError(err.message);
+      setAuthResError("При обновлении данных пользователя произошла ошибка.");
       setHasResError(true);
     } 
   };
@@ -150,7 +149,7 @@ function App() {
       }
     } catch (err) {
       console.log("Ошибка " + err);
-      setMoviesResError(err.message);
+      setMoviesResError("Во время запроса произошла ошибка.");
       setHasResError(true);
     } finally {
       setLoading(false);
@@ -180,13 +179,12 @@ function App() {
           trailerLink: item.trailerLink,
           thumbnail: item.thumbnail,
         }));
-        console.log(results);
        setSavedList(results);
        setHasResError(false);
       }
       } catch (err) {
         console.log("Ошибка " + err);
-        setMoviesResError(err.message);
+        setMoviesResError("Во время запроса произошла ошибка.");
         setHasResError(true);
       } finally {
         setLoading(false);
@@ -215,7 +213,7 @@ function App() {
         return newUserData;
       } catch (err) {
         console.log("Ошибка " + err);
-        setAuthResError(err.message);
+        setAuthResError("При обновлении профиля произошла ошибка.");
         setHasResError(true);
       } finally {
         setLoading(false);
@@ -231,7 +229,7 @@ function App() {
       })
       .catch((err) => {
         console.log("Ошибка", err);
-        setMoviesResError(err.message);
+        setMoviesResError("Во время запроса произошла ошибка.");
         setHasResError(true);
       });
   }
@@ -246,7 +244,7 @@ function App() {
       })
       .catch((err) => {
         console.log("Ошибка", err);
-        setMoviesResError(err.message);
+        setMoviesResError("Во время запроса произошла ошибка.");
         setHasResError(true);
       })
   }

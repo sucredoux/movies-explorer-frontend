@@ -1,6 +1,7 @@
 .res__error {
     display: flex;
     align-items: flex-end;
+    text-align: center;
     font-weight: 400;
     font-size: 11px;
     line-height: 1.18;

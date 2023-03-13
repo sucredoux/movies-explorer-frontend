@@ -15,7 +15,8 @@ function FormContainer(props) {
                         {props.children}                    
                     { props.hasResError && <ResError
                         formtype={props.formtype}
-                        resError={props.resError}/>}
+                        resError={props.resError}
+                        hasResError={props.hasResError}/>}
                     <button 
                     type="submit"
                     aria-label={props.buttonText}

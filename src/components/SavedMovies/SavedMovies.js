@@ -31,12 +31,10 @@ function SavedMovies({ pagetype, formtype, savedList, onDeleteClick, hasResError
     };
     
     useEffect(() => {
-        console.log("Нажали на кнопку");
         checked ? renderMovies(shortMoviesData) : renderMovies(moviesData);
     }, [checked, moviesData]);
     
-    function handleSearch(query) {      
-        console.log(query)      
+    function handleSearch(query) {        
         const searchData = savedList.filter(movie => {
             return (movie.nameRU.toLowerCase().includes(query.toLowerCase()));  
         });
@@ -51,7 +49,6 @@ function SavedMovies({ pagetype, formtype, savedList, onDeleteClick, hasResError
     };
 
     function renderMovies(data) {
-        console.log(data);
         if (data.length === 0) {
             setSearchError({ message: "Вы еще ничего не добавили"});
             setHasSearchError(true);
