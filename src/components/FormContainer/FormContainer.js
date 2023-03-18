@@ -12,11 +12,14 @@ function FormContainer(props) {
                 noValidate
                 className={`form form_type_${props.formtype}`}
                 onSubmit={props.onSubmit}>
-                        {props.children}                    
+                    {props.children}                    
                     { props.hasResError && <ResError
                         formtype={props.formtype}
                         resError={props.resError}
                         hasResError={props.hasResError}/>}
+                    {props.isSuccessful && <ResError 
+                        formtype={props.formtype}
+                        isSuccessful={props.isSuccessful}/>}
                     <button 
                     type="submit"
                     aria-label={props.buttonText}

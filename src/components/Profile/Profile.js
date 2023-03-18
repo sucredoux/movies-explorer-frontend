@@ -9,7 +9,7 @@ import "../FormContainer/FormContainer.css";
 import React, { useEffect, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile({ pagetype, onLogout, onUpdateUser, resError, hasResError, loggedIn }) {
+function Profile({ pagetype, onLogout, onUpdateUser, isSuccessful, resError, hasResError, loggedIn }) {
 
    const currentUser = React.useContext(CurrentUserContext);
    const [userData, setUserData] = useState({
@@ -99,6 +99,7 @@ function Profile({ pagetype, onLogout, onUpdateUser, resError, hasResError, logg
                     formtype="profile"
                     isValid={isValid}
                     isFormValid={isFormValid}
+                    isSuccessful={isSuccessful}
                     resError={resError}
                     hasResError = {hasResError}
                 >

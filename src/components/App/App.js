@@ -30,6 +30,7 @@ function App() {
   const isTablet = useMediaQuery({ minWidth: 768 }, {maxWidth: 1279 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [isSuccessful, setIsSuccessful] = useState(false);
 
   useEffect(() => {
     const handleResizeWindow =() => setScreenWidth(window.innerWidth);
@@ -209,6 +210,7 @@ function App() {
         } else {
           setCurrentUser(newUserData);
           setHasResError(false);
+          setIsSuccessful(true);
         } 
         return newUserData;
       } catch (err) {
@@ -232,7 +234,7 @@ function App() {
         setMoviesResError("Во время запроса произошла ошибка.");
         setHasResError(true);
       });
-  }
+  };
 
   function handleDeleteMovie(movie) {
     const movieToDelete = savedList.find(item => item.movieId === movie.movieId);
@@ -247,7 +249,16 @@ function App() {
         setMoviesResError("Во время запроса произошла ошибка.");
         setHasResError(true);
       })
-  }
+  };
+
+  useEffect(() => {
+    let timeout
+    if (isSuccessful) {
+      timeout = setTimeout(() => 
+      setIsSuccessful(false), 3000);
+    }
+    return () => clearTimeout(timeout);
+  }, [isSuccessful]);
 
   const userLogOut = useCallback(() => {
     localStorage.removeItem("jwt");
@@ -332,6 +343,7 @@ console.log(loggedIn);
                 onUpdateUser={userUpdate} 
                 onLogout={userLogOut}
                 userData={userData}
+                isSuccessful={isSuccessful}
                 resError={authResError}
                 hasResError={hasResError} >
               </ProtectedRoute>            
