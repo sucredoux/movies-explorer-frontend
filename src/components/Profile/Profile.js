@@ -49,7 +49,17 @@ function Profile({ pagetype, onLogout, onUpdateUser, isSuccessful, resError, has
             ...hasError,
             [name]: !e.target.validity.valid,
         });
-        if (isFormValid === true) {
+        if (e.target.value === currentUser.name || e.target.value === currentUser.email) {
+            setHasError({
+                ...hasError,
+                [name]: false,
+            });
+            setErrorMessage({
+                ...errorMessage,
+                [name]: "Новые данные совпадают с текущими",
+            });
+            setIsFormValid(false);
+        } else if (isFormValid === true) {
             setHasError({
                 name: false,
                 email: false,
