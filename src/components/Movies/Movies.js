@@ -19,6 +19,7 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
     const [checked, setChecked] = useState(false);
     const [hasSearchError, setHasSearchError] = useState(false);
     const [searchError, setSearchError] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const cardsToAdd = isDesktop ? 3 : 2;
     const cardsInRowMobile = isMobile ?  1 : 2;
@@ -42,13 +43,18 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
     }, [checked, moviesData]);
 
     function handleSearch(query) {
+        setLoading(true);
         const searchData = allMovies.filter(movie => {
             return (movie.nameRU.toLowerCase().includes(query.toLowerCase()));  
         });
+        console.log(searchData);
         if (searchData.length === 0) {
+            setLoading(false);
             setSearchError({ message: "Ничего не найдено"});
-            setHasSearchError(true);            
+            setHasSearchError(true);
+         
         } else {
+            setLoading(false);
             setMoviesData(searchData);    
             getShortMovies(searchData);
             setSearchResult(searchData);
@@ -58,9 +64,15 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
         }
     };
 
+    console.log(moviesData);
+console.log(hasSearchError);
+console.log(allMovies);
+console.log(moviesToRender);
+console.log(checked);
+
     function renderMovies(data) {
         if (!data) {
-            setSearchError({ message: "Что-то пошло не так..."});
+            setSearchError({ message: "Вы еще ничего не искали или что-то пошло не так..."});
             setHasSearchError(true);
         } else {
             const c = cardsInRow * rows;
@@ -82,6 +94,7 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
     useEffect(() => {
         const data = checked ? shortMoviesData : moviesData;
         let cardsLeft = data.length - moviesToRender.length;
+        console.log(cardsLeft);
         if (cardsLeft < cardsInRow ) {
             setNoMore(true);
         } else {
@@ -110,7 +123,7 @@ console.log(loggedIn);
                     onShortFilter={handleShortMovie}
                     savedQuery={savedQuery}                    
                     onSearch={handleSearch} />
-                {!savedQuery
+                {loading
                 ? ( <Preloader /> )
                 : 
                 (<> <MoviesCardList
