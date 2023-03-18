@@ -32,6 +32,12 @@
     height: 44px;
 }
 
+.menu-mobile__button_type_main {
+    background-image: url(../../images/menu-mobile__open_main.svg);
+    width: 44px;
+    height: 44px;
+}
+
 .menu-mobile__window {
     visibility: hidden;
 }

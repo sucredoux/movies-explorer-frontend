@@ -7,7 +7,7 @@ import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react";
 import Preloader from "../Preloader/Preloader";
 
-function Movies({ pagetype, formtype, onSaveClick, onDeleteClick, allMovies, resError, hasResError, savedList, loggedIn, isDesktop, isMobile}) {
+function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allMovies, resError, hasResError, savedList,  isDesktop, isMobile}) {
         
     
     const [searchResult, setSearchResult] = useState([]);
@@ -98,7 +98,7 @@ function Movies({ pagetype, formtype, onSaveClick, onDeleteClick, allMovies, res
         savedSearchResult ? setMoviesData(savedSearchResult) : setMoviesData("");
         savedSearchResultShort ? setShortMoviesData(savedSearchResultShort) : setShortMoviesData("");
     }, []);
-
+console.log(loggedIn);
     return (
         <>  <Header
               loggedIn={loggedIn}

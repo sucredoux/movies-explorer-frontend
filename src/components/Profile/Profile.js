@@ -87,7 +87,8 @@ function Profile({ pagetype, onLogout, onUpdateUser, resError, hasResError, logg
         
     return (
         <> <Header
-                pagetype={pagetype} />
+                pagetype={pagetype}
+                loggedIn={loggedIn} />
             <main className="profile">
                 <FormContainer
                     name="profile"

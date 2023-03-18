@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./MobileNavigation.css";
 
-function MobileNavigation() {
+function MobileNavigation(props) {
 
     const[isOpen, setIsOpen] = useState(false);
 
@@ -24,7 +24,7 @@ function MobileNavigation() {
                 ></button>
             ) : (
                 <button
-                    className="button menu-mobile__button menu-mobile__button_type_open"
+                    className={`button menu-mobile__button menu-mobile__button_type_open menu-mobile__button_type_${props.pagetype}`}
                     onClick={handleOpen}
                 ></button>
             )}

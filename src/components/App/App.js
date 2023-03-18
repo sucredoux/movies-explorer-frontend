@@ -267,14 +267,15 @@ function App() {
   if (loading) {
     return <Preloader />;
   };
-
+console.log(loggedIn);
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">        
           <Switch>
             <Route path='/' exact>
               <Main
-              pagetype="main" /> 
+              pagetype="main"
+              loggedIn={loggedIn} /> 
             </Route>
             <Route path="/signup">
               <Register
@@ -339,9 +340,6 @@ function App() {
                 pagetype="error"
                 onClick={goBack} />
             </Route>
-            <Route path="*">
-              {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" /> }
-          </Route>
           </Switch>          
       </div>
     </CurrentUserContext.Provider>
@@ -349,3 +347,11 @@ function App() {
 }
 
 export default App;
+
+/*
+<Route path="*">
+            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />
+          </Route>
+
+              }
+*/
