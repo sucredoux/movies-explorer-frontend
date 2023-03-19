@@ -52,7 +52,6 @@ function SearchForm({ pagetype, onSearch, savedQuery, checked, onShortFilter }) 
                 placeholder="Фильм"
                 formtype="search"
                 pattern="[а-яА-ЯёЁa-zA-Z\s-"
-                minLength="1"
                 value={searchInput || ""}
                 onChange={handleChange}
                 hasError={hasError}

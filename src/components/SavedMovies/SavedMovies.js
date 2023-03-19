@@ -40,7 +40,7 @@ function SavedMovies({ pagetype, formtype, savedList, onDeleteClick, hasResError
     
     function handleSearch(query) {        
         const searchData = savedList.filter(movie => {
-            return (movie.nameRU.toLowerCase().includes(query.toLowerCase()));  
+            return (movie.nameRU.toLowerCase().includes(query.trim().toLowerCase()));  
         });
         console.log(searchData);
         if (searchData.length === 0) {
