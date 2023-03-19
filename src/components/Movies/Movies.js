@@ -16,7 +16,10 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
     const [moviesData, setMoviesData] = useState([]);
     const [shortMoviesData, setShortMoviesData] = useState([]);
     const [savedQuery, setSavedQuery] = useState("");
-    const [checked, setChecked] = useState(false);
+    const initialCheckbox = JSON.parse(localStorage.getItem(`checkedStatus${pagetype}`)) 
+    ? JSON.parse(localStorage.getItem(`checkedStatus${pagetype}`)) 
+    : false;
+    const [checked, setChecked] = useState(initialCheckbox);
     const [hasSearchError, setHasSearchError] = useState(false);
     const [searchError, setSearchError] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -34,13 +37,20 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
     function getShortMovies (data) {
         const shortMovies = data.filter(movie => movie.duration < 41 );
         setShortMoviesData(shortMovies);
+       /* if (shortMovies.length === 0) {
+            setSearchError({ message: "Ничего не найдено"});
+            setHasSearchError(true);*/
         localStorage.setItem("searchResultShortMovies", JSON.stringify(shortMovies));
     };
 
     useEffect(() => {
-        localStorage.setItem(`checkedStatus${pagetype}`, checked);
+        localStorage.setItem(`checkedStatus${pagetype}`, JSON.stringify(checked));
         checked ? renderMovies(shortMoviesData) : renderMovies(moviesData);
-    }, [checked, moviesData]);
+    }, [checked]);
+
+    useEffect(() => {
+        checked ? renderMovies(shortMoviesData) : renderMovies(moviesData);
+    }, [moviesData]);
 
     function handleSearch(query) {
         setLoading(true);
@@ -52,7 +62,6 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
             setLoading(false);
             setSearchError({ message: "Ничего не найдено"});
             setHasSearchError(true);
-         
         } else {
             setLoading(false);
             setMoviesData(searchData);    
@@ -60,6 +69,7 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
             setSearchResult(searchData);
             setSavedQuery(query);
             localStorage.setItem("searchResultMovies", JSON.stringify(searchData)); 
+            localStorage.setItem("searchQuery", query);
             setHasSearchError(false);       
         }
     };
@@ -69,10 +79,11 @@ console.log(hasSearchError);
 console.log(allMovies);
 console.log(moviesToRender);
 console.log(checked);
+console.log(shortMoviesData);
 
     function renderMovies(data) {
-        if (!data) {
-            setSearchError({ message: "Вы еще ничего не искали или что-то пошло не так..."});
+        if (!data || data.length === 0) {
+            setSearchError({ message: "Вы еще ничего не искали или ничего не было найдено"});
             setHasSearchError(true);
         } else {
             const c = cardsInRow * rows;
@@ -104,14 +115,14 @@ console.log(checked);
 
     useEffect(() => {
         setSavedQuery(localStorage.getItem("searchQuery"));
-        setChecked(JSON.parse(localStorage.getItem(`checkedStatus${pagetype}`)));
+      /*  setChecked(JSON.parse(localStorage.getItem(`checkedStatus${pagetype}`)));*/
         let savedSearchResult = JSON.parse(localStorage.getItem("searchResultMovies"));
         let savedSearchResultShort = JSON.parse(localStorage.getItem("searchResultShortMovies"));
         checked ? renderMovies(savedSearchResultShort) : renderMovies(savedSearchResult);
         savedSearchResult ? setMoviesData(savedSearchResult) : setMoviesData("");
         savedSearchResultShort ? setShortMoviesData(savedSearchResultShort) : setShortMoviesData("");
     }, []);
-console.log(loggedIn);
+
     return (
         <>  <Header
               loggedIn={loggedIn}

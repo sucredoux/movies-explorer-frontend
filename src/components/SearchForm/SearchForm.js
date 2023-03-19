@@ -30,7 +30,6 @@ function SearchForm({ pagetype, onSearch, savedQuery, checked, onShortFilter }) 
     function handleSubmit(e) {
         e.preventDefault();
         onSearch(searchInput);
-        localStorage.setItem("searchQuery", searchInput);
     };
 
     useEffect(() => {
