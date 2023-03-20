@@ -53,13 +53,6 @@ function SavedMovies({ pagetype, formtype, savedList, onDeleteClick, hasResError
         }            
     };
 
-    console.log(moviesData);
-    console.log(hasSearchError);
-    console.log(savedList);
-    console.log(moviesToRender);
-    console.log(checked);
-    console.log(shortMoviesData);
-
     function renderMovies(data) {
         if (data.length === 0) {
             setSearchError({ message: "Вы еще ничего не добавили или ничего не было найдено"});

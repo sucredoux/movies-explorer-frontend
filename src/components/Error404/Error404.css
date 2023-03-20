@@ -1,7 +1,6 @@
 .error {
     grid-area: content;
     display: grid;
-    position: fixed;
     grid-template-columns: 1fr 300px 1fr;
     grid-template-rows: 1fr 533px 1fr;
     align-items: center;

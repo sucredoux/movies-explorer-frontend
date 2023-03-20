@@ -6,7 +6,7 @@ import Header from "../Header/Header";
 import "./Register.css";
 import "../FormContainer/FormContainer.css";
 import { useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import FormError from "../FormError/FormError";
 
 function Register({ loggedIn, pagetype, onRegister, formtype, resError, hasResError }) {
@@ -98,10 +98,17 @@ function Register({ loggedIn, pagetype, onRegister, formtype, resError, hasResEr
         setIsFormValid(false);
       }, []);
 
+ /*   const history = useHistory();
+    useEffect(() => {
+        if(loggedIn){
+            history.push("/");
+        }
+    })*/
+/*
    if (loggedIn) {
         return <Redirect to="/movies" />;
     };
-
+*/
     return (
         <>  <Header
                 pagetype={pagetype} />

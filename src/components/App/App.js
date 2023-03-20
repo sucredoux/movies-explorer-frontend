@@ -25,7 +25,6 @@ function App() {
   const [moviesResError, setMoviesResError] = useState([]);
   const [authResError, setAuthResError] = useState([]);
   const [hasResError, setHasResError] = useState(false);
-  const history = useHistory();
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isTablet = useMediaQuery({ minWidth: 768 }, {maxWidth: 1279 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
@@ -76,6 +75,8 @@ function App() {
         setUserData(loginData);
         setHasResError(false);
       }
+      history.push("/movies");
+      /*return <Redirect to="/movies" />*/
       return loginData;
     } catch (err) {
       console.log("Ошибка " + err);      
@@ -271,9 +272,22 @@ function App() {
     setUserData({});
   }, []);
 
+  const history = useHistory();
+
   function goBack() {
     history.goBack();
   }
+/*
+  useEffect(()=> {
+    if (!loggedIn) {
+        console.log("I am false");
+        console.log(history.location.pathname);
+        history.push("/")
+    } else {
+        console.log("I am true");
+        history.push(history.location.pathname) 
+    }
+}, [loggedIn]);*/
    
   if (loading) {
     return <Preloader />;
@@ -289,6 +303,7 @@ console.log(loggedIn);
               loggedIn={loggedIn} /> 
             </Route>
             <Route path="/signup">
+              {loggedIn ? <Redirect to="/" /> : 
               <Register
               loggedIn={loggedIn}
               onRegister={userRegister}
@@ -296,9 +311,10 @@ console.log(loggedIn);
               formtype="auth"
               resError={authResError}
               hasResError={hasResError}
-               />
+               />}
             </Route>
             <Route path="/signin">
+              {loggedIn ? <Redirect to="/" /> : 
               <Login
               loggedIn={loggedIn}
               onLogin={userLogin}              
@@ -306,7 +322,7 @@ console.log(loggedIn);
               formtype="auth"
               resError={authResError}
               hasResError={hasResError}
-               />
+               />}
             </Route>
             <ProtectedRoute
                 exact path="/movies"

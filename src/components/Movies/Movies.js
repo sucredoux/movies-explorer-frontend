@@ -10,7 +10,7 @@ import Preloader from "../Preloader/Preloader";
 function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allMovies, resError, hasResError, savedList,  isDesktop, isMobile}) {
         
     
-    const [searchResult, setSearchResult] = useState([]);
+   /* const [searchResult, setSearchResult] = useState([]);*/
     const [noMore, setNoMore] = useState(false);
     const [moviesToRender, setMoviesToRender] = useState([]);
     const [moviesData, setMoviesData] = useState([]);
@@ -37,9 +37,6 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
     function getShortMovies (data) {
         const shortMovies = data.filter(movie => movie.duration < 41 );
         setShortMoviesData(shortMovies);
-       /* if (shortMovies.length === 0) {
-            setSearchError({ message: "Ничего не найдено"});
-            setHasSearchError(true);*/
         localStorage.setItem("searchResultShortMovies", JSON.stringify(shortMovies));
     };
 
@@ -66,20 +63,13 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
             setLoading(false);
             setMoviesData(searchData);    
             getShortMovies(searchData);
-            setSearchResult(searchData);
+         /*   setSearchResult(searchData);*/
             setSavedQuery(query);
             localStorage.setItem("searchResultMovies", JSON.stringify(searchData)); 
             localStorage.setItem("searchQuery", query);
             setHasSearchError(false);       
         }
     };
-
-    console.log(moviesData);
-console.log(hasSearchError);
-console.log(allMovies);
-console.log(moviesToRender);
-console.log(checked);
-console.log(shortMoviesData);
 
     function renderMovies(data) {
         if (!data || data.length === 0) {
@@ -105,7 +95,6 @@ console.log(shortMoviesData);
     useEffect(() => {
         const data = checked ? shortMoviesData : moviesData;
         let cardsLeft = data.length - moviesToRender.length;
-        console.log(cardsLeft);
         if (cardsLeft < cardsInRow ) {
             setNoMore(true);
         } else {
@@ -115,7 +104,6 @@ console.log(shortMoviesData);
 
     useEffect(() => {
         setSavedQuery(localStorage.getItem("searchQuery"));
-      /*  setChecked(JSON.parse(localStorage.getItem(`checkedStatus${pagetype}`)));*/
         let savedSearchResult = JSON.parse(localStorage.getItem("searchResultMovies"));
         let savedSearchResultShort = JSON.parse(localStorage.getItem("searchResultShortMovies"));
         checked ? renderMovies(savedSearchResultShort) : renderMovies(savedSearchResult);
