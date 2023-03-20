@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useLayoutEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
@@ -17,7 +17,10 @@ import { useMediaQuery } from 'react-responsive';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false);
+  const initialLogState = localStorage.getItem("jwt")
+  ? localStorage.getItem("jwt")
+  : false;
+  const [loggedIn, setLoggedIn] = useState(initialLogState);
   const [loading, setLoading] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
   const [userData, setUserData] = useState({});
@@ -31,6 +34,7 @@ function App() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [isSuccessful, setIsSuccessful] = useState(false);
 
+
   useEffect(() => {
     const handleResizeWindow =() => setScreenWidth(window.innerWidth);
     window.addEventListener("resize", function () {
@@ -42,6 +46,7 @@ function App() {
     try {
       setLoading(true);
       let jwt = localStorage.getItem("jwt");
+console.log(jwt);
       if (!jwt) {
         throw new Error("При авторизации произошла ошибка. Токен не передан или передан не в том формате.");
       }
@@ -111,6 +116,10 @@ function App() {
   useEffect(() => {
     tokenCheck();
   }, [tokenCheck, loggedIn]);
+
+  useEffect(() => {
+    tokenCheck();
+  }, []);
 
   const userInfo = async () => {
     try {
@@ -368,6 +377,9 @@ console.log(loggedIn);
                 pagetype="error"
                 onClick={goBack} />
             </Route>
+            <Route path="*">
+            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}
+          </Route>
           </Switch>          
       </div>
     </CurrentUserContext.Provider>
@@ -380,6 +392,9 @@ export default App;
 <Route path="*">
             {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />
           </Route>
+
+
+                          checkToken={tokenCheck}
 
               }
 */
