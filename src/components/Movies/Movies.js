@@ -6,11 +6,16 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react";
 import Preloader from "../Preloader/Preloader";
+import { DESKTOP_AND_TABLET_ROWS,
+    TABLET_CARDS_IN_ROW,
+    DESKTOP_MORE_CARDS,
+    MOBILE_ROWS,
+    MOBILE_CARDS_IN_ROW,
+    TABLET_MORE_CARDS,
+    DESKTOP_CARDS_IN_ROW } from "../../utils/config";
 
-function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allMovies, resError, hasResError, savedList,  isDesktop, isMobile}) {
-        
+function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allMovies, resError, hasResError, savedList,  isDesktop, isMobile}) {      
     
-   /* const [searchResult, setSearchResult] = useState([]);*/
     const [noMore, setNoMore] = useState(false);
     const [moviesToRender, setMoviesToRender] = useState([]);
     const [moviesData, setMoviesData] = useState([]);
@@ -24,10 +29,10 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
     const [searchError, setSearchError] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const cardsToAdd = isDesktop ? 3 : 2;
-    const cardsInRowMobile = isMobile ?  1 : 2;
-    const cardsInRow = isDesktop ? 3 : cardsInRowMobile;
-    const rows = isMobile ? 5 : 4;
+    const cardsToAdd = isDesktop ? DESKTOP_MORE_CARDS : TABLET_MORE_CARDS;
+    const cardsInRowMobile = isMobile ?  MOBILE_CARDS_IN_ROW : TABLET_CARDS_IN_ROW;
+    const cardsInRow = isDesktop ? DESKTOP_CARDS_IN_ROW : cardsInRowMobile;
+    const rows = isMobile ? MOBILE_ROWS : DESKTOP_AND_TABLET_ROWS;
 
     function handleShortMovie(e) {
         e.preventDefault();
@@ -63,7 +68,6 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
             setLoading(false);
             setMoviesData(searchData);    
             getShortMovies(searchData);
-         /*   setSearchResult(searchData);*/
             setSavedQuery(query);
             localStorage.setItem("searchResultMovies", JSON.stringify(searchData)); 
             localStorage.setItem("searchQuery", query);

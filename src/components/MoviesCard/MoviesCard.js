@@ -1,5 +1,6 @@
 import React from "react";
 import "./MoviesCard.css";
+import { MIN_IN_HOUR } from "../../utils/config.js";
 
 function MoviesCard({ movie, movieId, image, trailerLink, title, duration, onSaveClick, onDeleteClick, owner, savedList, pagetype }) {
 
@@ -10,12 +11,12 @@ function MoviesCard({ movie, movieId, image, trailerLink, title, duration, onSav
         ? (<button onClick={handleDeleteClick} className="button movies__save movies__save_type_like"></button>)
         : (<button onClick={handleSaveClick} className="button movies__save movies__save_type_nolike"></button>);
        
-    const durationHours = duration > 60;
-    const newDuration = durationHours ? calculateDuration(durationHours) : `${duration + "м"}`;
+    const durationHours = duration > MIN_IN_HOUR;
+    const newDuration = durationHours ? calculateDuration(duration) : `${duration + "м"}`;
     
-    function calculateDuration(durationHours) {    
-        const hours = Math.floor(duration / 60);
-        const min = duration - 60;
+    function calculateDuration(duration) {    
+        const hours = Math.floor(duration / MIN_IN_HOUR);
+        const min = duration - MIN_IN_HOUR;
         return `${hours + "ч " + min + "м"}`;      
     }; 
    

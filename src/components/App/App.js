@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
@@ -18,7 +18,7 @@ import { useMediaQuery } from 'react-responsive';
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const initialLogState = localStorage.getItem("jwt")
-  ? localStorage.getItem("jwt")
+  ? true
   : false;
   const [loggedIn, setLoggedIn] = useState(initialLogState);
   const [loading, setLoading] = useState(false);
@@ -116,11 +116,11 @@ console.log(jwt);
   useEffect(() => {
     tokenCheck();
   }, [tokenCheck, loggedIn]);
-
+/*
   useEffect(() => {
     tokenCheck();
   }, []);
-
+*/
   const userInfo = async () => {
     try {
       const user = await mainApi.fetchUserInfo();
