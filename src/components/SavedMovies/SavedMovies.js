@@ -5,6 +5,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import Header from "../Header/Header";
 import "../Movies/Movies.css";
 import { useEffect, useState } from "react";
+import { SHORT_MOVIE_LENGTH } from "../../utils/config.js";
 
 function SavedMovies({ pagetype, formtype, savedList, onDeleteClick, hasResError, resError, loggedIn }) {
 
@@ -26,7 +27,7 @@ function SavedMovies({ pagetype, formtype, savedList, onDeleteClick, hasResError
     };
 
     function getShortMovies (data) {
-        const shortMovies = data.filter(movie => movie.duration < 41 );
+        const shortMovies = data.filter(movie => movie.duration < SHORT_MOVIE_LENGTH );
         setShortMoviesData(shortMovies);
     };
     
@@ -42,7 +43,6 @@ function SavedMovies({ pagetype, formtype, savedList, onDeleteClick, hasResError
         const searchData = savedList.filter(movie => {
             return (movie.nameRU.toLowerCase().includes(query.trim().toLowerCase()));  
         });
-        console.log(searchData);
         if (searchData.length === 0) {
             setSearchError({ message: "Ничего не найдено"});
             setHasSearchError(true);                 

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 function Header({ pagetype, loggedIn }) {
 
   const headerClassName = `header header_type_${ pagetype}`;
-console.log(loggedIn)
+  
     return (
         <header className={headerClassName}>
             <div className={`header__logo header__logo_type_${pagetype}`}>                 

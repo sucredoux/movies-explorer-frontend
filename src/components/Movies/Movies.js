@@ -12,7 +12,8 @@ import { DESKTOP_AND_TABLET_ROWS,
     MOBILE_ROWS,
     MOBILE_CARDS_IN_ROW,
     TABLET_MORE_CARDS,
-    DESKTOP_CARDS_IN_ROW } from "../../utils/config";
+    DESKTOP_CARDS_IN_ROW, 
+    SHORT_MOVIE_LENGTH} from "../../utils/config";
 
 function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allMovies, resError, hasResError, savedList,  isDesktop, isMobile}) {      
     
@@ -40,7 +41,7 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
     };
 
     function getShortMovies (data) {
-        const shortMovies = data.filter(movie => movie.duration < 41 );
+        const shortMovies = data.filter(movie => movie.duration < SHORT_MOVIE_LENGTH );
         setShortMoviesData(shortMovies);
         localStorage.setItem("searchResultShortMovies", JSON.stringify(shortMovies));
     };
@@ -59,7 +60,6 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
         const searchData = allMovies.filter(movie => {
             return (movie.nameRU.toLowerCase().includes(query.trim().toLowerCase()));  
         });
-        console.log(searchData);
         if (searchData.length === 0) {
             setLoading(false);
             setSearchError({ message: "Ничего не найдено"});

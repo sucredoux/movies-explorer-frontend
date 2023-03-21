@@ -17,9 +17,7 @@ import { useMediaQuery } from 'react-responsive';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
-  const initialLogState = localStorage.getItem("jwt")
-  ? true
-  : false;
+  const initialLogState = localStorage.getItem("jwt") ? true : false;
   const [loggedIn, setLoggedIn] = useState(initialLogState);
   const [loading, setLoading] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
@@ -33,7 +31,7 @@ function App() {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [isSuccessful, setIsSuccessful] = useState(false);
-
+  const history = useHistory();
 
   useEffect(() => {
     const handleResizeWindow =() => setScreenWidth(window.innerWidth);
@@ -46,7 +44,6 @@ function App() {
     try {
       setLoading(true);
       let jwt = localStorage.getItem("jwt");
-console.log(jwt);
       if (!jwt) {
         throw new Error("При авторизации произошла ошибка. Токен не передан или передан не в том формате.");
       }
@@ -81,7 +78,6 @@ console.log(jwt);
         setHasResError(false);
       }
       history.push("/movies");
-      /*return <Redirect to="/movies" />*/
       return loginData;
     } catch (err) {
       console.log("Ошибка " + err);      
@@ -116,11 +112,7 @@ console.log(jwt);
   useEffect(() => {
     tokenCheck();
   }, [tokenCheck, loggedIn]);
-/*
-  useEffect(() => {
-    tokenCheck();
-  }, []);
-*/
+
   const userInfo = async () => {
     try {
       const user = await mainApi.fetchUserInfo();
@@ -202,14 +194,14 @@ console.log(jwt);
       }
     };
 
-    useEffect(() => {
-      let jwt = localStorage.getItem('jwt');
-      if (loggedIn) {
-        userInfo(jwt);
-        moviesData();
-        savedMoviesData(jwt);
-      } 
-    }, [loggedIn]);
+  useEffect(() => {
+    let jwt = localStorage.getItem('jwt');
+    if (loggedIn) {
+      userInfo(jwt);
+      moviesData();
+      savedMoviesData(jwt);
+    } 
+  }, [loggedIn]);
 
   const userUpdate = useCallback(async ({ name, email }) => {
       try {
@@ -281,27 +273,14 @@ console.log(jwt);
     setUserData({});
   }, []);
 
-  const history = useHistory();
-
   function goBack() {
     history.goBack();
   }
-/*
-  useEffect(()=> {
-    if (!loggedIn) {
-        console.log("I am false");
-        console.log(history.location.pathname);
-        history.push("/")
-    } else {
-        console.log("I am true");
-        history.push(history.location.pathname) 
-    }
-}, [loggedIn]);*/
    
   if (loading) {
     return <Preloader />;
   };
-console.log(loggedIn);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">        
@@ -377,9 +356,6 @@ console.log(loggedIn);
                 pagetype="error"
                 onClick={goBack} />
             </Route>
-            <Route path="*">
-            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}
-          </Route>
           </Switch>          
       </div>
     </CurrentUserContext.Provider>
@@ -387,14 +363,3 @@ console.log(loggedIn);
 }
 
 export default App;
-
-/*
-<Route path="*">
-            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />
-          </Route>
-
-
-                          checkToken={tokenCheck}
-
-              }
-*/

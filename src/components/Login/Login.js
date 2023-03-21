@@ -6,10 +6,9 @@ import Header from "../Header/Header";
 import "./Login.css";
 import "../FormContainer/FormContainer.css";
 import { useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
 import FormError from "../FormError/FormError";
 
-function Login({ loggedIn, onLogin, formtype, pagetype, resError, hasResError }) {
+function Login({ onLogin, formtype, pagetype, resError, hasResError }) {
 
     const [userData, setUserData] = useState({
         email: "",
@@ -83,10 +82,6 @@ function Login({ loggedIn, onLogin, formtype, pagetype, resError, hasResError })
         setHasError(false);
         setIsFormValid(false);
       }, []);
-
-    if (loggedIn) {
-        return <Redirect to="/movies" />
-    }
 
     return (
         <><Header

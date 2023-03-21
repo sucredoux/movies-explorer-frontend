@@ -2,7 +2,7 @@ import React from "react";
 import "./MoviesCard.css";
 import { MIN_IN_HOUR } from "../../utils/config.js";
 
-function MoviesCard({ movie, movieId, image, trailerLink, title, duration, onSaveClick, onDeleteClick, owner, savedList, pagetype }) {
+function MoviesCard({ movie, movieId, image, trailerLink, title, duration, onSaveClick, onDeleteClick, savedList, pagetype }) {
 
     const moviesPage = pagetype === "movies";
     const isActive = moviesPage ? savedList.some(item => item.movieId === movieId) : "";

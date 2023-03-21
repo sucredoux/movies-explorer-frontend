@@ -9,3 +9,4 @@ export const MOBILE_ROWS = 5;
 export const DESKTOP_AND_TABLET_ROWS = 4;
 
 export const MIN_IN_HOUR = 60;
+export const SHORT_MOVIE_LENGTH = 41;
