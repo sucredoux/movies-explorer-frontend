@@ -14,6 +14,9 @@ import Error404 from '../Error404/Error404';
 import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 import { useMediaQuery } from 'react-responsive';
+import { IntlProvider } from 'react-intl';
+import { LOCALES } from '../../i18n/locales';
+import { messages } from '../../i18n/messages';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -32,6 +35,9 @@ function App() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [isSuccessful, setIsSuccessful] = useState(false);
   const history = useHistory();
+  const initialLocale = localStorage.getItem("currentLocale") ? JSON.parse(localStorage.getItem("currentLocale")) : LOCALES.RUSSIAN;
+  const [currentLocale, setCurrentLocale] = useState(initialLocale);
+
 
   useEffect(() => {
     const handleResizeWindow =() => setScreenWidth(window.innerWidth);
@@ -280,85 +286,95 @@ function App() {
   if (loading) {
     return <Preloader />;
   };
+  
+  function handleLanguageSwitch(value) {
+    setCurrentLocale(value);
+    localStorage.setItem("currentLocale", JSON.stringify(value));
+  }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">        
-          <Switch>
-            <Route path='/' exact>
-              <Main
-              pagetype="main"
-              loggedIn={loggedIn} /> 
-            </Route>
-            <Route path="/signup">
-              {loggedIn ? <Redirect to="/" /> : 
-              <Register
-              loggedIn={loggedIn}
-              onRegister={userRegister}
-              pagetype="auth"
-              formtype="auth"
-              resError={authResError}
-              hasResError={hasResError}
-               />}
-            </Route>
-            <Route path="/signin">
-              {loggedIn ? <Redirect to="/" /> : 
-              <Login
-              loggedIn={loggedIn}
-              onLogin={userLogin}              
-              pagetype="auth"
-              formtype="auth"
-              resError={authResError}
-              hasResError={hasResError}
-               />}
-            </Route>
-            <ProtectedRoute
-                exact path="/movies"
-                component={Movies}
-                loggedIn={loggedIn}                
-                pagetype="movies"
-                formtype="movies"
-                allMovies={moviesList}
-                savedList={savedList}
-                onSaveClick={handleSaveMovie}
-                onDeleteClick={handleDeleteMovie}
-                isDesktop={isDesktop}
-                isTablet={isTablet}
-                isMobile={isMobile}
-                resError={moviesResError}
-                hasResError={hasResError}>
-            </ProtectedRoute>                           
-            <ProtectedRoute 
-                component={SavedMovies}
-                exact path="/saved-movies"
+    <IntlProvider messages={messages[currentLocale]} locale={currentLocale} defaultLocale={LOCALES.RUSSIAN}>
+      <CurrentUserContext.Provider value={currentUser}>
+        <div className="page">        
+            <Switch>
+              <Route path='/' exact>
+                <Main
+                pagetype="main"
                 loggedIn={loggedIn}
-                pagetype="saved-movies"
-                formtype="movies"
-                savedList={savedList}
-                onDeleteClick={handleDeleteMovie}
-                resError={moviesResError}
-                hasResError={hasResError}>
-              </ProtectedRoute>
-              <ProtectedRoute
-                component ={Profile} 
-                exact path="/profile"
-                loggedIn={loggedIn}   
-                pagetype="profile" 
-                onUpdateUser={userUpdate} 
-                onLogout={userLogOut}
-                userData={userData}
-                isSuccessful={isSuccessful}
+                onSwitch={handleLanguageSwitch}
+                currentLocale={currentLocale} /> 
+              </Route>
+              <Route path="/signup">
+                {loggedIn ? <Redirect to="/" /> : 
+                <Register
+                loggedIn={loggedIn}
+                onRegister={userRegister}
+                pagetype="auth"
+                formtype="auth"
                 resError={authResError}
-                hasResError={hasResError} >
-              </ProtectedRoute>            
-            <Route path="/*">
-              <Error404
-                pagetype="error"
-                onClick={goBack} />
-            </Route>
-          </Switch>          
-      </div>
-    </CurrentUserContext.Provider>
+                hasResError={hasResError}
+                />}
+              </Route>
+              <Route path="/signin">
+                {loggedIn ? <Redirect to="/" /> : 
+                <Login
+                loggedIn={loggedIn}
+                onLogin={userLogin}              
+                pagetype="auth"
+                formtype="auth"
+                resError={authResError}
+                hasResError={hasResError}
+                />}
+              </Route>
+              <ProtectedRoute
+                  exact path="/movies"
+                  component={Movies}
+                  loggedIn={loggedIn}                
+                  pagetype="movies"
+                  formtype="movies"
+                  allMovies={moviesList}
+                  savedList={savedList}
+                  onSaveClick={handleSaveMovie}
+                  onDeleteClick={handleDeleteMovie}
+                  isDesktop={isDesktop}
+                  isTablet={isTablet}
+                  isMobile={isMobile}
+                  resError={moviesResError}
+                  hasResError={hasResError}>
+              </ProtectedRoute>                           
+              <ProtectedRoute 
+                  component={SavedMovies}
+                  exact path="/saved-movies"
+                  loggedIn={loggedIn}
+                  pagetype="saved-movies"
+                  formtype="movies"
+                  savedList={savedList}
+                  onDeleteClick={handleDeleteMovie}
+                  resError={moviesResError}
+                  hasResError={hasResError}>
+                </ProtectedRoute>
+                <ProtectedRoute
+                  component ={Profile} 
+                  exact path="/profile"
+                  loggedIn={loggedIn}   
+                  pagetype="profile" 
+                  onUpdateUser={userUpdate} 
+                  onLogout={userLogOut}
+                  userData={userData}
+                  isSuccessful={isSuccessful}
+                  resError={authResError}
+                  hasResError={hasResError} >
+                </ProtectedRoute>            
+              <Route path="/*">
+                <Error404
+                  pagetype="error"
+                  onClick={goBack} />
+              </Route>
+            </Switch>          
+        </div>
+      </CurrentUserContext.Provider>
+    </IntlProvider>
+    
   );
 }
 

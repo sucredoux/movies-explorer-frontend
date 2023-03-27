@@ -29,6 +29,16 @@
     grid-column: 2/3;
 }
 
+.header__switcher {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.28;
+}
+
+.header__switcher::selection {
+    font-weight: 500;
+}
+
 @media (max-width: 800px) {
     .header {
         padding: 15px 30px 15px;

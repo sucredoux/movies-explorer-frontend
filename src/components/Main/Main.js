@@ -8,12 +8,14 @@ import Promo from "../Promo/Promo";
 import Techs from "../Techs/Techs";
 import "./Main.css";
 
-function Main({ pagetype, loggedIn }) {
+function Main({ pagetype, loggedIn, onSwitch, currentLocale }) {
 
     return (
         <>  <Header
                 pagetype={pagetype}
-                loggedIn={loggedIn} />
+                loggedIn={loggedIn}
+                onSwitch={onSwitch}
+                currentLocale={currentLocale} />
             <main className="main">
                 <Promo />
                 <NavTab />
