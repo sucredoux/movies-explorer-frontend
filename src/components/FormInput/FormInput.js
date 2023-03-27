@@ -1,32 +1,21 @@
-import { useState } from "react";
-import FormError from "../FormError/FormError";
 import "./FormInput.css";
 
-function FormInput({ type, name, id, formtype, placeholder, value, onChange, minlength, maxlength }) {
-
-    const[isActive, setIsActive] = useState(false);
-    const[isValid, setIsValid] = useState(true);
-    const[hasError, setHasError] = useState(false);
-
-    const classNameActive = `${isActive ? "form__input_type_correct" : "" }`;
+function FormInput(props) {
 
     return (
         <>
             <input
-                type={type}
-                name={name}
-                id={id}
-                className={`input form__input form__input_type_${formtype} ${ !isValid ? "form__input_type_error" : classNameActive }`}
-                required
-                placeholder={placeholder}
-                minlength={minlength}
-                maxlength={maxlength}
-                value={value}
-                onChange={onChange}
-                 />
-                <FormError
-                    formtype={formtype}
-                    hasError={hasError} />
+                type={props.type}
+                name={props.name}
+                id={props.id}
+                required={props.required}
+                placeholder={props.placeholder}
+                minLength={props.minLength}
+                maxLength={props.maxLength}
+                value={props.value}
+                onChange={props.onChange}
+                className={`input form__input form__input_type_${props.formtype} `}
+             />
         </>
     );
 };

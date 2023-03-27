@@ -1,13 +1,87 @@
 import AuthReminder from "../AuthReminder/AuthReminder";
 import Footer from "../Footer/Footer";
 import FormContainer from "../FormContainer/FormContainer";
-import FormError from "../FormError/FormError";
 import FormInput from "../FormInput/FormInput";
 import Header from "../Header/Header";
 import "./Login.css";
-import "../FormContainer/FormContainer.css"
+import "../FormContainer/FormContainer.css";
+import { useEffect, useState } from "react";
+import FormError from "../FormError/FormError";
 
-function Login({ onSubmit, onChange, pagetype }) {
+function Login({ onLogin, formtype, pagetype, resError, hasResError }) {
+
+    const [userData, setUserData] = useState({
+        email: "",
+        password: "",
+    });
+    const [isValid, setIsValid] = useState({
+        email: false,
+        password: false,
+    });
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [hasError, setHasError] = useState({
+        email: false,
+        password: false,
+    });
+    const [errorMessage, setErrorMessage] = useState({
+        email: "",
+        password: "",
+    });
+
+    function handleInput(e) {
+        const { name, value } = e.target;
+        setUserData({
+            ...userData,
+            [name]: value,
+        });
+        setErrorMessage({
+            ...errorMessage,
+            [name]: e.target.validationMessage,
+          });
+        setIsFormValid(e.target.closest("form").checkValidity());
+        setIsValid({
+            ...isValid,
+            [name]: e.target.validity.valid,
+        });
+        setHasError({
+            ...hasError,
+            [name]: !e.target.validity.valid,
+        });
+        if (isFormValid === true) {
+            setHasError({
+                email: false,
+                password: false,
+            });
+            setErrorMessage({
+                email: "",
+                password: "",
+            });
+            }
+    };
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        let { email, password } = userData;
+        onLogin({ email, password });
+        setIsFormValid(false);
+    };
+
+    useEffect(() => {
+        setUserData({
+            email: "",
+            password: "",
+        });
+        setErrorMessage({
+            email: "",
+            password: "",
+        });
+        setIsValid({
+            email: false,
+            password: false,
+        });
+        setHasError(false);
+        setIsFormValid(false);
+      }, []);
 
     return (
         <><Header
@@ -16,14 +90,18 @@ function Login({ onSubmit, onChange, pagetype }) {
                 <FormContainer
                     name="login"
                     greeting="Рады видеть!"
-                    onSubmit={onSubmit}
+                    onSubmit={handleSubmit}
                     buttonText="Войти"
                     pagetype={pagetype}
                     formtype="auth"
+                    isValid={isValid}
+                    isFormValid={isFormValid}
+                    hasResError={hasResError}
+                    resError = {resError}
                 >
                 <fieldset className="form__fieldset">
                     <label 
-                        for="login-email-input" 
+                        htmlFor="login-email-input" 
                         className="form__label form__label_type_auth">E-mail
                     </label>
                     <FormInput
@@ -32,15 +110,22 @@ function Login({ onSubmit, onChange, pagetype }) {
                         name="email"
                         id="login-email-input"
                         formtype="auth"
+                        required
                         placeholder="pochta@yandex.ru"
                         minLength="2"
                         maxLength="40"
-                        value="pochta@yandex.ru"
-                        onChange={onChange} />
+                        value={userData?.email}
+                        onChange={handleInput}
+                        hasError={hasError}
+                        isValid={isValid}             
+                        />
                     <FormError
-                        formtype="auth" />
+                        formtype={formtype}
+                        hasError={hasError}
+                        errorMessage={errorMessage?.email} 
+                     />
                     <label 
-                            for="login-password-input" 
+                            htmlFor="login-password-input" 
                             className="form__label form__label_type_auth">Пароль
                     </label>
                     <FormInput
@@ -49,17 +134,25 @@ function Login({ onSubmit, onChange, pagetype }) {
                         name="password"
                         id="login-password-input"
                         formtype="auth"
+                        required
                         placeholder=""
-                        value="123456"
-                        onChange={onChange} />
+                        value={userData?.password}
+                        onChange={handleInput}
+                        hasError={hasError}
+                        isValid={isValid}
+                        />
                     <FormError
-                        formtype="auth" />
+                        formtype={formtype}
+                        hasError={hasError}
+                        errorMessage={errorMessage?.password}
+                     />
                 </fieldset>
-                </FormContainer>
-                <AuthReminder
-                    question="Ещё не зарегистрированы? "
-                    path="/signup"
-                    actionText="Регистрация" />
+            </FormContainer>
+            <AuthReminder
+                question="Ещё не зарегистрированы? "
+                path="/signup"
+                actionText="Регистрация"
+                pagetype={pagetype} />
         </main>
         <Footer
             pagetype={pagetype} />

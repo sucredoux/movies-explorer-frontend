@@ -14,7 +14,7 @@
     height: 203px;
     overflow: hidden;
     align-items: stretch;
-    object-fit: cover;
+    object-fit: contain;
     -webkit-border-top-left-radius: 10px;
     -webkit-border-top-right-radius: 10px;
     -moz-border-radius-topleft: 10px;
@@ -82,7 +82,7 @@
     background-image: url(../../images/movies__save_type_delete.svg);
 }
 
-@media (max-width: 800px) {
+@media (max-width: 895px) {
     .movies__item {
         grid-template-columns: 278px 61px;
         grid-template-rows: 190px 72px;

@@ -3,64 +3,183 @@ import Footer from "../Footer/Footer";
 import FormContainer from "../FormContainer/FormContainer";
 import FormInput from "../FormInput/FormInput";
 import Header from "../Header/Header";
-import FormError from "../FormError/FormError";
 import "./Register.css";
 import "../FormContainer/FormContainer.css";
+import { useEffect, useState } from "react";
+import FormError from "../FormError/FormError";
 
-function Register({ onSubmit, onChange, pagetype }) {
+function Register({ pagetype, onRegister, formtype, resError, hasResError }) {
+
+    const [userData, setUserData] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
+    const [isValid, setIsValid] = useState({
+        name: false,
+        email: false,
+        password: false,
+    });
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [hasError, setHasError] = useState({
+        name: false,
+        email: false,
+        password: false,
+    });
+    const [errorMessage, setErrorMessage] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
+
+    
+    function handleInput(e) {
+        const { name, value } = e.target;
+        setUserData({
+            ...userData,
+            [name]: value,
+        });
+        setErrorMessage({
+            ...errorMessage,
+            [name]: e.target.validationMessage,
+        });
+        setIsFormValid(e.target.closest("form").checkValidity());
+        setIsValid({
+            ...isValid,
+            [name]: e.target.validity.valid,
+        });
+        setHasError({
+            ...hasError,
+            [name]: !e.target.validity.valid,
+        });
+        if (isFormValid === true) {
+            setHasError({
+                name: false,
+                email: false,
+                password: false,
+            });
+            setErrorMessage({
+                name: "",
+                email: "",
+                password: "",
+            });
+          }
+    };
+   
+    function handleSubmit(e) {
+        e.preventDefault();
+        let { name, email, password } = userData;
+        onRegister({ name, email, password });
+        setIsFormValid(false);
+    };
+   
+    useEffect(() => {
+        setUserData({
+            name: "",
+            email: "",
+            password: "",
+        });
+        setErrorMessage({
+            name: "",
+            email: "",
+            password: "",
+        });
+        setIsValid({
+            name: false,
+            email: false,
+            password: false,
+        });
+        setHasError({
+            name: false,
+            email: false,
+            password: false,
+        });
+        setIsFormValid(false);
+      }, []);
 
     return (
-        <><Header
-            pagetype={pagetype} />
-        <main className="register">
+        <>  <Header
+                pagetype={pagetype} />
+            <main className="register">
                 <FormContainer
                     name="register"
                     greeting="Добро пожаловать!"
-                    onSubmit={onSubmit}
+                    onSubmit={handleSubmit}
                     aria-label="Зарегистрироваться"
                     buttonText="Зарегистрироваться"
                     pagetype={pagetype}
-                    formtype="auth"
+                    formtype={formtype}
+                    isFormValid={isFormValid}
+                    resError={resError}
+                    hasResError={hasResError}                 
                 >
                 <fieldset className="form__fieldset">
                     <label 
-                        for="register-name-input" 
+                        htmlFor="register-name-input" 
                         className="form__label form__label_type_auth">Имя
                     </label>
                     <FormInput
                         type="text"
                         name="name"
                         id="register-name-input"
-                        formtype="auth"
+                        formtype={formtype}
+                        required
+                        pattern="^[а-яА-ЯёЁa-zA-Z\s-]+$"
                         minLength="2"
                         maxLength="40"
+                        onChange={handleInput}
+                        value={userData?.name}
                         placeholder="Виталий"
-                        value="Виталий"
-                        onChange={onChange}
+                        hasError={hasError}
+                        isValid={isValid}
                     />
-                        <label 
-                        for="register-email-input" 
-                        className="form__label form__label_type_auth">E-mail</label>
+                    <FormError
+                        formtype={formtype}
+                        hasError={hasError}
+                        errorMessage={errorMessage?.name}           
+                    />
+                    <label 
+                        htmlFor="register-email-input" 
+                        className="form__label form__label_type_auth">E-mail
+                    </label>
                     <FormInput
                         type="email"
                         name="email"
                         id="register-email-input"
-                        formtype="auth"
+                        formtype={formtype}
+                        required
+                        pattern="^[^@]+@[^@]+\.[^a-z-A-Z]{2,4}$"
                         placeholder="pochta@yandex.ru"
-                        value="pochta@yandex.ru"
-                        onChange={onChange}
+                        onChange={handleInput}
+                        value={userData?.email}
+                        hasError={hasError}
+                        isValid={isValid}
+                    />
+                    <FormError
+                        formtype={formtype}
+                        hasError={hasError}
+                        errorMessage={errorMessage?.email}           
                     />
                     <label 
-                        for="register-password-input" 
-                        className="form__label form__label_type_auth">Пароль</label>
+                        htmlFor="register-password-input" 
+                        className="form__label form__label_type_auth">Пароль
+                    </label>
                     <FormInput
                         type="password"
                         name="password"
                         id="register-password-input"
-                        formtype="auth"
+                        formtype={formtype}
+                        required
                         placeholder=""
-                        value="123456"
-                        onChange={onChange}
+                        onChange={handleInput}
+                        value={userData?.password}
+                        hasError={hasError}
+                        isValid={isValid}
+                    />
+                    <FormError
+                        formtype={formtype}
+                        hasError={hasError}
+                        errorMessage={errorMessage?.password}           
                     />
                 </fieldset>
             </FormContainer>
@@ -68,6 +187,7 @@ function Register({ onSubmit, onChange, pagetype }) {
                 question="Уже зарегистрированы? "
                 path="/signin"
                 actionText="Войти"
+                pagetype={pagetype}
             />
         </main>
         <Footer
@@ -77,7 +197,3 @@ function Register({ onSubmit, onChange, pagetype }) {
 };
 
 export default Register;
-
-
-<FormError
-formtype="auth" />

@@ -8,21 +8,22 @@ import Promo from "../Promo/Promo";
 import Techs from "../Techs/Techs";
 import "./Main.css";
 
-function Main({ pagetype }) {
+function Main({ pagetype, loggedIn }) {
 
     return (
-        <><Header
-            pagetype={pagetype} />
-        <main className="main">
+        <>  <Header
+                pagetype={pagetype}
+                loggedIn={loggedIn} />
+            <main className="main">
                 <Promo />
                 <NavTab />
                 <AboutProject />
                 <Techs />
                 <AboutMe />
                 <Portfolio />
-        </main>
-        <Footer
-            pagetype={pagetype} />
+            </main>
+            <Footer
+                pagetype={pagetype} />
         </>
     );
 };

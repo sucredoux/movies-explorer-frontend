@@ -25,13 +25,13 @@
     visibility: visible;
 }
 
-.more__button_type_saved-movies {
+.more__button_type_disabled {
     visibility: hidden;
     height: 0;
 }
 
 @media (max-width: 800px) {
-    .more_type_saved-movies {
+    .more_type_disabled {
         padding: 60px 0 80px;
     }
 }

@@ -15,16 +15,18 @@
     row-gap: 37px;
 }
 
-@media (max-width: 800px) {
-    .movies-list {
-        padding: 70px 0 30px;
-    }
-    
+@media (max-width: 895px) {
     .movies__container {
         grid-template-columns: repeat(auto-fill, 339px);
         grid-template-rows: repeat(auto-fill, 262px);
         column-gap: 30px;
         row-gap: 30px;
+    }
+}
+
+@media (max-width: 800px) {
+    .movies-list {
+        padding: 70px 0 30px;
     }
 }
 

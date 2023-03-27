@@ -6,10 +6,10 @@
     color: #ee3465;
     padding-top: 6px;
     min-height: 12px;
-   /* visibility: hidden;*/
+    visibility: hidden;
 }
 
-.form__error_type_profile-edit {
+.form__error_type_profile {
     justify-content: center;
 }
 
@@ -19,8 +19,6 @@
     grid-row: 2/3;
 }
 
-/*
 .form__error_active {
     visibility: visible;
 }
-*/
