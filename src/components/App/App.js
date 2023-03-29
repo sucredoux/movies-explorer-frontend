@@ -14,7 +14,7 @@ import Error404 from '../Error404/Error404';
 import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 import { useMediaQuery } from 'react-responsive';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider, useIntl } from 'react-intl';
 import { LOCALES } from '../../i18n/locales';
 import { messages } from '../../i18n/messages';
 
@@ -37,7 +37,7 @@ function App() {
   const history = useHistory();
   const initialLocale = localStorage.getItem("currentLocale") ? JSON.parse(localStorage.getItem("currentLocale")) : LOCALES.RUSSIAN;
   const [currentLocale, setCurrentLocale] = useState(initialLocale);
-
+ /* const intl = useIntl();*/
 
   useEffect(() => {
     const handleResizeWindow =() => setScreenWidth(window.innerWidth);
@@ -63,8 +63,8 @@ function App() {
         setHasResError(false);
       }
     } catch (err) {
-      console.log("Ошибка " + err);    
-      setAuthResError("Вам необходимо авторизоваться.");
+      console.log("Ошибка " + err.response);    
+      setAuthResError("Вам необходимо авторизоваться." /* intl.formatMessage({ id: "error__auth_needed" })*/);
       setHasResError(true);
     } finally {
       setLoading(false);
@@ -311,6 +311,7 @@ function App() {
                 onRegister={userRegister}
                 pagetype="auth"
                 formtype="auth"
+                currentLocale={currentLocale}
                 resError={authResError}
                 hasResError={hasResError}
                 />}
@@ -322,6 +323,7 @@ function App() {
                 onLogin={userLogin}              
                 pagetype="auth"
                 formtype="auth"
+                currentLocale={currentLocale}
                 resError={authResError}
                 hasResError={hasResError}
                 />}
@@ -332,6 +334,8 @@ function App() {
                   loggedIn={loggedIn}                
                   pagetype="movies"
                   formtype="movies"
+                  onSwitch={handleLanguageSwitch}
+                  currentLocale={currentLocale}
                   allMovies={moviesList}
                   savedList={savedList}
                   onSaveClick={handleSaveMovie}
@@ -348,6 +352,8 @@ function App() {
                   loggedIn={loggedIn}
                   pagetype="saved-movies"
                   formtype="movies"
+                  onSwitch={handleLanguageSwitch}
+                  currentLocale={currentLocale}
                   savedList={savedList}
                   onDeleteClick={handleDeleteMovie}
                   resError={moviesResError}
@@ -358,6 +364,8 @@ function App() {
                   exact path="/profile"
                   loggedIn={loggedIn}   
                   pagetype="profile" 
+                  onSwitch={handleLanguageSwitch}
+                  currentLocale={currentLocale}
                   onUpdateUser={userUpdate} 
                   onLogout={userLogOut}
                   userData={userData}
@@ -368,13 +376,14 @@ function App() {
               <Route path="/*">
                 <Error404
                   pagetype="error"
+                  currentLocale={currentLocale}
                   onClick={goBack} />
               </Route>
             </Switch>          
         </div>
       </CurrentUserContext.Provider>
     </IntlProvider>
-    
+
   );
 }
 

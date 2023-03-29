@@ -1,3 +1,4 @@
+import { FormattedMessage } from "react-intl";
 import "./MoreButton.css";
 
 function MoreButton({ noMore, onAddMore, pagetype }) {
@@ -14,7 +15,7 @@ function MoreButton({ noMore, onAddMore, pagetype }) {
             aria-label="Ещё"
             className={`more__button button ${noMore ? "more__button_type_disabled" : ""}`}
             onClick={handleClick}
-            >Ещё
+            ><FormattedMessage id="more__button" />
             </button>
         </div>
     );

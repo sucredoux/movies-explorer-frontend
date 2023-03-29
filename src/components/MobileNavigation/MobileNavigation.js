@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FormattedMessage } from "react-intl";
 import { NavLink } from "react-router-dom";
 import "./MobileNavigation.css";
 
@@ -33,18 +34,18 @@ function MobileNavigation(props) {
         <div className="menu-mobile__window_opened">
             <div className="menu-mobile__menu">
                 <div className="menu-mobile__list">
-                    <NavLink exact to="/" className="link menu-mobile__item" activeClassName="menu-mobile__item_active"
-                        > Главная
+                    <NavLink exact to="/" className="link menu-mobile__item" activeClassName="menu-mobile__item_active"> 
+                        <FormattedMessage id="menu__main" />
                     </NavLink>
-                    <NavLink exact to="/movies" className="link menu-mobile__item" activeClassName="menu-mobile__item_active"
-                        > Фильмы
+                    <NavLink exact to="/movies" className="link menu-mobile__item" activeClassName="menu-mobile__item_active">
+                        <FormattedMessage id="menu__movies" />
                     </NavLink>
-                    <NavLink exact to="/saved-movies" className="link menu-mobile__item" activeClassName="menu-mobile__item_active"
-                        > Сохраненные фильмы
+                    <NavLink exact to="/saved-movies" className="link menu-mobile__item" activeClassName="menu-mobile__item_active"> 
+                        <FormattedMessage id="menu__saved_movies" />
                     </NavLink>
                 </div>
                 <NavLink exact to="/profile" className="link menu-mobile__button-item" activeClassName="link menu-mobile__button-item_active"
-                    > Аккаунт
+                    > <FormattedMessage id="menu__profile" />
                 </NavLink>
             </div>
 

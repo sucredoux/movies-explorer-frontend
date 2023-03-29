@@ -14,8 +14,9 @@ import { DESKTOP_AND_TABLET_ROWS,
     TABLET_MORE_CARDS,
     DESKTOP_CARDS_IN_ROW, 
     SHORT_MOVIE_LENGTH} from "../../utils/config";
+import { useIntl } from "react-intl";
 
-function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allMovies, resError, hasResError, savedList,  isDesktop, isMobile}) {      
+function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allMovies, resError, hasResError, savedList,  isDesktop, isMobile, currentLocale, onSwitch }) {      
     
     const [noMore, setNoMore] = useState(false);
     const [moviesToRender, setMoviesToRender] = useState([]);
@@ -29,6 +30,8 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
     const [hasSearchError, setHasSearchError] = useState(false);
     const [searchError, setSearchError] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    const intl = useIntl();
 
     const cardsToAdd = isDesktop ? DESKTOP_MORE_CARDS : TABLET_MORE_CARDS;
     const cardsInRowMobile = isMobile ?  MOBILE_CARDS_IN_ROW : TABLET_CARDS_IN_ROW;
@@ -62,7 +65,7 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
         });
         if (searchData.length === 0) {
             setLoading(false);
-            setSearchError({ message: "Ничего не найдено"});
+            setSearchError({ message: intl.formatMessage({ id: "movies_not_found" })});
             setHasSearchError(true);
         } else {
             setLoading(false);
@@ -77,7 +80,7 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
 
     function renderMovies(data) {
         if (!data || data.length === 0) {
-            setSearchError({ message: "Вы еще ничего не искали или ничего не было найдено"});
+            setSearchError({ message: intl.formatMessage({ id: "movies_not_added" })})
             setHasSearchError(true);
         } else {
             const c = cardsInRow * rows;
@@ -118,7 +121,9 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
     return (
         <>  <Header
               loggedIn={loggedIn}
-              pagetype={pagetype} />
+              pagetype={pagetype}
+              currentLocale={currentLocale}
+              onSwitch={onSwitch} />
             <main className={`movies movies_type_${pagetype}`}>           
                 <SearchForm
                     pagetype={pagetype}
@@ -139,7 +144,8 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
                         resError={resError}
                         hasResError={hasResError}
                         searchError={searchError.message}
-                        hasSearchError={hasSearchError} />
+                        hasSearchError={hasSearchError}
+                        currentLocale={currentLocale} />
                     <MoreButton
                         pagetype={pagetype}
                         noMore={noMore}

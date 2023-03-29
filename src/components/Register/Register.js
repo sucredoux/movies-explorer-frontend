@@ -7,8 +7,9 @@ import "./Register.css";
 import "../FormContainer/FormContainer.css";
 import { useEffect, useState } from "react";
 import FormError from "../FormError/FormError";
+import { FormattedMessage, useIntl } from "react-intl";
 
-function Register({ pagetype, onRegister, formtype, resError, hasResError }) {
+function Register({ pagetype, onRegister, formtype, resError, hasResError, currentLocale }) {
 
     const [userData, setUserData] = useState({
         name: "",
@@ -31,7 +32,7 @@ function Register({ pagetype, onRegister, formtype, resError, hasResError }) {
         email: "",
         password: "",
     });
-
+    const intl = useIntl();
     
     function handleInput(e) {
         const { name, value } = e.target;
@@ -103,10 +104,10 @@ function Register({ pagetype, onRegister, formtype, resError, hasResError }) {
             <main className="register">
                 <FormContainer
                     name="register"
-                    greeting="Добро пожаловать!"
+                    greeting={intl.formatMessage({ id: "register__greeting" })}
                     onSubmit={handleSubmit}
                     aria-label="Зарегистрироваться"
-                    buttonText="Зарегистрироваться"
+                    buttonText={intl.formatMessage({ id: "register__button" })}
                     pagetype={pagetype}
                     formtype={formtype}
                     isFormValid={isFormValid}
@@ -116,7 +117,8 @@ function Register({ pagetype, onRegister, formtype, resError, hasResError }) {
                 <fieldset className="form__fieldset">
                     <label 
                         htmlFor="register-name-input" 
-                        className="form__label form__label_type_auth">Имя
+                        className="form__label form__label_type_auth">
+                            <FormattedMessage id="register__form_label_name" />
                     </label>
                     <FormInput
                         type="text"
@@ -129,7 +131,7 @@ function Register({ pagetype, onRegister, formtype, resError, hasResError }) {
                         maxLength="40"
                         onChange={handleInput}
                         value={userData?.name}
-                        placeholder="Виталий"
+                        placeholder={intl.formatMessage({ id: "register__placeholder_name" })}
                         hasError={hasError}
                         isValid={isValid}
                     />
@@ -140,7 +142,8 @@ function Register({ pagetype, onRegister, formtype, resError, hasResError }) {
                     />
                     <label 
                         htmlFor="register-email-input" 
-                        className="form__label form__label_type_auth">E-mail
+                        className="form__label form__label_type_auth">
+                            <FormattedMessage id="register__form_label_email" />
                     </label>
                     <FormInput
                         type="email"
@@ -149,7 +152,7 @@ function Register({ pagetype, onRegister, formtype, resError, hasResError }) {
                         formtype={formtype}
                         required
                         pattern="^[^@]+@[^@]+\.[^a-z-A-Z]{2,4}$"
-                        placeholder="pochta@yandex.ru"
+                        placeholder={intl.formatMessage({ id: "register__placeholder_email" })}
                         onChange={handleInput}
                         value={userData?.email}
                         hasError={hasError}
@@ -162,7 +165,8 @@ function Register({ pagetype, onRegister, formtype, resError, hasResError }) {
                     />
                     <label 
                         htmlFor="register-password-input" 
-                        className="form__label form__label_type_auth">Пароль
+                        className="form__label form__label_type_auth">
+                            <FormattedMessage id="register__form_label_password" />
                     </label>
                     <FormInput
                         type="password"
@@ -184,9 +188,9 @@ function Register({ pagetype, onRegister, formtype, resError, hasResError }) {
                 </fieldset>
             </FormContainer>
             <AuthReminder 
-                question="Уже зарегистрированы? "
+                question={intl.formatMessage({ id: "register__question" })}
                 path="/signin"
-                actionText="Войти"
+                actionText={intl.formatMessage({ id: "register__action_text" })}
                 pagetype={pagetype}
             />
         </main>

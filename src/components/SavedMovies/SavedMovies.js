@@ -6,8 +6,9 @@ import Header from "../Header/Header";
 import "../Movies/Movies.css";
 import { useEffect, useState } from "react";
 import { SHORT_MOVIE_LENGTH } from "../../utils/config.js";
+import { useIntl } from "react-intl";
 
-function SavedMovies({ pagetype, formtype, savedList, onDeleteClick, hasResError, resError, loggedIn }) {
+function SavedMovies({ pagetype, formtype, savedList, onDeleteClick, hasResError, resError, loggedIn, currentLocale, onSwitch }) {
 
     const [moviesData, setMoviesData] = useState([]);
     const [checked, setChecked] = useState(false);
@@ -16,8 +17,11 @@ function SavedMovies({ pagetype, formtype, savedList, onDeleteClick, hasResError
     const [hasSearchError, setHasSearchError] = useState(false);
     const [searchError, setSearchError] = useState([]);
 
+    const intl = useIntl();
+
     useEffect(() => {
         renderMovies(savedList);
+        setMoviesData(savedList);
         getShortMovies(savedList);
     }, [savedList]);
 
@@ -44,18 +48,19 @@ function SavedMovies({ pagetype, formtype, savedList, onDeleteClick, hasResError
             return (movie.nameRU.toLowerCase().includes(query.trim().toLowerCase()));  
         });
         if (searchData.length === 0) {
-            setSearchError({ message: "Ничего не найдено"});
+            setSearchError({ message: intl.formatMessage({ id: "saved_movies_not_found" })});
             setHasSearchError(true);                 
         } else {
             setMoviesData(searchData);    
             getShortMovies(searchData);
             setHasSearchError(false);
+            console.log(searchData);
         }            
     };
 
     function renderMovies(data) {
         if (data.length === 0) {
-            setSearchError({ message: "Вы еще ничего не добавили или ничего не было найдено"});
+            setSearchError({ message: intl.formatMessage({ id: "saved_movies_not_added" })});
             setHasSearchError(true);
         } else {
             setMoviesToRender(data);
@@ -65,13 +70,16 @@ function SavedMovies({ pagetype, formtype, savedList, onDeleteClick, hasResError
 
     useEffect(() => {
         renderMovies(savedList);
+        setMoviesData(savedList);
         getShortMovies(savedList);
     }, []);
 
     return (
         <> <Header
                 loggedIn={loggedIn}
-                pagetype={pagetype} />
+                pagetype={pagetype}
+                currentLocale={currentLocale}
+                onSwitch={onSwitch} />
             <main className={`movies movies_type_${pagetype}`}>
                 <SearchForm
                     pagetype={pagetype}
@@ -86,7 +94,8 @@ function SavedMovies({ pagetype, formtype, savedList, onDeleteClick, hasResError
                     resError={resError}
                     hasResError={hasResError}
                     searchError={searchError.message}
-                    hasSearchError={hasSearchError} />
+                    hasSearchError={hasSearchError}
+                    currentLocale={currentLocale} />
                 <MoreButton
                     pagetype={pagetype}
                     noMore="noMore" />                  

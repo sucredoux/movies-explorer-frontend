@@ -1,14 +1,14 @@
+import { FormattedMessage } from "react-intl";
 import "./Techs.css";
 
 function Techs() {
 
     return (
         <section className="techs">
-            <h3 className="techs__section">Технологии</h3>
+            <h3 className="techs__section"><FormattedMessage id="techs__section" /></h3>
             <div className="techs__content">
-                <h2 className="techs__content-title">7 технологий</h2>
-                <p className="techs__content-text">На курсе веб-разработки мы освоили технологии, 
-                    которые применили в дипломном проекте.</p>
+                <h2 className="techs__content-title"><FormattedMessage id="techs__content_title" /></h2>
+                <p className="techs__content-text"><FormattedMessage id="techs__content_text" /></p>
                 <ul className="techs__content-list list">
                     <li className="techs__content-item">HTML</li>
                     <li className="techs__content-item">CSS</li>

@@ -7,6 +7,7 @@ import "./Login.css";
 import "../FormContainer/FormContainer.css";
 import { useEffect, useState } from "react";
 import FormError from "../FormError/FormError";
+import { FormattedMessage, useIntl } from "react-intl";
 
 function Login({ onLogin, formtype, pagetype, resError, hasResError }) {
 
@@ -27,6 +28,8 @@ function Login({ onLogin, formtype, pagetype, resError, hasResError }) {
         email: "",
         password: "",
     });
+
+    const intl = useIntl();
 
     function handleInput(e) {
         const { name, value } = e.target;
@@ -89,9 +92,9 @@ function Login({ onLogin, formtype, pagetype, resError, hasResError }) {
         <main className="login">
                 <FormContainer
                     name="login"
-                    greeting="Рады видеть!"
+                    greeting={intl.formatMessage({ id: "login__greeting" })}
                     onSubmit={handleSubmit}
-                    buttonText="Войти"
+                    buttonText={intl.formatMessage({ id: "login__button" })}
                     pagetype={pagetype}
                     formtype="auth"
                     isValid={isValid}
@@ -102,7 +105,7 @@ function Login({ onLogin, formtype, pagetype, resError, hasResError }) {
                 <fieldset className="form__fieldset">
                     <label 
                         htmlFor="login-email-input" 
-                        className="form__label form__label_type_auth">E-mail
+                        className="form__label form__label_type_auth"><FormattedMessage id="login__form_label_email" />
                     </label>
                     <FormInput
                         label="E-mail"
@@ -111,7 +114,7 @@ function Login({ onLogin, formtype, pagetype, resError, hasResError }) {
                         id="login-email-input"
                         formtype="auth"
                         required
-                        placeholder="pochta@yandex.ru"
+                        placeholder={intl.formatMessage({ id: "login__placeholder_email" })}
                         minLength="2"
                         maxLength="40"
                         value={userData?.email}
@@ -126,7 +129,7 @@ function Login({ onLogin, formtype, pagetype, resError, hasResError }) {
                      />
                     <label 
                             htmlFor="login-password-input" 
-                            className="form__label form__label_type_auth">Пароль
+                            className="form__label form__label_type_auth"><FormattedMessage id="login__form_label_password" />
                     </label>
                     <FormInput
                         label="Пароль"
@@ -149,9 +152,9 @@ function Login({ onLogin, formtype, pagetype, resError, hasResError }) {
                 </fieldset>
             </FormContainer>
             <AuthReminder
-                question="Ещё не зарегистрированы? "
+                question={intl.formatMessage({ id: "login__question" })}
                 path="/signup"
-                actionText="Регистрация"
+                actionText={intl.formatMessage({ id: "login__action_text" })}
                 pagetype={pagetype} />
         </main>
         <Footer

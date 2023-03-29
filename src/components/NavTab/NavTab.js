@@ -1,3 +1,4 @@
+import { FormattedMessage } from "react-intl";
 import "./NavTab.css";
 
 function NavTab() {
@@ -6,7 +7,7 @@ function NavTab() {
         <div className="navtab">
             <div className="button navtab__button">
                 <a href="#project" className="link navtab__button-link">
-                    Узнать больше
+                    <FormattedMessage id="navtab__about" />
                 </a>
             </div>
         </div>

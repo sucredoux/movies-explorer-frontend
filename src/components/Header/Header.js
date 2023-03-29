@@ -22,15 +22,20 @@ function Header({ pagetype, loggedIn, onSwitch, currentLocale }) {
   
     return (
         <header className={headerClassName}>
-            <div className={`header__logo header__logo_type_${pagetype}`}>                 
-                <Link to="/" className="link"><img className="logo" src={logo} alt="Логотип проекта" /></Link>
-                <select className="header__switcher" onChange={handleChange} value={currentLocale}>
+            <div className={`header__logo-block header__logo-block_type_${pagetype}`}>
+                <div className="header__logo">                 
+                    <Link to="/" className="link"><img className="logo" src={logo} alt="Логотип проекта" /></Link>
+                </div>
+                <select className={`select header__switcher header__switcher_type_${pagetype}`} onChange={handleChange} value={currentLocale}>
                     {languages.map(({ name, code }) => 
                     <option key={code} value={code}>
                         {name}
                     </option>)}
                 </select>
             </div>
+           
+                
+            
             <Navigation
                 pagetype={pagetype}
                 loggedIn={loggedIn} />

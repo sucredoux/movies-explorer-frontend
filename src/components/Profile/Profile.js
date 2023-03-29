@@ -8,8 +8,9 @@ import './Profile.css';
 import "../FormContainer/FormContainer.css";
 import React, { useEffect, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { FormattedMessage, useIntl } from 'react-intl';
 
-function Profile({ pagetype, onLogout, onUpdateUser, isSuccessful, resError, hasResError, loggedIn }) {
+function Profile({ pagetype, onLogout, onUpdateUser, isSuccessful, resError, hasResError, loggedIn, currentLocale, onSwitch }) {
 
    const currentUser = React.useContext(CurrentUserContext);
    const [userData, setUserData] = useState({
@@ -29,6 +30,7 @@ function Profile({ pagetype, onLogout, onUpdateUser, isSuccessful, resError, has
         name: "",
         email: "",
     });
+    const intl = useIntl();
 
     function handleChange(e) {
         let { name, value } = e.target;
@@ -56,7 +58,7 @@ function Profile({ pagetype, onLogout, onUpdateUser, isSuccessful, resError, has
             });
             setErrorMessage({
                 ...errorMessage,
-                [name]: "Новые данные совпадают с текущими",
+                [name]:  intl.formatMessage({ id: "movies_not_added" }),
             });
             setIsFormValid(false);
         } else if (isFormValid === true) {
@@ -98,13 +100,15 @@ function Profile({ pagetype, onLogout, onUpdateUser, isSuccessful, resError, has
     return (
         <> <Header
                 pagetype={pagetype}
-                loggedIn={loggedIn} />
+                loggedIn={loggedIn}
+                currentLocale={currentLocale}
+                onSwitch={onSwitch} />
             <main className="profile">
                 <FormContainer
                     name="profile"
-                    greeting={`Привет, ${currentUser.name}!`}
+                    greeting={`${intl.formatMessage({ id: "profile__greeting" })} ${currentUser.name}!`}
                     onSubmit={handleSubmit}
-                    buttonText={`${"form__button:disabled" ? "Редактировать" : "Сохранить"}`}
+                    buttonText={`${"form__button:disabled" ? intl.formatMessage({ id: "profile__button_edit" }) : intl.formatMessage({ id: "profile__button_save" }) }`}
                     pagetype={pagetype}
                     formtype="profile"
                     isValid={isValid}
@@ -116,13 +120,13 @@ function Profile({ pagetype, onLogout, onUpdateUser, isSuccessful, resError, has
                     <fieldset className="form__fieldset form__fieldset_type_profile">
                         <label
                             htmlFor="profile-name-input" 
-                            className="form__label form__label_type_profile">Имя
+                            className="form__label form__label_type_profile"><FormattedMessage id="profile__form_label_name" />
                             <FormInput
                                 type="text"
                                 name="name"
                                 id="profile-name-input"
                                 formtype="profile"
-                                placeholder="Виталий"
+                                placeholder={intl.formatMessage({ id: "profile__placeholder_name" })}
                                 minLength="2"
                                 maxLength="40"
                                 value={userData?.name}
@@ -134,13 +138,13 @@ function Profile({ pagetype, onLogout, onUpdateUser, isSuccessful, resError, has
                         </label>
                         <label
                             htmlFor="profile-email-input" 
-                            className="form__label form__label_type_profile">E-mail
+                            className="form__label form__label_type_profile"><FormattedMessage id="profile__form_label_email" />
                             <FormInput
                                 type="email"
                                 name="email"
                                 id="profile-email-input"
                                 formtype="profile"
-                                placeholder="pochta@yandex.ru"
+                                placeholder={intl.formatMessage({ id: "profile__placeholder_name" })}
                                 readOnly
                                 value={userData?.email}
                                 onChange={handleChange}
@@ -161,7 +165,7 @@ function Profile({ pagetype, onLogout, onUpdateUser, isSuccessful, resError, has
                 onClick={onLogout}
                 pagetype={pagetype}
                 path="/"
-                actionText="Выйти из аккаунта" />
+                actionText={intl.formatMessage({ id: "profile__action_text" })} />
             }
             </main>
             <Footer

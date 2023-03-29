@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import FormError from "../FormError/FormError";
 import FormInput from "../FormInput/FormInput";
@@ -12,6 +13,8 @@ function SearchForm({ pagetype, onSearch, savedQuery, checked, onShortFilter }) 
     const [isFormValid, setIsFormValid] = useState(false);
     const [hasError, setHasError] = useState(false);
     
+    const intl = useIntl(); 
+
     function handleChange(e) {
         setSearchInput(e.target.value);
         setErrorMessage("Нужно ввести ключевое слово");
@@ -49,7 +52,7 @@ function SearchForm({ pagetype, onSearch, savedQuery, checked, onShortFilter }) 
                 type="text" 
                 name="search"
                 id="search-input"
-                placeholder="Фильм"
+                placeholder={intl.formatMessage({ id: "movies__placeholder" })}
                 formtype="search"
                 pattern="[а-яА-ЯёЁa-zA-Z\s-"
                 value={searchInput || ""}
@@ -76,3 +79,8 @@ function SearchForm({ pagetype, onSearch, savedQuery, checked, onShortFilter }) 
 };
 
 export default SearchForm;
+
+
+/*
+                placeholder="Фильм"
+*/

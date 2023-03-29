@@ -2,7 +2,7 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import ResError from "../ResError/ResError";
 import "./MoviesCardList.css";
 
-function MoviesCardList({ pagetype, moviesList, savedList, isOwn, isSaved, formtype, resError, hasResError, searchError, hasSearchError, onSaveClick, onDeleteClick }) {
+function MoviesCardList({ pagetype, moviesList, savedList, isOwn, isSaved, formtype, resError, hasResError, searchError, hasSearchError, onSaveClick, onDeleteClick, currentLocale }) {
     
     return (
         <>
@@ -28,13 +28,15 @@ function MoviesCardList({ pagetype, moviesList, savedList, isOwn, isSaved, formt
                             thumbnail={movie.thumbnail}
                             trailerLink={movie.trailerLink}
                             title={movie.nameRU}
+                            titleEN={movie.nameEN}
                             duration={movie.duration}
                             isOwn={isOwn}
                             isSaved={isSaved}
                             onSaveClick={onSaveClick}
                             onDeleteClick={onDeleteClick}
                             pagetype={pagetype}
-                            savedList={savedList} /> 
+                            savedList={savedList}
+                            currentLocale={currentLocale} /> 
                         ))}
                     </ul>
                 </div>
