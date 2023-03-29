@@ -152,8 +152,8 @@ export const messages = {
         menu__movies: 'Films',
         menu__saved_movies: 'Films sauvegardés',
         menu__profile: 'Profile',
-        menu__register: "S'enregister",
-        menu__login: 'Se connecter',
+        menu__register: "S'enregistrer",
+        menu__login: 'Connexion',
         promo__title: 'Le Projet Diplôme en Développement du Web',
         promo__paragraph: 'Défilez pour apprendre du projet et son créateur.',
         navtab__about: 'Savoir plus',
@@ -198,7 +198,7 @@ export const messages = {
         profile__placeholder_email: 'pochta@yandex.ru',
         profile__action_text: 'Se déconnecter',
         register__greeting: 'Bienvenue!',
-        register__button: "S'enregister",
+        register__button: "S'enregistrer",
         register__form_label_name: 'Nom',
         register__form_label_email: 'Email',
         register__form_label_password: 'Mot de passe',
@@ -212,6 +212,6 @@ export const messages = {
         login__form_label_password: 'Mot de passe',
         login__placeholder_email: 'pochta@yandex.ru',
         login__question: 'Pas encore enregistré? ',
-        login__action_text: "S'enregister"
+        login__action_text: "S'enregistrer"
     }
 }
