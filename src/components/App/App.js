@@ -17,6 +17,7 @@ import { useMediaQuery } from 'react-responsive';
 import { IntlProvider, useIntl } from 'react-intl';
 import { LOCALES } from '../../i18n/locales';
 import { messages } from '../../i18n/messages';
+import MoviePage from '../MoviePage/MoviePage';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -37,6 +38,8 @@ function App() {
   const history = useHistory();
   const initialLocale = localStorage.getItem("currentLocale") ? JSON.parse(localStorage.getItem("currentLocale")) : LOCALES.RUSSIAN;
   const [currentLocale, setCurrentLocale] = useState(initialLocale);
+  const [selectedMovie, setSelectedMovie] =useState({});
+  const [isMoviePageOpen, setIsMoviePageOpen] = useState(false);
  /* const intl = useIntl();*/
 
   useEffect(() => {
@@ -259,6 +262,15 @@ function App() {
       })
   };
 
+  function handleOpenMoviePage(movie) {
+    setSelectedMovie(movie);
+    setIsMoviePageOpen(true);
+  };
+
+  function handleMoviePageClose() {
+    setIsMoviePageOpen(false);
+  }
+
   useEffect(() => {
     let timeout
     if (isSuccessful) {
@@ -338,6 +350,7 @@ function App() {
                   currentLocale={currentLocale}
                   allMovies={moviesList}
                   savedList={savedList}
+                  onMovieClick={handleOpenMoviePage}
                   onSaveClick={handleSaveMovie}
                   onDeleteClick={handleDeleteMovie}
                   isDesktop={isDesktop}
@@ -355,6 +368,7 @@ function App() {
                   onSwitch={handleLanguageSwitch}
                   currentLocale={currentLocale}
                   savedList={savedList}
+                  onMovieClick={handleOpenMoviePage}
                   onDeleteClick={handleDeleteMovie}
                   resError={moviesResError}
                   hasResError={hasResError}>
@@ -372,14 +386,23 @@ function App() {
                   isSuccessful={isSuccessful}
                   resError={authResError}
                   hasResError={hasResError} >
-                </ProtectedRoute>            
+                </ProtectedRoute>           
               <Route path="/*">
                 <Error404
-                  pagetype="error"
-                  currentLocale={currentLocale}
+                  pagetype="error"                  
                   onClick={goBack} />
               </Route>
-            </Switch>          
+            </Switch>  
+            <MoviePage 
+                  loggedIn={loggedIn}   
+                  pagetype="movie-page" 
+                  item={selectedMovie}
+                  currentLocale={currentLocale}
+                  isOpen={isMoviePageOpen}                  
+                  resError={authResError}
+                  hasResError={hasResError}
+                  onMovieClose={handleMoviePageClose} >
+              </MoviePage>          
         </div>
       </CurrentUserContext.Provider>
     </IntlProvider>

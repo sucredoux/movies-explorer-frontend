@@ -5,7 +5,7 @@
     grid-template-rows: 1fr 533px 1fr;
     align-items: center;
     justify-content: center;
-    width: 100vw;
+    width: 100%;
 }
 
 .error__block {

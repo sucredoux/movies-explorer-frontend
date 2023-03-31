@@ -2,7 +2,7 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import ResError from "../ResError/ResError";
 import "./MoviesCardList.css";
 
-function MoviesCardList({ pagetype, moviesList, savedList, isOwn, isSaved, formtype, resError, hasResError, searchError, hasSearchError, onSaveClick, onDeleteClick, currentLocale }) {
+function MoviesCardList({ pagetype, moviesList, savedList, isOwn, isSaved, formtype, resError, hasResError, searchError, hasSearchError, onSaveClick, onDeleteClick, onMovieClick, currentLocale }) {
     
     return (
         <>
@@ -30,10 +30,15 @@ function MoviesCardList({ pagetype, moviesList, savedList, isOwn, isSaved, formt
                             title={movie.nameRU}
                             titleEN={movie.nameEN}
                             duration={movie.duration}
+                            director={movie.director}
+                            country={movie.country}
+                            year={movie.year}
+                            description={movie.description}
                             isOwn={isOwn}
                             isSaved={isSaved}
                             onSaveClick={onSaveClick}
                             onDeleteClick={onDeleteClick}
+                            onMovieClick={onMovieClick}
                             pagetype={pagetype}
                             savedList={savedList}
                             currentLocale={currentLocale} /> 

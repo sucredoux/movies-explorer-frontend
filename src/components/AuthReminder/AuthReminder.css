@@ -40,6 +40,11 @@
     border: none;
 }
 
+.auth__reminder-link_type_movie-page {
+    background-color: transparent;
+    border: none;
+}
+
 @media (max-width: 580px) {
     .auth__reminder-text {
         font-size: 12px;

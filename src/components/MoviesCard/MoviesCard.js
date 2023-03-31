@@ -2,7 +2,7 @@ import React from "react";
 import "./MoviesCard.css";
 import { MIN_IN_HOUR } from "../../utils/config.js";
 
-function MoviesCard({ movie, movieId, image, trailerLink, title, titleEN, duration, onSaveClick, onDeleteClick, savedList, pagetype, currentLocale }) {
+function MoviesCard({ movie, movieId, image, trailerLink, title, titleEN, duration, onSaveClick, onDeleteClick, onMovieClick, savedList, pagetype, currentLocale }) {
 
     const moviesPage = pagetype === "movies";
     const isActive = moviesPage ? savedList.some(item => item.movieId === movieId) : "";
@@ -40,11 +40,16 @@ function MoviesCard({ movie, movieId, image, trailerLink, title, titleEN, durati
         onDeleteClick(movie);
     };
 
+    function handleMovieClick() {
+        onMovieClick(movie);
+    };
+
+
     return (
         <li className="movies__item">
-            <a href={`${trailerLink}`} target="_blank" rel="noreferrer" className="link">
-                <img className="movies__preview" src={image} alt={title} /> 
-            </a>            
+            
+                <img className="movies__preview" onClick={handleMovieClick} src={image} alt={currentLocale === "ru-RU" ? title : titleEN } /> 
+                       
             <div className="movies__about">
                 <p className="movies__title">{currentLocale === "ru-RU" ? title : titleEN }</p>
                 <p className="movies__length">{newDuration}</p>
@@ -58,3 +63,5 @@ function MoviesCard({ movie, movieId, image, trailerLink, title, titleEN, durati
 };
 
 export default MoviesCard;
+/*
+<a href={`${trailerLink}`} target="_blank" rel="noreferrer" className="link"></a>*/

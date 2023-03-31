@@ -1,0 +1,130 @@
+.movie-page {
+   /* max-width: min(100vw, 1280px);
+    min-width: 320px;
+    width: 100%;
+    min-height: min(700px, 100vh);*/
+    box-sizing: border-box;
+    display: grid;
+  /*  grid-template-columns: minmax(150px, 570px) minmax(min-content, 570px);
+    grid-template-rows: 20px auto 20px;*/
+ /*   grid-template-columns: 1fr minmax(300px, 1000px) 1fr;*/
+
+    grid-template-rows: 1fr minmax(min-content, 80vh) 1fr;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 70px 20px;
+    background-color: #fff;
+    z-index: 5;
+    overflow: hidden;
+    overflow-y: auto;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.5s, opacity 0.5s ease;
+}
+
+.movie-page_opened {
+    visibility: visible;
+    opacity: 1;
+}
+
+.movie-page__content {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.movie-page__image-block {
+    display: flex;
+    max-width: 75%;
+    max-height: 75%;
+    padding: 20px 10px 20px;
+}
+
+.movie-page__image {
+    width: 100%;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.movie-page__info-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;  
+    text-align: left;
+    padding-top: 20px;
+}
+
+.movie-page__title {
+  display: flex;
+  padding-top: 40px;
+  margin: 0;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.21;
+}
+
+.movie-page__director {
+  display: flex;
+  margin: 0;
+  padding-top: 35px;
+  padding-bottom: 30px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.21;
+}
+
+.movie-page__info {
+  display: flex;
+  margin: 0;
+  padding-top: 10px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.21;
+}
+
+.movie-page__description {
+  display: flex;
+  margin: 0;
+  padding-top: 25px;
+  padding-bottom: 50px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+    .movie-page {
+        padding: 10px 40px 20px;
+    }
+  }
+  
+  @media (max-width: 580px) {
+    .movie-page {  
+      padding: 10px 10px 10px;
+    }
+    
+    .movie-page__title {
+      font-size: 22px;
+    }
+
+    .movie-page__director {
+      font-size: 18px;
+    }
+    .movie-page__info {
+      font-size: 12px;
+    }
+
+    .movie-page__description {
+      font-size: 12px;
+    }
+  }
+  

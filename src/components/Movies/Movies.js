@@ -16,7 +16,7 @@ import { DESKTOP_AND_TABLET_ROWS,
     SHORT_MOVIE_LENGTH} from "../../utils/config";
 import { useIntl } from "react-intl";
 
-function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allMovies, resError, hasResError, savedList,  isDesktop, isMobile, currentLocale, onSwitch }) {      
+function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, onMovieClick, allMovies, resError, hasResError, savedList,  isDesktop, isMobile, currentLocale, onSwitch }) {      
     
     const [noMore, setNoMore] = useState(false);
     const [moviesToRender, setMoviesToRender] = useState([]);
@@ -140,6 +140,7 @@ function Movies({ pagetype, formtype, loggedIn, onSaveClick, onDeleteClick, allM
                         savedList={savedList}
                         onSaveClick={onSaveClick}
                         onDeleteClick={onDeleteClick}
+                        onMovieClick={onMovieClick}
                         formtype={formtype}
                         resError={resError}
                         hasResError={hasResError}

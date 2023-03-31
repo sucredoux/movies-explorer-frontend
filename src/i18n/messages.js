@@ -2,16 +2,6 @@ import { LOCALES } from "./locales";
 
 export const messages = {
     [LOCALES.RUSSIAN]: {
-        error__no_token: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
-        error__token_error: 'При авторизации произошла ошибка. Переданный токен некорректен.',
-        error__auth_needed: 'Вам необходимо авторизоваться.',
-        error__wrong_login_or_password: 'Вы ввели неправильный логин или пароль.',
-        error__register_error: 'При регистрации пользователя произошла ошибка.',
-        error__auth_error: 'При авторизации произошла ошибка. Переданный токен некорректен.',
-        error__update_data: 'При обновлении данных пользователя произошла ошибка.',
-        error__fetch_error: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
-        error__req_error: 'Во время запроса произошла ошибка.',
-        error__update_profile: 'При обновлении профиля произошла ошибка.',
         menu__main: "Главная",
         menu__movies: 'Фильмы',
         menu__saved_movies: 'Сохранённые фильмы',
@@ -77,7 +67,18 @@ export const messages = {
         login__placeholder_email: 'pochta@yandex.ru',
         login__question: 'Ещё не зарегистрированы? ',
         login__action_text: 'Регистрация',
-
+        error__no_token: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
+        error__token_error: 'При авторизации произошла ошибка. Переданный токен некорректен.',
+        error__auth_needed: 'Вам необходимо авторизоваться.',
+        error__wrong_login_or_password: 'Вы ввели неправильный логин или пароль.',
+        error__register_error: 'При регистрации пользователя произошла ошибка.',
+        error__auth_error: 'При авторизации произошла ошибка. Переданный токен некорректен.',
+        error__update_data: 'При обновлении данных пользователя произошла ошибка.',
+        error__fetch_error: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
+        error__req_error: 'Во время запроса произошла ошибка.',
+        error__update_profile: 'При обновлении профиля произошла ошибка.',
+        error__page_not_found: 'Страница не найдена',
+        error__back: 'Назад',
     },
     [LOCALES.ENGLISH]: {
         menu__main: "Main",
@@ -145,6 +146,8 @@ export const messages = {
         login__placeholder_email: 'pochta@yandex.ru',
         login__question: 'Not yet registered? ',
         login__action_text: 'Register',
+        error__page_not_found: 'Page not found',
+        error__back: 'Back',
 
     },
     [LOCALES.FRENCH]: {
@@ -212,6 +215,9 @@ export const messages = {
         login__form_label_password: 'Mot de passe',
         login__placeholder_email: 'pochta@yandex.ru',
         login__question: 'Pas encore enregistré? ',
-        login__action_text: "S'enregistrer"
+        login__action_text: "S'enregistrer",
+        error__page_not_found: 'Page non disponible',
+        error__back: 'Retour',
+
     }
 }
