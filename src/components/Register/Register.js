@@ -32,18 +32,23 @@ function Register({ pagetype, onRegister, formtype, resError, hasResError, curre
         email: "",
         password: "",
     });
+
     const intl = useIntl();
     
     function handleInput(e) {
         const { name, value } = e.target;
+
+
         setUserData({
             ...userData,
             [name]: value,
         });
+
         setErrorMessage({
             ...errorMessage,
             [name]: e.target.validationMessage,
         });
+
         setIsFormValid(e.target.closest("form").checkValidity());
         setIsValid({
             ...isValid,

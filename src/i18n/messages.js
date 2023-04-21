@@ -72,13 +72,15 @@ export const messages = {
         error__auth_needed: 'Вам необходимо авторизоваться.',
         error__wrong_login_or_password: 'Вы ввели неправильный логин или пароль.',
         error__register_error: 'При регистрации пользователя произошла ошибка.',
-        error__auth_error: 'При авторизации произошла ошибка. Переданный токен некорректен.',
         error__update_data: 'При обновлении данных пользователя произошла ошибка.',
         error__fetch_error: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
         error__req_error: 'Во время запроса произошла ошибка.',
         error__update_profile: 'При обновлении профиля произошла ошибка.',
         error__page_not_found: 'Страница не найдена',
         error__back: 'Назад',
+        request__success: "Ваши данные изменены",
+        Conflict: "Такой пользователь уже зарегистрирован."
+
     },
     [LOCALES.ENGLISH]: {
         menu__main: "Main",
@@ -146,8 +148,19 @@ export const messages = {
         login__placeholder_email: 'pochta@yandex.ru',
         login__question: 'Not yet registered? ',
         login__action_text: 'Register',
+        error__no_token: 'An error occured while logging in. Token is not sent or in a wrong format.',
+        error__token_error: 'An error occured while logging in. The token sent is incorrect.',
+        error__auth_needed: 'You need to log in.',
+        error__wrong_login_or_password: "You've entered a wrong login or password",
+        error__register_error: 'An error occured while registering.',
+        error__update_data: 'An error occured while updating the data.',
+        error__fetch_error: 'An error occured while communicating to the server. Please try again in a while.',
+        error__req_error: 'An error occured while processing your request.',
+        error__update_profile: 'An error occured while updating the profile.',
         error__page_not_found: 'Page not found',
         error__back: 'Back',
+        request__success: "Your profile has been changed.",
+        Conflict: "Such user already exists."
 
     },
     [LOCALES.FRENCH]: {
@@ -216,8 +229,19 @@ export const messages = {
         login__placeholder_email: 'pochta@yandex.ru',
         login__question: 'Pas encore enregistré? ',
         login__action_text: "S'enregistrer",
+        error__no_token: "Une erreur s'est produite lors de la connection. Soit le code de vérification n'était pas envoyé ou il etait envoyé en format incorrect.",
+        error__token_error: "Une erreur s'est produite lors de la connection. Le code de vérification envoyé est incorrect.",
+        error__auth_needed: "Vous devez vous identifier",
+        error__wrong_login_or_password: "Vous avez encodé un email ou un mot de passe incorrect",
+        error__register_error: "Une erreur s'est produite lors d'enregistrement.",
+        error__update_data: "Une erreur s'est produite lors d'actualisation des données'.",
+        error__fetch_error: "Une erreur s'est produite lors de la communication au serveur. Veuillez réessayer dans quelque temps.",
+        error__req_error: "Une erreur s'est produite lors du traitement de votre demande.",
+        error__update_profile: "Une erreur s'est produite lors dactualisation de votre profil.",
         error__page_not_found: 'Page non disponible',
         error__back: 'Retour',
+        request__success: "Votre profile était changé.",
+        Conflict: "Cet identifiant est déjà enregistré."
 
     }
 }

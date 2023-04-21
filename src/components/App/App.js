@@ -40,7 +40,6 @@ function App() {
   const [currentLocale, setCurrentLocale] = useState(initialLocale);
   const [selectedMovie, setSelectedMovie] =useState({});
   const [isMoviePageOpen, setIsMoviePageOpen] = useState(false);
- /* const intl = useIntl();*/
 
   useEffect(() => {
     const handleResizeWindow =() => setScreenWidth(window.innerWidth);
@@ -54,11 +53,11 @@ function App() {
       setLoading(true);
       let jwt = localStorage.getItem("jwt");
       if (!jwt) {
-        throw new Error("При авторизации произошла ошибка. Токен не передан или передан не в том формате.");
+        throw new Error("error__no_token");
       }
       const user = await mainApi.checkRegistration(jwt);
       if (!user) {
-        throw new Error("При авторизации произошла ошибка. Переданный токен некорректен.");
+        throw new Error("error__token_error");
       } else {
         setLoggedIn(true);
         setUserData(user);
@@ -66,8 +65,8 @@ function App() {
         setHasResError(false);
       }
     } catch (err) {
-      console.log("Ошибка " + err.response);    
-      setAuthResError("Вам необходимо авторизоваться." /* intl.formatMessage({ id: "error__auth_needed" })*/);
+      console.log("Ошибка " + err);
+      setAuthResError(err.toString());
       setHasResError(true);
     } finally {
       setLoading(false);
@@ -78,8 +77,10 @@ function App() {
     try {
       setLoading(true);
       const loginData = await mainApi.signInUser({ email, password });
+      console.log(loginData);
       if (!loginData) {
-        throw new Error("Вы ввели неправильный логин или пароль.");
+        throw new Error("error__wrong_login_or_password");
+     
       } else if (loginData.token) {
         localStorage.setItem("jwt", loginData.token);
         setLoggedIn(true);
@@ -90,7 +91,7 @@ function App() {
       return loginData;
     } catch (err) {
       console.log("Ошибка " + err);      
-      setAuthResError("Вы ввели неправильный логин или пароль.");
+      setAuthResError(err.toString());
       setHasResError(true);
     } finally {
       setLoading(false);
@@ -102,7 +103,7 @@ function App() {
       setLoading(true);
       const newUser = await mainApi.registerUser({ name, email, password });
       if (!newUser) {
-        throw new Error("При регистрации пользователя произошла ошибка.");
+        throw new Error("error__register_error");
       } else if (newUser) {
         userLogin ({ email, password });
         setUserData(newUser);
@@ -111,7 +112,7 @@ function App() {
       return userData;   
     } catch (err) {
       console.log("Ошибка " + err);
-      setAuthResError("При авторизации произошла ошибка. Переданный токен некорректен.");
+      setAuthResError(err.toString());
       setHasResError(true);
     } finally {
       setLoading(false);
@@ -129,7 +130,7 @@ function App() {
       setHasResError(false);
     } catch (err) {
       console.log("Ошибка " + err);
-      setAuthResError("При обновлении данных пользователя произошла ошибка.");
+      setAuthResError(err.toString());
       setHasResError(true);
     } 
   };
@@ -161,7 +162,7 @@ function App() {
       }
     } catch (err) {
       console.log("Ошибка " + err);
-      setMoviesResError("Во время запроса произошла ошибка.");
+      setMoviesResError(err.toString());
       setHasResError(true);
     } finally {
       setLoading(false);
@@ -196,7 +197,7 @@ function App() {
       }
       } catch (err) {
         console.log("Ошибка " + err);
-        setMoviesResError("Во время запроса произошла ошибка.");
+        setMoviesResError(err.toString());
         setHasResError(true);
       } finally {
         setLoading(false);
@@ -226,7 +227,7 @@ function App() {
         return newUserData;
       } catch (err) {
         console.log("Ошибка " + err);
-        setAuthResError("При обновлении профиля произошла ошибка.");
+        setAuthResError(err.toString());
         setHasResError(true);
       } finally {
         setLoading(false);
@@ -242,7 +243,7 @@ function App() {
       })
       .catch((err) => {
         console.log("Ошибка", err);
-        setMoviesResError("Во время запроса произошла ошибка.");
+        setMoviesResError("error__req_error");
         setHasResError(true);
       });
   };
@@ -257,7 +258,7 @@ function App() {
       })
       .catch((err) => {
         console.log("Ошибка", err);
-        setMoviesResError("Во время запроса произошла ошибка.");
+        setMoviesResError("error__req_error");
         setHasResError(true);
       })
   };

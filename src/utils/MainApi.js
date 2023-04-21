@@ -15,9 +15,10 @@ export default class MainApi {
     #onResponse(res){
         if (res.ok) {
           return res.json();
-        } return Promise.reject(`${res.statusText}`);        
-    }
-
+        } 
+         return Promise.reject(`${res.statusText}`);    
+    } 
+   
     registerUser(data) {
         return fetch(`${this._url}/signup`, {
             method: "POST",
@@ -29,6 +30,7 @@ export default class MainApi {
             })
           })
           .then((res) => {
+            console.log(res);
             return this.#onResponse(res)
           })
     }

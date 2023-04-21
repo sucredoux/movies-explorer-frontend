@@ -5,7 +5,6 @@ import "../AuthReminder/AuthReminder.css";
 
 
 function MoviePage({ pagetype, loggedIn, currentLocale, onSwitch, item, isOpen, onMovieClose, onClick }) {
-console.log(currentLocale);
 
 const durationHours = item.duration > MIN_IN_HOUR;
 const newDuration = durationHours ? calculateDuration(item.duration) : setMinDuration(item.duration);
@@ -29,7 +28,6 @@ function setMinDuration(duration) {
 }
 
 const title = currentLocale === "ru-RU" ? item.nameRU : item.nameEN;
-console.log(title);
 
 function handleClosePage() {
     onMovieClose();
